@@ -7,16 +7,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import sample.gui.model.LoggingModel;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class logInController implements Initializable {
+public class LogInController implements Initializable {
     private LoggingModel loggingModel = new LoggingModel();
 
     @FXML
@@ -37,37 +39,16 @@ public class logInController implements Initializable {
      JFXTextField emailField = new JFXTextField();
      emailField.setLabelFloat(true);
      emailField.setPromptText("insert email");
-     //validate if its empty
-     RequiredFieldValidator validator1 = new RequiredFieldValidator();
-     validator1.setMessage("Input Required");
-     //emailField.getValidators().add(validator1);
-     //when we will change to another field
-     //messege will be displayed
-    // emailField.focusedProperty().addListener((o,oldVal,newVal)->{
-    //  if(!newVal) emailField.validate();
-    // });
-     //validate if such email can even exist (we are not going to look it up
-     // in the database cause for bigger amounts of records it will be too time consuming)
-     RequiredFieldValidator emailValidator = new RequiredFieldValidator();
-     emailValidator.setMessage("Not correct form of email");
-     emailField.focusedProperty().addListener((observableValue, aBoolean, newVal) -> {
-      if (!newVal) {
-       emailField.getValidators().add(validator1);
-       emailField.validate();
-      }  if (!loggingModel.validEmail(emailField.getText())) {
-       emailField.getValidators().add(emailValidator);
-       emailField.validate();
-      }
-     });
-
 
      JFXTextField passwordField = new JFXTextField();
      passwordField.setLabelFloat(true);
      passwordField.setPromptText("insert password");
 
+     //validate if its empty
+        checkIfEmpty(emailField, passwordField);
 
      VBox vBox = new VBox();
-     vBox.setSpacing(15);
+     vBox.setSpacing(40);
      //vBox.setPadding(new Insets(0, 150, 0, 150));
      vBox.getChildren().addAll(emailField, passwordField);
      //vBox.getChildren().add(passwordField);
@@ -76,11 +57,34 @@ public class logInController implements Initializable {
      borderPane.setCenter(vBox);
     }
 
+    private void checkIfEmpty(JFXTextField emailField, JFXTextField passwordField) {
+        RequiredFieldValidator validator1 = new RequiredFieldValidator();
+        validator1.setMessage("Input Required");
+        RequiredFieldValidator emailValidator = new RequiredFieldValidator();
+        emailValidator.setMessage("Not correct form of email");
+        emailField.focusedProperty().addListener((observableValue, aBoolean, newVal) -> {
+            if (!newVal) {
+                emailField.getValidators().add(validator1);
+                emailField.validate();
+            } /* if (!loggingModel.validEmail(emailField.getText())) {
+       emailField.getValidators().add(emailValidator);
+        emailField.validate();
+      }
+      */
+        });
+        passwordField.focusedProperty().addListener((observableValue, aBoolean, newVal) -> {
+            if (!newVal) {
+                passwordField.getValidators().add(validator1);
+                passwordField.validate();
+            }
+        });
+    }
+
     private void addButton(){
      JFXButton logInButton = new JFXButton("Log in");
      logInButton.getStyleClass().add("button-raised");
      logInButton.setFont(new Font("Arial", 35));
-     borderPane.setMargin(logInButton, new Insets(0, 0, 40, 0));
+     borderPane.setMargin(logInButton, new Insets(0, 0, 25, 0));
      borderPane.setAlignment(logInButton, Pos.BOTTOM_CENTER);
      borderPane.setBottom(logInButton);
     }
@@ -92,4 +96,5 @@ public class logInController implements Initializable {
         addInputFields();
         addButton();
     }
+
 }
