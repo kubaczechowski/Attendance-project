@@ -89,7 +89,6 @@ public class LogInController implements Initializable {
      borderPane.setBottom(logInButton);
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addLabel();
