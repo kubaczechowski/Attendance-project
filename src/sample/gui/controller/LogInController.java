@@ -7,24 +7,23 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import sample.gui.model.LoggingModel;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LogInController implements Initializable {
+public class LogInController implements Initializable, ILogIn{
     private LoggingModel loggingModel = new LoggingModel();
 
     @FXML
     private BorderPane borderPane;
+    private JFXButton logInAsAStudent;
+    private JFXButton logInAsATeacher;
 
     //add that items programatically
     private void addLabel() {
@@ -52,7 +51,7 @@ public class LogInController implements Initializable {
         VBox vBox = new VBox();
         vBox.setSpacing(40);
         //vBox.setPadding(new Insets(0, 150, 0, 150));
-        vBox.getChildren().addAll(emailField, passwordField, addLoginButtons());
+        vBox.getChildren().addAll(emailField, passwordField, getLoginButtons());
         //vBox.getChildren().add(passwordField);
         borderPane.setAlignment(vBox, Pos.CENTER);
         borderPane.setMargin(vBox, new Insets(50, 150, 0, 150));
@@ -85,13 +84,13 @@ public class LogInController implements Initializable {
         });
     }
 
-    private HBox addLoginButtons() {
-        JFXButton logInAsAStudent = new JFXButton("Log in as a student");
+    private HBox getLoginButtons() {
+        logInAsAStudent = new JFXButton("Log in as a student");
         logInAsAStudent.getStyleClass().add("login-asStudent");
         logInAsAStudent.setFont(new Font("Arial", 15));
         logInAsAStudent.setWrapText(true);
 
-        JFXButton logInAsATeacher = new JFXButton("Log in as a teacher");
+        logInAsATeacher = new JFXButton("Log in as a teacher");
         logInAsATeacher.getStyleClass().add("login-asTeacher");
         logInAsATeacher.setFont(new Font("Arial", 15));
         logInAsATeacher.setWrapText(true);
@@ -101,16 +100,56 @@ public class LogInController implements Initializable {
         hBox.setSpacing(50);
 
         return hBox;
-        //borderPane.setAlignment(hBox, Pos.BOTTOM_RIGHT);
-      // borderPane.setMargin(hBox, new Insets(0, 0, 25, 0));
-       // borderPane.setBottom(hBox);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addLabel();
         addInputFields();
-        addLoginButtons();
     }
 
+    /**
+     * method is used to handle log in buttons
+     */
+    private void addButtonsOnAction(){
+        logInAsAStudent.setOnAction(actionEvent -> {
+
+        });
+    }
+
+    /**
+     * Log in student or teacher
+     */
+    @Override
+    public void logIn() {
+
+    }
+
+    @Override
+    public void saveUserInPreferences() {
+
+    }
+
+    @Override
+    public void unsaveUserInPreferences() {
+
+    }
+
+    @Override
+    public boolean checkIfStudentExists() {
+        
+    }
+
+    @Override
+    public boolean checkIfTeacherExists() {
+
+    }
+
+
+    public enum LoggingState{
+        STUDENTLOGGED,
+        STUDENTDENIED,
+        TEACHERLOGGED,
+        TEACHERDENIED
+    }
 }
