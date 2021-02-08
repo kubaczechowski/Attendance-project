@@ -9,7 +9,8 @@ public class Validations {
     public boolean validateInput(String regexPattern, String input){
         Pattern pattern = Pattern.compile(regexPattern);
         Matcher matcher = pattern.matcher(input);
-        return matcher.matches();
+      //  return matcher.matches();
+        return false;
     }
 /*
     public boolean validateEmail(String emailToValidate){
