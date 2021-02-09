@@ -17,6 +17,7 @@ import sample.gui.model.LoggingModel;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+
 public class LogInController implements Initializable, ILogIn{
     private LoggingModel loggingModel = new LoggingModel();
 
@@ -24,6 +25,8 @@ public class LogInController implements Initializable, ILogIn{
     private BorderPane borderPane;
     private JFXButton logInAsAStudent;
     private JFXButton logInAsATeacher;
+    private JFXTextField emailField;
+    private  JFXTextField passwordField;
 
     //add that items programatically
     private void addLabel() {
@@ -37,11 +40,11 @@ public class LogInController implements Initializable, ILogIn{
 
 
     private void addInputFields() {
-        JFXTextField emailField = new JFXTextField();
+         emailField = new JFXTextField();
         emailField.setLabelFloat(true);
         emailField.setPromptText("insert email");
 
-        JFXTextField passwordField = new JFXTextField();
+       passwordField = new JFXTextField();
         passwordField.setLabelFloat(true);
         passwordField.setPromptText("insert password");
 
@@ -100,6 +103,7 @@ public class LogInController implements Initializable, ILogIn{
         hBox.setSpacing(50);
 
         return hBox;
+
     }
 
     @Override
@@ -113,16 +117,34 @@ public class LogInController implements Initializable, ILogIn{
      */
     private void addButtonsOnAction(){
         logInAsAStudent.setOnAction(actionEvent -> {
+                //check if user exists in the system
 
+                //if exists do animation and log them in
+
+                // if doesn't exists don't log them into the system
         });
+        //for the teacher its the same story
+
     }
 
     /**
      * Log in student or teacher
      */
     @Override
-    public void logIn() {
+    public void logIn(LoggingState state) {
+        //open the dashboard view for the teacher or student
+        switch(state){
+            case STUDENTLOGGED:{
+                //open the dashboard for the student
+                break;
+            }
+            case TEACHERLOGGED:{
+                //open the dashboard for the teacher
+                break;
+            }
 
+
+        }
     }
 
     @Override
@@ -137,12 +159,16 @@ public class LogInController implements Initializable, ILogIn{
 
     @Override
     public boolean checkIfStudentExists() {
-        
+        //look up in the static mock data
+       return loggingModel.checkIfExist(LoggingState.STUDENT, emailField.getText(),
+                passwordField.getText());
     }
 
     @Override
     public boolean checkIfTeacherExists() {
-
+        //look up in the static mock data
+        return loggingModel.checkIfExist(LoggingState.STUDENT, emailField.getText(),
+                passwordField.getText());
     }
 
 
@@ -150,6 +176,9 @@ public class LogInController implements Initializable, ILogIn{
         STUDENTLOGGED,
         STUDENTDENIED,
         TEACHERLOGGED,
-        TEACHERDENIED
+        TEACHERDENIED,
+        STUDENT,
+        TEACHER
     }
+    //you can try pressing alt insert in your application
 }
