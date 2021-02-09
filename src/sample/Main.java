@@ -11,9 +11,14 @@ import java.io.IOException;
 
 public class Main extends Application {
 
+    /**
+     * At first user has to log into the system
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("gui/view/logIn.fxml"));
+      /*  FXMLLoader loader = new FXMLLoader(getClass().getResource("sample/gui/view/logIn.fxml"));
         Parent root=null; //local variables arent automatically initialized
         try {
             root = loader.load();
@@ -25,7 +30,13 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         //add css file
         scene.getStylesheets().clear();
-        scene.getStylesheets().add("/sample/gui/css/logIn.css");
+      //  scene.getStylesheets().add("/sample/gui/css/logIn.css");
+        primaryStage.show();
+
+       */
+        Parent root = FXMLLoader.load(getClass().getResource("/sample/gui/view/logIn.fxml"));
+        primaryStage.setTitle("Hello World");
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 

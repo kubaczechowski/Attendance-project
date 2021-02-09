@@ -4,16 +4,20 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import sample.gui.model.LoggingModel;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -110,6 +114,7 @@ public class LogInController implements Initializable, ILogIn{
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addLabel();
         addInputFields();
+        openStudentDashboard();
     }
 
     /**
@@ -118,12 +123,23 @@ public class LogInController implements Initializable, ILogIn{
     private void addButtonsOnAction(){
         logInAsAStudent.setOnAction(actionEvent -> {
                 //check if user exists in the system
-
-                //if exists do animation and log them in
-
-                // if doesn't exists don't log them into the system
+                if(checkIfStudentExists()){
+                    doAnimation(LoggingState.STUDENTLOGGED);
+                    logIn(LoggingState.STUDENTLOGGED);
+                }
+               else
+                   doAnimation(LoggingState.STUDENTDENIED);
         });
         //for the teacher its the same story
+
+    }
+
+    /**
+     * Method is responsible for doing animation whenever
+     * user fails to log in or logs in successfuly
+     * @param studentlogged
+     */
+    private void doAnimation(LoggingState studentlogged) {
 
     }
 
@@ -144,6 +160,41 @@ public class LogInController implements Initializable, ILogIn{
             }
 
 
+        }
+    }
+
+    private void openStudentDashboard(){
+        //we need to load the root layout with the student dashboard inside
+       // initRootLayout();
+        // initStudentDashboard();
+        RootLayoutController rootLayoutController = new RootLayoutController();
+        rootLayoutController.initRootLayout();
+    }
+
+    private void initRootLayout() {
+        try {
+
+            // Load root layout from fxml file.
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("sample/gui/view/rootLayoutPane.fxml"));
+           // loader.setLocation(getClass().getResource("gui/view/rootLayoutPane.fxml"));
+           BorderPane rootLayout = (BorderPane) loader.load();
+
+            Stage stage = new Stage();
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(rootLayout);
+           // primaryStage.setScene(scene);
+            stage.setTitle("aaa");
+            stage.setScene(scene);
+            stage.show();
+
+
+            // Give the controller access to the main app.
+           // RootLayoutController controller = loader.getController();
+           // controller.setMainApp(this);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

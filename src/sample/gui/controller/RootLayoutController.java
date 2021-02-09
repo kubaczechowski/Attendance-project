@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -19,8 +20,9 @@ import java.util.ResourceBundle;
 
 public class RootLayoutController implements Initializable {
 
+    public BorderPane borderPane;
     @FXML
-    private BorderPane rootLayout;
+    private Stage primaryStage;
 
     private void addLeftCol(){
         Label label = new Label("KLK");
@@ -56,21 +58,21 @@ public class RootLayoutController implements Initializable {
         vBox.setPadding(new Insets(10, 20, 0, 20));
         vBox.setSpacing(20);
 
-        rootLayout.getChildren().add(vBox);
+        borderPane.getChildren().add(vBox);
     }
 
     public void goToDashboard(){
         FXMLLoader loader = new FXMLLoader(getClass().
-                getResource("gui/view/dashboardLayout.fxml"));
+                getResource("gui/view/DashboardTeacher.fxml"));
          //local variables arent automatically initialized
         try {
-            Parent root = loader.load();
+           // Parent root = loader.load();
             AnchorPane dashboard = (AnchorPane) loader.load();
-            rootLayout.setCenter(dashboard);
+            borderPane.setCenter(dashboard);
 
             //pass primary stage
             DashboardTeacherController dashboardTeacherController = new DashboardTeacherController();
-            Stage primaryStage = (Stage) rootLayout.getScene().getWindow();
+            Stage primaryStage = (Stage) borderPane.getScene().getWindow();
             dashboardTeacherController.setPrimaryStage(primaryStage);
 
         }
@@ -78,6 +80,28 @@ public class RootLayoutController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    public void initRootLayout(){
+        try{
+        // Load root layout from fxml file.
+        FXMLLoader loader = new FXMLLoader(getClass().
+                getResource("/sample/gui/view/rootLayoutPane.fxml"));
+     //   loader.setLocation(RootLayoutController.class.
+            //    getResource("sample/gui/view/rootLayoutPane.fxml"));
+        borderPane = (BorderPane) loader.load();
+
+        // Show the scene containing the root layout.
+        Scene scene = new Scene(borderPane);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 
 
 
