@@ -116,10 +116,6 @@ public class LogInController implements Initializable, ILogIn{
         addLabel();
         addInputFields();
         addButtonsOnAction();
-        setButtonsHovering();
-    }
-
-    private void setButtonsHovering() {
         hoverLogStudentButton();
         hoverLogTeacherButton();
     }
@@ -152,7 +148,7 @@ public class LogInController implements Initializable, ILogIn{
 
     private void hoverLogStudentButton(){
         FadeTransition fadeTransition = new FadeTransition(Duration.millis(1000) , logInAsAStudent);
-        fadeTransition.setFromValue(0.5);
+        fadeTransition.setFromValue(0.65);
         fadeTransition.setToValue(1);
         logInAsAStudent.setOnMouseEntered(mouseEvent -> {
             //fade in??
@@ -179,9 +175,6 @@ public class LogInController implements Initializable, ILogIn{
             fadeTransition.play();
         });
     }
-
-
-
 
     /**
      * Method is responsible for doing animation whenever
