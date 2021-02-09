@@ -3,6 +3,7 @@ package sample.gui.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import sample.gui.model.LoggingModel;
 
 import java.io.IOException;
@@ -114,7 +116,14 @@ public class LogInController implements Initializable, ILogIn{
         addLabel();
         addInputFields();
         addButtonsOnAction();
+        setButtonsHovering();
     }
+
+    private void setButtonsHovering() {
+        hoverLogStudentButton();
+        hoverLogTeacherButton();
+    }
+
 
     /**
      * method is used to handle log in buttons
@@ -141,12 +150,60 @@ public class LogInController implements Initializable, ILogIn{
 
     }
 
+    private void hoverLogStudentButton(){
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(1000) , logInAsAStudent);
+        fadeTransition.setFromValue(0.5);
+        fadeTransition.setToValue(1);
+        logInAsAStudent.setOnMouseEntered(mouseEvent -> {
+            //fade in??
+            fadeTransition.setRate(1.0);
+            fadeTransition.play();
+        });
+        logInAsAStudent.setOnMouseExited(mouseEvent -> {
+            fadeTransition.setRate(-2.0);
+            fadeTransition.play();
+        });
+    }
+
+    private void hoverLogTeacherButton() {
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(1000) , logInAsATeacher);
+        fadeTransition.setFromValue(0.5);
+        fadeTransition.setToValue(1);
+        logInAsATeacher.setOnMouseEntered(mouseEvent -> {
+            //fade in??
+            fadeTransition.setRate(1.0);
+            fadeTransition.play();
+        });
+        logInAsATeacher.setOnMouseExited(mouseEvent -> {
+            fadeTransition.setRate(-2.0);
+            fadeTransition.play();
+        });
+    }
+
+
+
+
     /**
      * Method is responsible for doing animation whenever
      * user fails to log in or logs in successfuly
      * @param studentlogged
      */
     private void doAnimation(LoggingState studentlogged) {
+       switch(studentlogged){
+           case STUDENTLOGGED:
+           case TEACHERLOGGED: {
+               // show logging animation
+               break;
+           }
+           case STUDENTDENIED, TEACHERDENIED:{
+               //show password denied animation
+                 //check if the email exits in the system
+               //(for the corresponding user that is student/ teacher)
+                // if yes show information about incorrect password
+               //if not show the information that the user does not exist
+               break;
+           }
+       }
 
     }
 
