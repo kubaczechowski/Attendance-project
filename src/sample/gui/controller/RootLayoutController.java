@@ -61,9 +61,9 @@ public class RootLayoutController implements Initializable {
         borderPane.getChildren().add(vBox);
     }
 
-    public void goToDashboard(){
+    public void goToTeacherDashboard(){
         FXMLLoader loader = new FXMLLoader(getClass().
-                getResource("gui/view/DashboardTeacher.fxml"));
+                getResource("/sample/gui/view/DashboardTeacher.fxml"));
          //local variables arent automatically initialized
         try {
            // Parent root = loader.load();
@@ -86,15 +86,13 @@ public class RootLayoutController implements Initializable {
         // Load root layout from fxml file.
         FXMLLoader loader = new FXMLLoader(getClass().
                 getResource("/sample/gui/view/rootLayoutPane.fxml"));
-     //   loader.setLocation(RootLayoutController.class.
-            //    getResource("sample/gui/view/rootLayoutPane.fxml"));
         borderPane = (BorderPane) loader.load();
 
         // Show the scene containing the root layout.
         Scene scene = new Scene(borderPane);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.show();
+        primaryStage = new Stage();
+        primaryStage.setScene(scene);
+        primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }

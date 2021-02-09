@@ -39,18 +39,16 @@ public class UserDAO implements IUserDAO {
                     hasLines=false;
                 if(hasLines && !line.isBlank())
                 {
-                    if(line.contains(email+","+password)){
+                    if(line.equals(email+", "+ password))
                         return true;
-                    }
                 }
-            }
+            }return false;
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return false;
     }
 }

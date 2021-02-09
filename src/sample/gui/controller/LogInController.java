@@ -107,14 +107,13 @@ public class LogInController implements Initializable, ILogIn{
         hBox.setSpacing(50);
 
         return hBox;
-
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addLabel();
         addInputFields();
-        openStudentDashboard();
+        addButtonsOnAction();
     }
 
     /**
@@ -131,6 +130,14 @@ public class LogInController implements Initializable, ILogIn{
                    doAnimation(LoggingState.STUDENTDENIED);
         });
         //for the teacher its the same story
+        logInAsATeacher.setOnAction(actionEvent -> {
+            if(checkIfTeacherExists()){
+                doAnimation(LoggingState.TEACHERLOGGED);
+                logIn(LoggingState.TEACHERLOGGED);
+            }
+            else
+                doAnimation(LoggingState.TEACHERDENIED);
+        });
 
     }
 
@@ -152,50 +159,27 @@ public class LogInController implements Initializable, ILogIn{
         switch(state){
             case STUDENTLOGGED:{
                 //open the dashboard for the student
+               openStudentDashboard();
                 break;
             }
             case TEACHERLOGGED:{
                 //open the dashboard for the teacher
+              openTeacherDashboard();
                 break;
             }
-
-
         }
+    }
+
+    private void openTeacherDashboard() {
+        RootLayoutController rootLayoutController = new RootLayoutController();
+        rootLayoutController.initRootLayout();
+        rootLayoutController.goToTeacherDashboard();
     }
 
     private void openStudentDashboard(){
-        //we need to load the root layout with the student dashboard inside
-       // initRootLayout();
-        // initStudentDashboard();
         RootLayoutController rootLayoutController = new RootLayoutController();
         rootLayoutController.initRootLayout();
-    }
-
-    private void initRootLayout() {
-        try {
-
-            // Load root layout from fxml file.
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("sample/gui/view/rootLayoutPane.fxml"));
-           // loader.setLocation(getClass().getResource("gui/view/rootLayoutPane.fxml"));
-           BorderPane rootLayout = (BorderPane) loader.load();
-
-            Stage stage = new Stage();
-            // Show the scene containing the root layout.
-            Scene scene = new Scene(rootLayout);
-           // primaryStage.setScene(scene);
-            stage.setTitle("aaa");
-            stage.setScene(scene);
-            stage.show();
-
-
-            // Give the controller access to the main app.
-           // RootLayoutController controller = loader.getController();
-           // controller.setMainApp(this);
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        //rootLayoutController.goToStudentDashboard();
     }
 
     @Override
@@ -218,7 +202,7 @@ public class LogInController implements Initializable, ILogIn{
     @Override
     public boolean checkIfTeacherExists() {
         //look up in the static mock data
-        return loggingModel.checkIfExist(LoggingState.STUDENT, emailField.getText(),
+        return loggingModel.checkIfExist(LoggingState.TEACHER, emailField.getText(),
                 passwordField.getText());
     }
 
