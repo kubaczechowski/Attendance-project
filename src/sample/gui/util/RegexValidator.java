@@ -13,21 +13,21 @@ public class RegexValidator extends ValidatorBase {
     }
 
 
-    /*
+
     @Override
     protected void eval() {
 
-        TextInputControl ctrl = (TextInputControl) this.srcControl.get();
-        if(ctrl.getText() != null && !ctrl.getText().isEmpty()
-        && !ctrl.getText().matches(regEx))
-            this.hasErrors.set(false);
-        else
-            this.hasErrors.set(true);
+        TextInputControl textField = (TextInputControl) srcControl.get();
+        if ( (textField.getText() != null || !textField.getText().isEmpty()) && !textField.getText().matches(regEx)) {
+            hasErrors.set(true);
+        } else {
+            hasErrors.set(false);
+        }
 
 
     }
-     */
 
+/*
     @Override
     protected void eval() {
         if (srcControl.get() instanceof TextInputControl) {
@@ -51,4 +51,6 @@ public class RegexValidator extends ValidatorBase {
         Object value = comboField.getValue();
         hasErrors.set(value == null || value.toString().isEmpty());
     }
+
+ */
 }
