@@ -159,8 +159,8 @@ public class LogInController implements Initializable, ILogIn{
     }
 
     private void hoverLogStudentButton(){
-        FadeTransition fadeTransition = new FadeTransition(Duration.millis(1000) , logInAsAStudent);
-        fadeTransition.setFromValue(0.65);
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(100) , logInAsAStudent);
+        fadeTransition.setFromValue(0.75);
         fadeTransition.setToValue(1);
         logInAsAStudent.setOnMouseEntered(mouseEvent -> {
             //fade in??
@@ -174,8 +174,8 @@ public class LogInController implements Initializable, ILogIn{
     }
 
     private void hoverLogTeacherButton() {
-        FadeTransition fadeTransition = new FadeTransition(Duration.millis(1000) , logInAsATeacher);
-        fadeTransition.setFromValue(0.5);
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(100) , logInAsATeacher);
+        fadeTransition.setFromValue(0.75);
         fadeTransition.setToValue(1);
         logInAsATeacher.setOnMouseEntered(mouseEvent -> {
             //fade in??
@@ -208,7 +208,7 @@ public class LogInController implements Initializable, ILogIn{
                //if not show the information that the user does not exist
                shakeButtonAnimation(emailField);
                shakeButtonAnimation(passwordField);
-               shakingStageAnimation();
+               //shakingStageAnimation();
                break;
            }
        }

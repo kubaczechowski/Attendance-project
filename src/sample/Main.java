@@ -36,7 +36,10 @@ public class Main extends Application {
        */
         Parent root = FXMLLoader.load(getClass().getResource("/sample/gui/view/logIn.fxml"));
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().
+                getResource("/sample/gui/css/logIn.css").toExternalForm());
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 
