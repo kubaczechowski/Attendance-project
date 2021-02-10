@@ -1,7 +1,6 @@
 package sample.gui.util;
 
 import com.jfoenix.validation.base.ValidatorBase;
-import javafx.scene.control.ComboBoxBase;
 import javafx.scene.control.TextInputControl;
 
 public class RegexValidator extends ValidatorBase {
@@ -12,19 +11,15 @@ public class RegexValidator extends ValidatorBase {
         this.regEx = regEx;
     }
 
-
-
     @Override
     protected void eval() {
-
         TextInputControl textField = (TextInputControl) srcControl.get();
-        if ( (textField.getText() != null || !textField.getText().isEmpty()) && !textField.getText().matches(regEx)) {
+        if ( (textField.getText() != null || !textField.getText().isEmpty())
+                && !textField.getText().matches(regEx)) {
             hasErrors.set(true);
         } else {
             hasErrors.set(false);
         }
-
-
     }
 
 /*

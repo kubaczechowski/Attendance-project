@@ -4,13 +4,19 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
 import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -36,6 +42,7 @@ public class LogInController implements Initializable, ILogIn{
     private JFXButton logInAsATeacher;
     private JFXTextField emailField;
     private  JFXTextField passwordField;
+    boolean xyState= true;
 
     //add that items programatically
     private void addLabel() {
@@ -74,23 +81,7 @@ public class LogInController implements Initializable, ILogIn{
     private void checkEmail(JFXTextField emailField) {
         RegexValidator emailVal = new RegexValidator("Not correct email",
                 "^[\\w!#$%&'+/=?`{|}~^-]+(?:\\.[\\w!#$%&'+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
-     /*   emailField.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
-            if(!t1){
-                emailField.getValidators().add(emailVal);
-                emailVal.validate();
-            }
-        });
-
-      */
         emailField.getValidators().add(emailVal);
-      /*  emailField.focusedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldVal, Boolean newVal) {
-                if(!newVal) emailField.validate();
-            }
-        });
-
-       */
         emailField.focusedProperty().addListener((o,oldVal,newVal)->{
             if(!newVal) emailField.validate();
         });
@@ -200,10 +191,10 @@ public class LogInController implements Initializable, ILogIn{
     /**
      * Method is responsible for doing animation whenever
      * user fails to log in or logs in successfuly
-     * @param studentlogged
+     * @param loggingState
      */
-    private void doAnimation(LoggingState studentlogged) {
-       switch(studentlogged){
+    private void doAnimation(LoggingState loggingState) {
+       switch(loggingState){
            case STUDENTLOGGED:
            case TEACHERLOGGED: {
                // show logging animation
@@ -215,10 +206,43 @@ public class LogInController implements Initializable, ILogIn{
                //(for the corresponding user that is student/ teacher)
                 // if yes show information about incorrect password
                //if not show the information that the user does not exist
+               shakeButtonAnimation(emailField);
+               shakeButtonAnimation(passwordField);
+               shakingStageAnimation();
                break;
            }
        }
 
+    }
+
+    private void shakeButtonAnimation(Node node) {
+        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(50), node);
+        translateTransition.setFromX(0f);
+        translateTransition.setByX(10f);
+       // translateTransition.setByY(23f);
+        translateTransition.setCycleCount(2);
+        translateTransition.setAutoReverse(true);
+        translateTransition.playFromStart();
+    }
+
+    private void shakingStageAnimation() {
+        Stage currentStage = (Stage) borderPane.getScene().getWindow();
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(50), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                if (xyState) {
+                    currentStage.setX(currentStage.getX() + 10);
+                    currentStage.setY(currentStage.getY() + 10);
+                } else {
+                    currentStage.setX(currentStage.getX() - 10);
+                    currentStage.setY(currentStage.getY() - 10);
+                }
+                xyState= !xyState;
+            }
+        }));
+        timeline.setAutoReverse(true);
+        timeline.cycleCountProperty().setValue(3);
+        timeline.play();
     }
 
     /**
