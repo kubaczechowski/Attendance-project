@@ -24,30 +24,47 @@ public class RootLayoutController implements Initializable {
     @FXML
     private Stage primaryStage;
 
+    //labels
+    private Label label;
+    private Label dashboard;
+    private Label students;
+    private Label courses;
+    private  Label achievements;
+    private Label calendar;
+    private  Label attendanceStats;
+    private  Label edit;
+    private  Label notifications;
+
     private void addLeftCol(){
-        Label label = new Label("KLK");
+        label = new Label("KLK");
         label.setId("KLK");
+        /*
+        label.setOnMousePressed(mouseEvent -> {
+            label.setText("key pressed");
+        });
+
+         */
         //label.setFont(new Font("Arial", 45));
 
-        Label dashboard = new Label("Dashboard");
+         dashboard = new Label("Dashboard");
         //dashboard.setFont(new Font("Arial", 25));
 
-        Label students = new Label("Students");
+         students = new Label("Students");
       // students.setFont(new Font("Arial", 25));
 
-        Label courses = new Label("Courses");
+         courses = new Label("Courses");
        // courses.setFont(new Font("Arial", 25));
 
-        Label achievements = new Label("Achievements");
+         achievements = new Label("Achievements");
        // achievements.setFont(new Font("Arial", 25));
 
-        Label calendar = new Label("Calendar");
+        calendar = new Label("Calendar");
       // calendar.setFont(new Font("Arial", 25));
 
-        Label attendanceStats = new Label("AttendanceStats");
+        attendanceStats = new Label("Attendance Stats");
        // attendanceStats.setFont(new Font("Arial", 25));
 
-        Label edit = new Label("Edit");
+        edit = new Label("Edit");
         //edit.setFont(new Font("Arial", 25));
 
         Label notifications = new Label("Notifications");
@@ -104,13 +121,55 @@ public class RootLayoutController implements Initializable {
         }
 
     }
+    private void addLabelsOnAction() {
+        dashboard.setOnMousePressed(mouseEvent -> {
+            openWindow(View.DASHBOARD);
+        });
 
+        students.setOnMousePressed(mouseEvent -> {
+            openWindow(View.STUDENTS);
+        });
+        courses.setOnMousePressed(mouseEvent -> {
+            openWindow(View.COURSES);
+        });
+        achivements.setOnMousePressed(mouseEvent -> {
+            openWindow(View.ACHIVEMENTS);
+        });
+        calendar.setOnMousePressed(mouseEvent -> {
+            openWindow(View.CALENDAR);
+        });
+        attendanceStats.setOnMousePressed(mouseEvent -> {
+            openWindow(View.ATTENDANCESTATS);
+        });
+        edit.setOnMousePressed(mouseEvent -> {
+            openWindow(View.EDIT);
+        });
+        notifications.setOnMousePressed(mouseEvent -> {
+            openWindow(View.NOTIFICATIONS);
+        });
 
+    }
 
+    private void openWindow(View notifications) {
+
+    }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addLeftCol();
+        addLabelsOnAction();
     }
+
+    public enum View{
+        DASHBOARD,
+        STUDENTS,
+        COURSES,
+        ACHIVEMENTS,
+        CALENDAR,
+        ATTENDANCESTATS,
+        EDIT,
+        NOTIFICATIONS
+    }
+
 }
