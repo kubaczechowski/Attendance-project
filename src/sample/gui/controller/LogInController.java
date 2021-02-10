@@ -4,6 +4,8 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
 import javafx.animation.FadeTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,6 +20,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import sample.gui.model.LoggingModel;
+import sample.gui.util.RegexValidator;
 
 import java.io.IOException;
 import java.net.URL;
@@ -56,6 +59,7 @@ public class LogInController implements Initializable, ILogIn{
 
         //validate if its empty
         checkIfEmpty(emailField, passwordField);
+        checkEmail(emailField);
 
         VBox vBox = new VBox();
         vBox.setSpacing(40);
@@ -67,27 +71,44 @@ public class LogInController implements Initializable, ILogIn{
         borderPane.setCenter(vBox);
     }
 
-    private void checkIfEmpty(JFXTextField emailField, JFXTextField passwordField) {
-        RequiredFieldValidator validator1 = new RequiredFieldValidator();
-        validator1.setMessage("Input Required");
-        RequiredFieldValidator emailValidator = new RequiredFieldValidator();
-        emailValidator.setMessage("Not correct form of email");
-        emailField.focusedProperty().addListener((observableValue, aBoolean, newVal) -> {
-            if (!newVal) {
-                if (!emailField.getText().isEmpty()
-                        && !loggingModel.validEmail(emailField.getText())) {
-                    emailField.getValidators().add(emailValidator);
-                    emailField.validate();
-                } else {
-                    emailField.getValidators().add(validator1);
-                    emailField.validate();
-                }
-
+    private void checkEmail(JFXTextField emailField) {
+        RegexValidator emailVal = new RegexValidator("Not correct email",
+                "^[\\w!#$%&'+/=?`{|}~^-]+(?:\\.[\\w!#$%&'+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
+     /*   emailField.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
+            if(!t1){
+                emailField.getValidators().add(emailVal);
+                emailVal.validate();
             }
         });
+
+      */
+        emailField.getValidators().add(emailVal);
+      /*  emailField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldVal, Boolean newVal) {
+                if(!newVal) emailField.validate();
+            }
+        });
+
+       */
+        emailField.focusedProperty().addListener((o,oldVal,newVal)->{
+            if(!newVal) emailField.validate();
+        });
+    }
+
+    private void checkIfEmpty(JFXTextField emailField, JFXTextField passwordField) {
+        RequiredFieldValidator noInputVal = new RequiredFieldValidator();
+        noInputVal.setMessage("Input Required");
+       emailField.focusedProperty().addListener((observableValue, aBoolean, newVal) -> {
+            if (!newVal) {
+                    emailField.getValidators().add(noInputVal);
+                    emailField.validate();
+            }
+        });
+
         passwordField.focusedProperty().addListener((observableValue, aBoolean, newVal) -> {
             if (!newVal) {
-                passwordField.getValidators().add(validator1);
+                passwordField.getValidators().add(noInputVal);
                 passwordField.validate();
             }
         });
