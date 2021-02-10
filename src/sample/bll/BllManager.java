@@ -18,4 +18,9 @@ public class BllManager implements BllFacade{
     public boolean checkIfExists(LogInController.LoggingState userType, String email, String password) {
         return userDAO.checkIfExistsInSystem(email, password, userType);
     }
+
+    @Override
+    public boolean emailExists(String email, LogInController.LoggingState user) {
+        return userDAO.emailExists(email, user);
+    }
 }

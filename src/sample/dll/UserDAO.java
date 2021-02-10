@@ -51,4 +51,48 @@ public class UserDAO implements IUserDAO {
         }
         return false;
     }
+
+    @Override
+    public boolean emailExists(String email, LogInController.LoggingState user) {
+       /* String source;
+
+        switch (user){
+            case STUDENT:{
+                source= STUDENTS_SOURCE;
+                break;
+            }
+            case  TEACHER:{
+                source = TEACHERS_SOURCE;
+                break;
+            }
+
+            default:
+                throw new IllegalStateException("Unexpected value: " + user);
+        }
+
+        try(BufferedReader br = new BufferedReader(
+                new FileReader(new File(source))))
+        {
+            boolean hasLines = true;
+            while(hasLines){
+                String line = br.readLine();
+                if(line==null)
+                    hasLines=false;
+                if(hasLines && !line.isBlank())
+                {
+                    if(line.matches(email+", " +  ".+"))
+                        return true;
+                }
+            }return false;
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+
+        */
+        return false;
+    }
 }

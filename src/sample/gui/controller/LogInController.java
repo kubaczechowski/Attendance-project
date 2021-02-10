@@ -7,8 +7,6 @@ import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -27,6 +25,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import sample.gui.model.LoggingModel;
 import sample.gui.util.RegexValidator;
+import sample.gui.util.ShowMessage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -43,8 +42,10 @@ public class LogInController implements Initializable, ILogIn{
     private JFXTextField emailField;
     private  JFXTextField passwordField;
     boolean xyState= true;
+    ShowMessage showMessage1;
+    ShowMessage justMakeRed;
 
-    //add that items programatically
+    //add that items programmatically
     private void addLabel() {
         Label label = new Label();
         label.setText("Log in");
@@ -63,10 +64,6 @@ public class LogInController implements Initializable, ILogIn{
        passwordField = new JFXTextField();
         passwordField.setLabelFloat(true);
         passwordField.setPromptText("insert password");
-
-        //validate if its empty
-        checkIfEmpty(emailField, passwordField);
-        checkEmail(emailField);
 
         VBox vBox = new VBox();
         vBox.setSpacing(40);
@@ -117,6 +114,7 @@ public class LogInController implements Initializable, ILogIn{
         logInAsATeacher.setWrapText(true);
 
         HBox hBox = new HBox();
+
         hBox.getChildren().addAll(logInAsAStudent, logInAsATeacher);
         hBox.setSpacing(50);
 
@@ -127,9 +125,37 @@ public class LogInController implements Initializable, ILogIn{
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addLabel();
         addInputFields();
+        //validate if its empty
+        checkIfEmpty(emailField, passwordField);
+        checkEmail(emailField);
         addButtonsOnAction();
         hoverLogStudentButton();
         hoverLogTeacherButton();
+        clearValidators();
+
+        //delete it!!
+        openStudentDashboard();
+    }
+
+    private void clearValidators() {
+     /*   if(showMessage1 !=null && justMakeRed!=null) {
+            emailField.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
+                if (t1)
+                    emailField.getValidators().remove(justMakeRed);
+                passwordField.getValidators().remove(showMessage1);
+            });
+            passwordField.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
+                if (t1)
+                    emailField.getValidators().remove(justMakeRed);
+                passwordField.getValidators().remove(showMessage1);
+                //  justMakeRed.setMessage("aaaaa");
+                //  showMessage1.setMessage("bbbbb");
+
+            });
+        }
+
+      */
+
     }
 
 
@@ -140,20 +166,21 @@ public class LogInController implements Initializable, ILogIn{
         logInAsAStudent.setOnAction(actionEvent -> {
                 //check if user exists in the system
                 if(checkIfStudentExists()){
-                    doAnimation(LoggingState.STUDENTLOGGED);
+                    doAnimationAndShowInfo(LoggingState.STUDENTLOGGED);
                     logIn(LoggingState.STUDENTLOGGED);
                 }
-               else
-                   doAnimation(LoggingState.STUDENTDENIED);
+               else {
+                    doAnimationAndShowInfo(LoggingState.STUDENTDENIED);
+                }
         });
         //for the teacher its the same story
         logInAsATeacher.setOnAction(actionEvent -> {
             if(checkIfTeacherExists()){
-                doAnimation(LoggingState.TEACHERLOGGED);
+                doAnimationAndShowInfo(LoggingState.TEACHERLOGGED);
                 logIn(LoggingState.TEACHERLOGGED);
             }
             else
-                doAnimation(LoggingState.TEACHERDENIED);
+                doAnimationAndShowInfo(LoggingState.TEACHERDENIED);
         });
 
     }
@@ -193,7 +220,7 @@ public class LogInController implements Initializable, ILogIn{
      * user fails to log in or logs in successfuly
      * @param loggingState
      */
-    private void doAnimation(LoggingState loggingState) {
+    private void doAnimationAndShowInfo(LoggingState loggingState) {
        switch(loggingState){
            case STUDENTLOGGED:
            case TEACHERLOGGED: {
@@ -201,19 +228,63 @@ public class LogInController implements Initializable, ILogIn{
                break;
            }
            case STUDENTDENIED, TEACHERDENIED:{
-               //show password denied animation
-                 //check if the email exits in the system
-               //(for the corresponding user that is student/ teacher)
-                // if yes show information about incorrect password
-               //if not show the information that the user does not exist
                shakeButtonAnimation(emailField);
                shakeButtonAnimation(passwordField);
-               //shakingStageAnimation();
+               if(loggingState==LoggingState.STUDENTDENIED)
+                   showInfo(LoggingState.STUDENT);
+               else
+                   showInfo(LoggingState.TEACHER);
                break;
            }
        }
-
     }
+
+    /**
+     * 1. Email exists in the db but incorrect password: incorrect email massege
+     *
+     * 2. Email doesn't exists in the db: show information that user doesn't exist
+     * show the regarding messege for student/teacher
+     * @param user
+     */
+    private void showInfo(LoggingState user) {
+        switch (user) {
+            case STUDENT: {
+                //check if email exists
+                if (loggingModel.emailExists(emailField.getText(), LoggingState.STUDENT)) {
+                    //show the information that password is incorrect
+                    showMessage("incorrect password", false);
+                }
+                else{
+                        //show information that there is no such user
+                        showMessage("such user doesn't exist", true);
+                    }
+                    break;
+                }
+            }
+        }
+
+
+    private void showMessage(String message, boolean userNotFound){
+        showMessage1 = new ShowMessage(message);
+        passwordField.focusedProperty().addListener((observableValue, aBoolean, newVal) -> {
+            if (!newVal) {
+                passwordField.getValidators().add(showMessage1);
+                passwordField.validate();
+            }
+        });
+        if(userNotFound){
+            justMakeRed = new ShowMessage("");
+           emailField.focusedProperty().addListener((observableValue, aBoolean, newVal) -> {
+                if (!newVal) {
+                    emailField.getValidators().add(justMakeRed);
+                   emailField.validate();
+                }
+            });
+        }
+    }
+
+
+
 
     private void shakeButtonAnimation(Node node) {
         TranslateTransition translateTransition = new TranslateTransition(Duration.millis(50), node);

@@ -14,7 +14,7 @@ public class RegexValidator extends ValidatorBase {
     @Override
     protected void eval() {
         TextInputControl textField = (TextInputControl) srcControl.get();
-        if ( (textField.getText() != null || !textField.getText().isEmpty())
+        if ( (textField.getText() != null && !textField.getText().isEmpty())
                 && !textField.getText().matches(regEx)) {
             hasErrors.set(true);
         } else {

@@ -15,4 +15,8 @@ public class LoggingModel {
                                 String password) {
         return logicLayer.checkIfExists(userType, email, password);
     }
+
+    public boolean emailExists(String email, LogInController.LoggingState user) {
+        return logicLayer.emailExists(email, user);
+    }
 }

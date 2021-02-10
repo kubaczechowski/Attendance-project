@@ -26,39 +26,43 @@ public class RootLayoutController implements Initializable {
 
     private void addLeftCol(){
         Label label = new Label("KLK");
-        label.setFont(new Font("Arial", 45));
+        label.setId("KLK");
+        //label.setFont(new Font("Arial", 45));
 
-        Label dashboard = new Label("KLK");
-        dashboard.setFont(new Font("Arial", 25));
+        Label dashboard = new Label("Dashboard");
+        //dashboard.setFont(new Font("Arial", 25));
 
         Label students = new Label("Students");
-       students.setFont(new Font("Arial", 25));
+      // students.setFont(new Font("Arial", 25));
 
         Label courses = new Label("Courses");
-        courses.setFont(new Font("Arial", 25));
+       // courses.setFont(new Font("Arial", 25));
 
         Label achievements = new Label("Achievements");
-        achievements.setFont(new Font("Arial", 25));
+       // achievements.setFont(new Font("Arial", 25));
 
         Label calendar = new Label("Calendar");
-       calendar.setFont(new Font("Arial", 25));
+      // calendar.setFont(new Font("Arial", 25));
 
         Label attendanceStats = new Label("AttendanceStats");
-        attendanceStats.setFont(new Font("Arial", 25));
+       // attendanceStats.setFont(new Font("Arial", 25));
 
         Label edit = new Label("Edit");
-        edit.setFont(new Font("Arial", 25));
+        //edit.setFont(new Font("Arial", 25));
 
         Label notifications = new Label("Notifications");
-        notifications.setFont(new Font("Arial", 25));
+       // notifications.setFont(new Font("Arial", 25));
 
         VBox vBox = new VBox();
         vBox.getChildren().addAll(label, dashboard, students, courses,
                 achievements, calendar, attendanceStats, edit, notifications);
         vBox.setPadding(new Insets(10, 20, 0, 20));
         vBox.setSpacing(20);
+        vBox.getStyleClass().add("vbox");
 
-        borderPane.getChildren().add(vBox);
+
+                //borderPane.getChildren().add(vBox);
+        borderPane.setLeft(vBox);
     }
 
     public void goToTeacherDashboard(){
@@ -90,6 +94,8 @@ public class RootLayoutController implements Initializable {
 
         // Show the scene containing the root layout.
         Scene scene = new Scene(borderPane);
+        scene.getStylesheets().add(getClass().
+                    getResource("/sample/gui/css/rootLayout.css").toExternalForm());
         primaryStage = new Stage();
         primaryStage.setScene(scene);
         primaryStage.show();
