@@ -1,14 +1,20 @@
 package sample.gui.controller.Teacher;
 
 import com.jfoenix.controls.JFXScrollPane;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -44,6 +50,7 @@ public class StudentsViewController implements Initializable {
     private void initCore(){
         addSAllStudentsBoxes();
         setCenter();
+        setTop();
     }
 
     private void addSAllStudentsBoxes(){
@@ -82,11 +89,7 @@ public class StudentsViewController implements Initializable {
                );
         VBox.setVgrow(getChart(absDays, presentDays), Priority.ALWAYS);
         vboxContainer.setSpacing(5);
-       // vboxContainer.setMinHeight(450);
-       // vboxContainer.setPrefHeight(450);
-       // vboxContainer.setMaxHeight(450);
         vboxContainer.setId("vBox");
-        vboxContainer.setPadding(new Insets(10));
         return vboxContainer;
     }
 
@@ -141,6 +144,35 @@ public class StudentsViewController implements Initializable {
         //System.out.println(chart.getPadding());
         //System.out.println(chart.getBorder());
         return chart;
+    }
+
+    /**
+     * method adds the searchField and the comboBox for choosing a class
+     * Class will be chosen based on the classes that are taught
+     * by that one logged in teacher
+     */
+    private void setTop(){
+        TextField textField = new TextField();
+        textField.setText("Insert a student");
+        //later add here all courses taugh by the logged teacher
+        ObservableList<String> options = FXCollections.observableArrayList(
+                "SCO1", "SCO2", "SCO3", "SCO4", "SCO5");
+        final ComboBox comboBox = new ComboBox(options);
+        comboBox.setPromptText("Course");
+        comboBox.setEditable(true);
+        comboBox.valueProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observableValue, Object o, Object t1) {
+                comboBox.setPromptText((String)t1);
+                //look for the students enrolled in that course
+            }
+        });
+
+        //add it to the screen
+        HBox hBox = new HBox();
+        hBox.getChildren().addAll(textField, comboBox);
+        hBox.setSpacing(25);
+        borderPane.setTop(hBox);
     }
 
 }
