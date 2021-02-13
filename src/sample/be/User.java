@@ -15,16 +15,16 @@ public class User {
         this.secondName = new SimpleStringProperty(this, "secondName", secondName);
         this.filePathImg = new SimpleStringProperty(this, "filePathImg", filePathImg);
 
-        if(filePathImg==null)
-            photo = new ImageView("/Images/default.png");
-        else{
-            String imgp = filePathImg.replace("src","").
-                    replace("\\", "/");
-            this.photo = new ImageView(imgp);
+        //if(filePathImg==null)
+            //photo = new ImageView("/Images/default.png");
+        //else
+          //  String imgp = filePathImg.replace("src","").
+             //       replace("\\", "/");
+           // this.photo = new ImageView(imgp);
         }
-        this.photo.setFitHeight(20);
-        this.photo.setFitWidth(20);
-    }
+        //this.photo.setFitHeight(20);
+       // this.photo.setFitWidth(20);
+
 
     public String getFirstName() {
         return firstName.get();
@@ -62,11 +62,6 @@ public class User {
         this.filePathImg.set(filePathImg);
     }
 
-    public ImageView getPhoto() {
-        return photo;
-    }
 
-    public void setPhoto(ImageView photo) {
-        this.photo = photo;
-    }
+
 }

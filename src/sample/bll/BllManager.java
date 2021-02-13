@@ -1,11 +1,15 @@
 package sample.bll;
 
+import sample.be.Student;
 import sample.dll.UserDAO;
 import sample.gui.controller.LogInController;
+
+import java.util.List;
 
 public class BllManager implements BllFacade{
     Validations validations = new Validations();
     UserDAO userDAO = new UserDAO();
+
 
     @Override
     public boolean validEmail(String insertedEmail) {
@@ -22,5 +26,10 @@ public class BllManager implements BllFacade{
     @Override
     public boolean emailExists(String email, LogInController.LoggingState user) {
         return userDAO.emailExists(email, user);
+    }
+
+    @Override
+    public List<Student> getAllStudents() {
+        return userDAO.getAllStudents();
     }
 }

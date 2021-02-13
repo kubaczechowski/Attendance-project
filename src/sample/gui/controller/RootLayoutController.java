@@ -67,7 +67,7 @@ public class RootLayoutController implements Initializable {
         edit = new Label("Edit");
         //edit.setFont(new Font("Arial", 25));
 
-        Label notifications = new Label("Notifications");
+        notifications = new Label("Notifications");
        // notifications.setFont(new Font("Arial", 25));
 
         VBox vBox = new VBox();
@@ -132,7 +132,7 @@ public class RootLayoutController implements Initializable {
         courses.setOnMousePressed(mouseEvent -> {
             openWindow(View.COURSES);
         });
-        achivements.setOnMousePressed(mouseEvent -> {
+        achievements.setOnMousePressed(mouseEvent -> {
             openWindow(View.ACHIVEMENTS);
         });
         calendar.setOnMousePressed(mouseEvent -> {
@@ -150,8 +150,18 @@ public class RootLayoutController implements Initializable {
 
     }
 
-    private void openWindow(View notifications) {
+    private void openWindow(View viewType) {
+        if(viewType == View.STUDENTS){
+            FXMLLoader loader = new FXMLLoader(getClass().
+                    getResource("/sample/gui/view/Teacher/StudentsView.fxml"));
+            try{
+                BorderPane studentView = (BorderPane) loader.load();
+               this.borderPane.setCenter(studentView);
 
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 

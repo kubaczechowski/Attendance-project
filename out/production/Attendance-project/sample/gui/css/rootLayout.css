@@ -4,9 +4,19 @@
 }
 
 .label{
+    /*
     -fx-text-fill: white;
     -fx-font-size: 25;
+
+     */
 }
 #KLK{
     -fx-font-size: 45;
+}
+#NameLabel, #ProgramLabel{
+    -fx-font-size: 12;
+    -fx-text-fill: black;
+}
+#borderCenter{
+    -fx-background-color: yellow;
 }

@@ -1,1 +1,4 @@
-jakubczechowski@gmail.com, student1
+jakubczechowski@gmail.com, student1, John, Smith, resources/images/student1.png, computer science,2
+arturobordono@gmail.com, student2, Arturo, Bordono, resources/images/student2.png, computer science,4
+hugobosso@gmail.com, student3, Hugo, Bosso, resources/images/student3.png, media,5
+mikerosso@gmail.com, student4, Mike, Rosso, resources/images/student4.png, music and dance,6
