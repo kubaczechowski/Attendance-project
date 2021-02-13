@@ -3,16 +3,15 @@ package sample.gui.controller.Teacher;
 import com.jfoenix.controls.JFXScrollPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import sample.be.Student;
 import sample.gui.model.StudentsModel;
 
@@ -60,6 +59,8 @@ public class StudentsViewController implements Initializable {
 
     private void setCenter(){
         tilePane.setId("tilePane");
+        tilePane.setHgap(10);
+        tilePane.setVgap(10);
        scrollPane.setContent(tilePane);
        scrollPane.setFitToWidth(true);
        scrollPane.setFitToHeight(true);
@@ -67,21 +68,25 @@ public class StudentsViewController implements Initializable {
         borderPane.getCenter().setId("borderCenter");
     }
 
-    //for all students create in the loop
-    //the boxes and add them to the gridPane inside
+    //for all students create boxes in the loop
+    // and add them to the gridPane inside
     //JFXScrollPane
     private VBox singleUserBox(Student student, int absDays, int presentDays){
         VBox vboxContainer = new VBox();
         HBox bottomContainer = new HBox();
-        
-        setStudentsName(student);
-        setStudentsProgramInfo(student);
-       // bottomContainer.getChildren().addAll(setStudentsAttendanceInfo(absDays, presentDays), getChart(absDays, presentDays));
-        vboxContainer.getChildren().addAll( addStudentsPhoto(student), setStudentsName(student), 
-                setStudentsProgramInfo(student),
-                setStudentsAttendanceInfo(absDays, presentDays), getChart(absDays, presentDays));
-        //vboxContainer.setPrefSize(300, 350);
         vboxContainer.setAlignment(Pos.BASELINE_CENTER);
+        bottomContainer.getChildren().add( getChart(absDays, presentDays));
+        vboxContainer.getChildren().addAll( addStudentsPhoto(student), setStudentsName(student),
+                setStudentsProgramInfo(student),
+                setStudentsAttendanceInfo(absDays, presentDays), bottomContainer
+               );
+        VBox.setVgrow(getChart(absDays, presentDays), Priority.ALWAYS);
+        vboxContainer.setSpacing(5);
+       // vboxContainer.setMinHeight(450);
+       // vboxContainer.setPrefHeight(450);
+       // vboxContainer.setMaxHeight(450);
+        vboxContainer.setId("vBox");
+        vboxContainer.setPadding(new Insets(10));
         return vboxContainer;
     }
 
@@ -89,6 +94,7 @@ public class StudentsViewController implements Initializable {
         int averageAttendace = presDays / (presDays + absDays);
         Label attendance = new Label("Attendance: " + averageAttendace);
         attendance.setId("attendanceLabel");
+        attendance.setWrapText(false);
         return attendance;
     }
     
@@ -125,9 +131,15 @@ public class StudentsViewController implements Initializable {
         PieChart.Data absent = new PieChart.Data("Absent", absDays);
         PieChart.Data present = new PieChart.Data("Present", presentDays);
         chart.getData().addAll(present, absent);
-        chart.setLabelsVisible(false);
-        chart.setMinSize(100, 100);
-        chart.setPrefSize(20, 20);
+        chart.setLabelsVisible(true);
+        chart.setMinSize(110, 110);
+        chart.setPrefSize(110, 110);
+        chart.setLabelLineLength(10);
+        chart.setLegendSide(Side.TOP);
+        chart.setId("Chart");
+        System.out.println(chart.getPrefHeight());
+        //System.out.println(chart.getPadding());
+        //System.out.println(chart.getBorder());
         return chart;
     }
 

@@ -26,5 +26,13 @@
     -fx-background-color: grey;
 }
 
+#vBox{
+    -fx-background-color: #bdd9c4;
+}
+
+#Chart{
+    -fx-text-fill: black;
+}
+
 
 
