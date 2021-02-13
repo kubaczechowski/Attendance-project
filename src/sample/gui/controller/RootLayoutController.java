@@ -38,47 +38,29 @@ public class RootLayoutController implements Initializable {
     private void addLeftCol(){
         label = new Label("KLK");
         label.setId("KLK");
-        /*
-        label.setOnMousePressed(mouseEvent -> {
-            label.setText("key pressed");
-        });
 
-         */
-        //label.setFont(new Font("Arial", 45));
-
-         dashboard = new Label("Dashboard");
-        //dashboard.setFont(new Font("Arial", 25));
-
-         students = new Label("Students");
-      // students.setFont(new Font("Arial", 25));
-
-         courses = new Label("Courses");
-       // courses.setFont(new Font("Arial", 25));
-
-         achievements = new Label("Achievements");
-       // achievements.setFont(new Font("Arial", 25));
-
+        dashboard = new Label("Dashboard");
+        dashboard.getStyleClass().add("label-navigation");
+        students = new Label("Students");
+        students.getStyleClass().add("label-navigation");
+        courses = new Label("Courses");
+        courses.getStyleClass().add("label-navigation");
+        achievements = new Label("Achievements");
+        achievements.getStyleClass().add("label-navigation");
         calendar = new Label("Calendar");
-      // calendar.setFont(new Font("Arial", 25));
-
+        calendar.getStyleClass().add("label-navigation");
         attendanceStats = new Label("Attendance Stats");
-       // attendanceStats.setFont(new Font("Arial", 25));
-
+        attendanceStats.getStyleClass().add("label-navigation");
         edit = new Label("Edit");
-        //edit.setFont(new Font("Arial", 25));
-
+        edit.getStyleClass().add("label-navigation");
         notifications = new Label("Notifications");
-       // notifications.setFont(new Font("Arial", 25));
-
+        notifications.getStyleClass().add("label-navigation");
         VBox vBox = new VBox();
         vBox.getChildren().addAll(label, dashboard, students, courses,
                 achievements, calendar, attendanceStats, edit, notifications);
         vBox.setPadding(new Insets(10, 20, 0, 20));
         vBox.setSpacing(20);
         vBox.getStyleClass().add("vbox");
-
-
-                //borderPane.getChildren().add(vBox);
         borderPane.setLeft(vBox);
     }
 

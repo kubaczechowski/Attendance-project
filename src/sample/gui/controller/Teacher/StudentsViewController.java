@@ -30,8 +30,8 @@ import java.util.ResourceBundle;
 public class StudentsViewController implements Initializable {
     @FXML
     private BorderPane borderPane;
-   // private JFXScrollPane scrollPane = new JFXScrollPane();
-    private ScrollPane scrollPane = new ScrollPane();
+   //private JFXScrollPane scrollPane = new JFXScrollPane();
+   private ScrollPane scrollPane = new ScrollPane();
     private TilePane tilePane = new TilePane();
     private List<Student> allStudents = new ArrayList<>();
     private StudentsModel studentsModel = new StudentsModel();
@@ -59,16 +59,11 @@ public class StudentsViewController implements Initializable {
     }
 
     private void setCenter(){
-      //  scrollPane.setFitToHeight(true);
-       // scrollPane.setFitToWidth(true);
-      //  scrollPane.fitToHeightProperty().set(true);
-      //  scrollPane.fitToWidthProperty().set(true);
-        scrollPane.setContent(tilePane);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        tilePane.setId("tilePane");
+       scrollPane.setContent(tilePane);
+       scrollPane.setFitToWidth(true);
+       scrollPane.setFitToHeight(true);
         borderPane.setCenter(scrollPane);
-        // scrollPane.setPrefSize(borderPane.getCenter().getLayoutX() , borderPane.getHeight() - 50);
-       // borderPane.getCenter().autosize();
         borderPane.getCenter().setId("borderCenter");
     }
 
@@ -93,6 +88,7 @@ public class StudentsViewController implements Initializable {
     private Label setStudentsAttendanceInfo(int absDays, int presDays){
         int averageAttendace = presDays / (presDays + absDays);
         Label attendance = new Label("Attendance: " + averageAttendace);
+        attendance.setId("attendanceLabel");
         return attendance;
     }
     

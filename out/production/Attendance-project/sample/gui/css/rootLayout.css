@@ -3,20 +3,28 @@
 
 }
 
-.label{
-    /*
+.label-navigation{
+
     -fx-text-fill: white;
     -fx-font-size: 25;
-
-     */
 }
 #KLK{
     -fx-font-size: 45;
+    -fx-text-fill: white;
 }
-#NameLabel, #ProgramLabel{
+#NameLabel, #ProgramLabel, #attendanceLabel{
     -fx-font-size: 12;
     -fx-text-fill: black;
 }
+
+--remember to disable that
 #borderCenter{
     -fx-background-color: yellow;
 }
+
+#tilePane{
+    -fx-background-color: grey;
+}
+
+
+
