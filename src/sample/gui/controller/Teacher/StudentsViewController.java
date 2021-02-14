@@ -56,7 +56,6 @@ public class StudentsViewController implements Initializable {
     }
 
     private void setSearchListener() {
-        
 
     }
 
