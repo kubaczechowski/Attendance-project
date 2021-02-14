@@ -144,6 +144,16 @@ public class RootLayoutController implements Initializable {
                 e.printStackTrace();
             }
         }
+        if(viewType== View.CALENDAR){
+            FXMLLoader loader = new FXMLLoader(getClass().
+                    getResource("/sample/gui/view/Teacher/calendarView.fxml"));
+            try{
+                AnchorPane calendarView = (AnchorPane) loader.load();
+                this.borderPane.setCenter(calendarView);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
