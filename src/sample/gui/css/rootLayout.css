@@ -34,5 +34,13 @@
     -fx-text-fill: black;
 }
 
+#searchfield{
+    -fx-focus-color: grey;
+    fx-unfocus-color: black;
+    fx-label-float: true;
+    fx-disable-animation: false;
+
+}
+
 
 

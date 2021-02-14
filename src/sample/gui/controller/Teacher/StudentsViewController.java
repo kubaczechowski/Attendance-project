@@ -1,6 +1,6 @@
 package sample.gui.controller.Teacher;
 
-import com.jfoenix.controls.JFXScrollPane;
+import com.jfoenix.controls.JFXTextField;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -14,8 +14,6 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import sample.be.Student;
@@ -40,6 +38,9 @@ public class StudentsViewController implements Initializable {
     private TilePane tilePane = new TilePane();
     private List<Student> allStudents = new ArrayList<>();
     private StudentsModel studentsModel = new StudentsModel();
+    private  JFXTextField field = new JFXTextField();
+    private  final ComboBox comboBox = new ComboBox();
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -51,6 +52,12 @@ public class StudentsViewController implements Initializable {
         addSAllStudentsBoxes();
         setCenter();
         setTop();
+        setSearchListener();
+    }
+
+    private void setSearchListener() {
+        
+
     }
 
     private void addSAllStudentsBoxes(){
@@ -66,8 +73,9 @@ public class StudentsViewController implements Initializable {
 
     private void setCenter(){
         tilePane.setId("tilePane");
-        tilePane.setHgap(10);
-        tilePane.setVgap(10);
+        tilePane.setHgap(25);
+        tilePane.setVgap(25);
+        tilePane.setPadding(new Insets(10));
        scrollPane.setContent(tilePane);
        scrollPane.setFitToWidth(true);
        scrollPane.setFitToHeight(true);
@@ -118,14 +126,9 @@ public class StudentsViewController implements Initializable {
     }
     
     private ImageView addStudentsPhoto(Student student){
-      //  String filePath = student.getFilePathImg().replaceAll(" ","");
-       // String filePath = "/src/sample/gui/css/student1.png";
-       // System.out.println(filePath);
-       // Image image = new Image(filePath);
         ImageView imageView = new ImageView("/sample/Images/student1.png");
         imageView.setFitWidth(75);
         imageView.setFitHeight(75);
-       // imageView.setImage(image);
         return imageView;
     }
     
@@ -141,8 +144,6 @@ public class StudentsViewController implements Initializable {
         chart.setLegendSide(Side.TOP);
         chart.setId("Chart");
         System.out.println(chart.getPrefHeight());
-        //System.out.println(chart.getPadding());
-        //System.out.println(chart.getBorder());
         return chart;
     }
 
@@ -152,12 +153,13 @@ public class StudentsViewController implements Initializable {
      * by that one logged in teacher
      */
     private void setTop(){
-        TextField textField = new TextField();
-        textField.setText("Insert a student");
+      // field.setLabelFloat(false);
+       field.setPromptText("Search: ");
+       field.setId("searchfield");
         //later add here all courses taugh by the logged teacher
         ObservableList<String> options = FXCollections.observableArrayList(
                 "SCO1", "SCO2", "SCO3", "SCO4", "SCO5");
-        final ComboBox comboBox = new ComboBox(options);
+        comboBox.setItems(options);
         comboBox.setPromptText("Course");
         comboBox.setEditable(true);
         comboBox.valueProperty().addListener(new ChangeListener() {
@@ -170,8 +172,9 @@ public class StudentsViewController implements Initializable {
 
         //add it to the screen
         HBox hBox = new HBox();
-        hBox.getChildren().addAll(textField, comboBox);
-        hBox.setSpacing(25);
+        hBox.setSpacing(50);
+        hBox.setPadding(new Insets(10));
+        hBox.getChildren().addAll(field, comboBox);
         borderPane.setTop(hBox);
     }
 
