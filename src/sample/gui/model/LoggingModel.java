@@ -6,6 +6,7 @@ import sample.gui.controller.LogInController;
 
 public class LoggingModel {
     private BllFacade logicLayer = new BllManager();
+    private C
 
     public boolean validEmail(String insertedEmail) {
         return logicLayer.validEmail(insertedEmail);
