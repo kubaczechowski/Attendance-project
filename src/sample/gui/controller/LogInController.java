@@ -7,6 +7,7 @@ import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -16,10 +17,11 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -27,8 +29,10 @@ import sample.gui.model.LoggingModel;
 import sample.gui.util.RegexValidator;
 import sample.gui.util.ShowMessage;
 
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
+import java.util.EventObject;
 import java.util.ResourceBundle;
 
 
@@ -44,15 +48,17 @@ public class LogInController implements Initializable, ILogIn{
     boolean xyState= true;
     ShowMessage showMessage1;
     ShowMessage justMakeRed;
+    Button minimize = new Button();
+    Button close = new Button();
+    private double xOffset=0;
+    private double yOffset=0;
+    private Scene oldScene;
 
     //add that items programmatically
-    private void addLabel() {
-        Label label = new Label();
-        label.setText("Log in");
-        label.setFont(new Font("Arial", 55));
-        label.setPadding(new Insets(15, 0, 0, 0));
-        borderPane.setAlignment(label, Pos.TOP_CENTER);
-        borderPane.setTop(label);
+    private Label addLabel() {
+        Label logIn = new Label("Log in");
+        logIn.setId("logInLabel");
+        return logIn;
     }
 
 
@@ -123,8 +129,10 @@ public class LogInController implements Initializable, ILogIn{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        addLabel();
+       // addLabel();
         addInputFields();
+        setTop();
+        addTopButtonsOnAction();
         //validate if its empty
         checkIfEmpty(emailField, passwordField);
         checkEmail(emailField);
@@ -132,9 +140,81 @@ public class LogInController implements Initializable, ILogIn{
         hoverLogStudentButton();
         hoverLogTeacherButton();
         clearValidators();
+        movingSceneListener();
 
         //delete it!!
-        openStudentDashboard();
+       // openStudentDashboard();
+    }
+
+    private void movingSceneListener() {
+        //Stage stage = (Stage)((Node)((EventObject) event).getSource()).getScene().getWindow();
+       /* oldScene.setOnMousePressed(mouseEvent -> {
+            Stage stage = (Stage)((Node)((EventObject) mouseEvent).
+                    getSource()).getScene().getWindow();
+            xOffset = stage.getX() - mouseEvent.getScreenX();
+            yOffset = stage.getY() - mouseEvent.getScreenY();
+        });
+        oldScene.setOnMouseDragged(mouseEvent -> {
+            Stage stage = (Stage)((Node)((EventObject) mouseEvent).
+                    getSource()).getScene().getWindow();
+            stage.setX(mouseEvent.getScreenX() + xOffset);
+            stage.setY(mouseEvent.getScreenY() + yOffset);
+        });
+
+        */
+
+/*
+        borderPane.setOnMousePressed(new EventHandler<MouseEvent>()  {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+               if (mouseEvent. != MouseButton.MIDDLE) {
+                    xOffset = mouseEvent.getSceneX();
+                    yOffset = mouseEvent.getSceneY();
+
+                }
+            }
+        });
+
+        node.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent me) {
+                if (me.getButton() != MouseButton.MIDDLE) {
+                    node.getScene().getWindow().setX(me.getScreenX() - initialX);
+                    node.getScene().getWindow().setY(me.getScreenY() - initialY);
+                }
+            }
+        });
+
+ */
+    }
+
+    private void addTopButtonsOnAction() {
+        minimize.setOnMouseClicked(mouseEvent -> {
+            Stage stage = (Stage)((Node)((EventObject) mouseEvent).
+                    getSource()).getScene().getWindow();
+            stage.setIconified(true);
+        });
+        close.setOnMouseClicked(mouseEvent -> Platform.exit());
+
+    }
+
+    private void setTop() {
+
+        HBox hBox = new HBox();
+        ImageView img1 = new ImageView("/sample/gui/images/minimize.png");
+        img1.setFitHeight(15);
+        img1.setFitWidth(15);
+        minimize.setGraphic(img1);
+        minimize.setId("minimizeButton");
+        close.setId("closeButton");
+        ImageView img2 = new ImageView("/sample/gui/images/close3.png");
+        img2.setFitHeight(15);
+        img2.setFitWidth(15);
+        close.setGraphic(img2);
+        hBox.setSpacing(15);
+        hBox.setAlignment(Pos.TOP_RIGHT);
+        hBox.getChildren().addAll( minimize, close);
+        borderPane.setTop(hBox);
     }
 
     private void clearValidators() {
@@ -155,7 +235,6 @@ public class LogInController implements Initializable, ILogIn{
         }
 
       */
-
     }
 
 
@@ -370,6 +449,10 @@ public class LogInController implements Initializable, ILogIn{
         //look up in the static mock data
         return loggingModel.checkIfExist(LoggingState.TEACHER, emailField.getText(),
                 passwordField.getText());
+    }
+
+    public void setScene(Scene scene) {
+        this.oldScene = scene;
     }
 
 
