@@ -143,7 +143,7 @@ public class LogInController implements Initializable, ILogIn{
         clearValidators();
 
         //delete it!!
-       // openStudentDashboard();
+        openStudentDashboard();
     }
 
 

@@ -171,7 +171,7 @@ public class RootLayoutController implements Initializable {
         CALENDAR,
         ATTENDANCESTATS,
         EDIT,
-        NOTIFICATIONS
+        NOTIFICATIONS,
     }
 
 }

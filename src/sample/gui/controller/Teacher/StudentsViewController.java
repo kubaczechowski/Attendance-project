@@ -177,4 +177,7 @@ public class StudentsViewController implements Initializable {
         borderPane.setTop(hBox);
     }
 
+    // we don't need access to the fields or parameters??
+
+
 }

@@ -3,15 +3,24 @@ package sample.gui.controller.Teacher;
 import com.calendarfx.model.Entry;
 import com.calendarfx.model.Interval;
 import com.calendarfx.view.CalendarView;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.CalendarSource;
 import javafx.application.Platform;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import sample.be.Student;
 import sample.gui.model.CoursesModel;
 import sample.gui.util.AddClassesToCal;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -74,5 +83,26 @@ public class CalendarViewController implements Initializable {
         anchorPane.getChildren().add(calendarView);
     }
 
+    static class openEditAttendance{
+        public void openEditAttendance(Entry lecture ){
+            FXMLLoader loader = new FXMLLoader(getClass().
+                    getResource("/sample/gui/view/Teacher/editAttendance.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            EditAttendance editAttendance = loader.getController();
+            editAttendance.setEntry(lecture);
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.setScene(new Scene(root));
+            stage.show();
+            //think about moving window functionality
+        }
+
+
+    }
 
 }
