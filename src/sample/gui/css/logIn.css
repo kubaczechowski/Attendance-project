@@ -1,3 +1,30 @@
 .button{
   -fx-background-color: aqua;
 }
+
+#minimizeButton, #closeButton{
+  -fx-padding: 15px;
+  -fx-background-color: #d6d6d6;
+}
+#minimizeButton:hover, #closeButton:hover{
+-fx-background-color: #ababab;
+  -fx-padding: 15px;
+
+}
+
+#minimizeButton:pressed, #closeButton:pressed{
+  -fx-padding: 15px;
+  -fx-background-color: #8a8888;
+}
+.root{
+  -fx-background-color: #d6d6d6;
+}
+
+#logInLabel{
+  -fx-font-size: 30;
+  -fx-font-weight: bold;
+}
+#KLK{
+  -fx-font-size: 20;
+  -fx-font-weight: bold;
+}
