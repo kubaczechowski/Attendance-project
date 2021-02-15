@@ -25,22 +25,6 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception{
-      /*  FXMLLoader loader = new FXMLLoader(getClass().getResource("sample/gui/view/logIn.fxml"));
-        Parent root=null; //local variables arent automatically initialized
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        primaryStage.setTitle("Hello World");
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        //add css file
-        scene.getStylesheets().clear();
-      //  scene.getStylesheets().add("/sample/gui/css/logIn.css");
-        primaryStage.show();
-
-       */
         FXMLLoader fxmlLoader =  new FXMLLoader(getClass().
                 getResource("/sample/gui/view/logIn.fxml"));
        // Parent root = (Parent) fxmlLoader.load();
@@ -51,7 +35,6 @@ public class Main extends Application {
                 getResource("/sample/gui/css/logIn.css").toExternalForm());
         primaryStage.initStyle(StageStyle.UNDECORATED);
 
-       // LogInController logInController = (LogInController) fxmlLoader.load();
         root.setOnMousePressed(new EventHandler<MouseEvent>()  {
             @Override
             public void handle(MouseEvent mouseEvent) {

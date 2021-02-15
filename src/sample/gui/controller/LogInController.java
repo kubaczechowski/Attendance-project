@@ -53,6 +53,7 @@ public class LogInController implements Initializable, ILogIn{
     private double xOffset=0;
     private double yOffset=0;
     private Scene oldScene;
+    int counter= 0;
 
     //add that items programmatically
     private Label addLabel() {
@@ -140,53 +141,12 @@ public class LogInController implements Initializable, ILogIn{
         hoverLogStudentButton();
         hoverLogTeacherButton();
         clearValidators();
-        movingSceneListener();
 
         //delete it!!
        // openStudentDashboard();
     }
 
-    private void movingSceneListener() {
-        //Stage stage = (Stage)((Node)((EventObject) event).getSource()).getScene().getWindow();
-       /* oldScene.setOnMousePressed(mouseEvent -> {
-            Stage stage = (Stage)((Node)((EventObject) mouseEvent).
-                    getSource()).getScene().getWindow();
-            xOffset = stage.getX() - mouseEvent.getScreenX();
-            yOffset = stage.getY() - mouseEvent.getScreenY();
-        });
-        oldScene.setOnMouseDragged(mouseEvent -> {
-            Stage stage = (Stage)((Node)((EventObject) mouseEvent).
-                    getSource()).getScene().getWindow();
-            stage.setX(mouseEvent.getScreenX() + xOffset);
-            stage.setY(mouseEvent.getScreenY() + yOffset);
-        });
 
-        */
-
-/*
-        borderPane.setOnMousePressed(new EventHandler<MouseEvent>()  {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-               if (mouseEvent. != MouseButton.MIDDLE) {
-                    xOffset = mouseEvent.getSceneX();
-                    yOffset = mouseEvent.getSceneY();
-
-                }
-            }
-        });
-
-        node.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent me) {
-                if (me.getButton() != MouseButton.MIDDLE) {
-                    node.getScene().getWindow().setX(me.getScreenX() - initialX);
-                    node.getScene().getWindow().setY(me.getScreenY() - initialY);
-                }
-            }
-        });
-
- */
-    }
 
     private void addTopButtonsOnAction() {
         minimize.setOnMouseClicked(mouseEvent -> {
@@ -307,12 +267,16 @@ public class LogInController implements Initializable, ILogIn{
                break;
            }
            case STUDENTDENIED, TEACHERDENIED:{
+               if(counter>3)
+                   shakingStageAnimation();
                shakeButtonAnimation(emailField);
                shakeButtonAnimation(passwordField);
                if(loggingState==LoggingState.STUDENTDENIED)
                    showInfo(LoggingState.STUDENT);
                else
                    showInfo(LoggingState.TEACHER);
+
+               counter++;
                break;
            }
        }
