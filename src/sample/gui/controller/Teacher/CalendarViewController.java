@@ -29,36 +29,19 @@ public class CalendarViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadCalendar();
-        addEntries();
+       // addEntries();
         updateTime();
         runCal();
     }
 
     private void addEntries() {
-        //add entries
-        /*
-        Entry<String> entry = new Entry<>("SCO1");
-        Interval interval = new Interval();
-        entry.setInterval(interval);
-        entry.setRecurrenceRule("RRULE:FREQ=WEEKLY;INTERVAL=3");
-        entry.changeStartDate(LocalDate.now());
-        entry.changeEndDate(LocalDate.now());
-        entry.changeStartTime(LocalTime.of(12,30));
-        entry.changeEndTime(LocalTime.of(13,30));
-        classes.addEntry(entry);
-
-         */
-        classes.addEntries(addClassesToCal.getClasses());
 
     }
 
     private void loadCalendar() {
-       // Calendar meetings = new Calendar("Meetings");
         classes.setStyle(Calendar.Style.STYLE7);
-       /// meetings.setStyle(Calendar.Style.STYLE2);
-        CalendarSource myCalendarSource = new CalendarSource("Timetable");
-        myCalendarSource.getCalendars().add(classes);
-        calendarView.getCalendarSources().addAll(myCalendarSource);
+        calendarView.getCalendarSources().
+                addAll(addClassesToCal.getClasses());
         calendarView.setRequestedTime(LocalTime.now());
     }
 

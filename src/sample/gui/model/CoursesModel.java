@@ -12,7 +12,9 @@ public class CoursesModel {
    private BllFacade logicL = new BllManager();
     private static CoursesModel coursesModel;
     public List<Course> getCoursesLoggedTeacher() {
-        return logicL.getCourses(teachersFName, teachersSName);
+       // return logicL.getCourses(teachersFName, teachersSName);
+        //remember to change it later to the one above;
+        return logicL.getCourses("piotr", "czechowski");
     }
 
     //singletonPattern
