@@ -24,7 +24,8 @@ public class AddClassesToCal {
         Calendar calendar = new Calendar("Test");
         courses = coursesModel.getCoursesLoggedTeacher();
         for(Course course: courses){
-            Entry<String> entry =  new Entry<>(course.getCourseName());
+            Entry<String> entry =  new Entry<>(course.getCourseName() +
+                    "                     Attendance 79%");
             LocalDateTime dateTime = LocalDateTime.now();
             LocalDateTime day = dateTime.with(TemporalAdjusters.
                     nextOrSame(getDayOfWeek(course)));
@@ -36,6 +37,8 @@ public class AddClassesToCal {
             String[] endTime = course.getEndTime().split(":");
             entry.changeEndTime(LocalTime.of(Integer.parseInt(endTime[0].trim()),
                     Integer.parseInt(endTime[1].trim())));
+            entry.setLocation("Schoool");
+
             calendar.addEntry(entry);
         }
         calendarSource.getCalendars().addAll(calendar);
