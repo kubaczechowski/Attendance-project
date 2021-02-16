@@ -1,0 +1,4 @@
+MONDAY, SCO2, John, Smith
+MONDAY, SCO2, Arturo, Bordono
+MONDAY, SCO2, Hugo, Bosso
+MONDAY, SCO2, Mike Rosso

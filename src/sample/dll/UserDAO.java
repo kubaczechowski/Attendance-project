@@ -4,7 +4,10 @@ import sample.be.Student;
 import sample.gui.controller.LogInController;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class UserDAO implements IUserDAO {
@@ -12,6 +15,8 @@ public class UserDAO implements IUserDAO {
             "resources/teachers.txt";
     private static final String STUDENTS_SOURCE =
             "resources/students.txt";
+    private static final String ATTENDANCE_SOURCE =
+            "resources/attendanceRecords.txt";
 
     @Override
     public boolean checkIfExistsInSystem(String email, String password,
@@ -55,6 +60,72 @@ public class UserDAO implements IUserDAO {
         return false;
     }
 
+    public int getAttendance(String fName, String sName, boolean onlyToday){
+        int presentDays=0;
+        int absDays=0;
+
+        try(BufferedReader br = new BufferedReader(new FileReader(new File(ATTENDANCE_SOURCE))))
+        {
+            boolean hasLines = true;
+            while(hasLines){
+                String line = br.readLine();
+                if(line==null)
+                    hasLines=false;
+                if(hasLines && !line.isBlank())
+                {
+
+                    try{
+                      //  allStudents.add(makeObjectFromString(line));
+                        if(!onlyToday) {
+                            if (line.toLowerCase().contains(fName.toLowerCase()) &&
+                                    line.toLowerCase().contains(sName.toLowerCase())) {
+                                if (line.contains("present"))
+                                    presentDays++;
+                                else
+                                    absDays++;
+                            }
+                        }
+                        else{
+                            //check date
+                        /*    Calendar calendar = Calendar.getInstance();
+                            Date c = calendar.getTime();
+                            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+
+                            String current_Date = df.format(c);
+
+                            calendar.add(Calendar.DAY_OF_YEAR, 0);
+                            c = calendar.getTime();
+                            String today_Date = df.format(c);
+
+                            if(line.contains(today_Date))
+                                return 2; // if its true
+                            else
+                                return -2; //if its not true
+
+                         */
+                        }
+
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                        System.out.println("Number format exception: "+ line);
+                    }
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if(presentDays==0 && absDays ==0)
+            return  -1;
+        else
+            return presentDays/(presentDays+absDays);
+
+    }
+
+
     public List<Student> getAllStudents(){
         List<Student> allStudents = new ArrayList<>();
         try(BufferedReader br = new BufferedReader(new FileReader(new File(STUDENTS_SOURCE))))
@@ -81,7 +152,6 @@ public class UserDAO implements IUserDAO {
             e.printStackTrace();
         }
         return allStudents;
-
     }
     private Student makeObjectFromString(String line)
     {
@@ -95,7 +165,8 @@ public class UserDAO implements IUserDAO {
        String course = splittedLine[5];
        int sem = Integer.parseInt(splittedLine[6]);
 
-       Student student = new Student(firstName, secondName, filePath, course, sem);
+       Student student = new Student(firstName, secondName, filePath, course, sem, getAttendance(firstName, secondName, true),
+               getAttendance(firstName, secondName, false));
         return student;
     }
 
