@@ -12,6 +12,30 @@ public class Student extends User {
     private IntegerProperty absence; // abs / pres/ no data
     private IntegerProperty avgAttendance;
 
+    public int getAbsence() {
+        return absence.get();
+    }
+
+    public IntegerProperty absenceProperty() {
+        return absence;
+    }
+
+    public void setAbsence(int absence) {
+        this.absence.set(absence);
+    }
+
+    public int getAvgAttendance() {
+        return avgAttendance.get();
+    }
+
+    public IntegerProperty avgAttendanceProperty() {
+        return avgAttendance;
+    }
+
+    public void setAvgAttendance(int avgAttendance) {
+        this.avgAttendance.set(avgAttendance);
+    }
+
     public Student(String firstName, String secondName, String filePathImg,
                    String studyProgram, int semester) {
         super(firstName, secondName, filePathImg);

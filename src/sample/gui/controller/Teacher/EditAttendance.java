@@ -1,11 +1,15 @@
 package sample.gui.controller.Teacher;
 
 import com.calendarfx.model.Entry;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.layout.VBox;
+import javafx.util.Callback;
 import sample.be.Student;
 
 import java.awt.*;
@@ -33,9 +37,62 @@ public class EditAttendance implements Initializable {
         //check if there is a record for that that for that student
         //show attendance in percents (calulate it based on the days
         // when student was absent and wasn't)
-        
+        initNameColumn();
+        initAttendanceColumn();
+        initAvgAttendanceColumn();
 
+    }
 
+    private void initAvgAttendanceColumn() {
+        avgAttendance.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Student, String>,
+                ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Student, String>
+                                                        p) {
+                return  new ReadOnlyObjectWrapper<String>(showAvgAtt(p.getValue().getAvgAttendance()));
+            }
+
+            private String showAvgAtt(int avgAttendance) {
+                if(avgAttendance ==-1)
+                    return "no data";
+                else
+                    return avgAttendance + "%";
+
+            }
+        });
+    }
+
+    private void initAttendanceColumn() {
+        atendance.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Student, String>,
+                ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Student, String>
+                                                        p) {
+                return new ReadOnlyObjectWrapper<String>(showAttendance(p.getValue().absenceProperty()));
+            }
+
+            private String showAttendance(IntegerProperty absenceProperty) {
+                switch(absenceProperty.getValue()){
+                    case 2: return "Present";
+
+                    case -2: return "absent";
+                    //if 0 or whatever
+                    default: return "no data";
+                }
+            }
+        });
+    }
+
+    private void initNameColumn() {
+        nameAndSurname.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Student, String>,
+                ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Student, String>
+                                                        p) {
+                return  new ReadOnlyObjectWrapper<>(p.getValue().getFirstName() +" "+
+                        p.getValue().getSecondName());
+            }
+        });
     }
 
     private void setLabels() {

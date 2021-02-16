@@ -87,7 +87,7 @@ public class UserDAO implements IUserDAO {
                         }
                         else{
                             //check date
-                        /*    Calendar calendar = Calendar.getInstance();
+                           Calendar calendar = Calendar.getInstance();
                             Date c = calendar.getTime();
                             SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -97,12 +97,14 @@ public class UserDAO implements IUserDAO {
                             c = calendar.getTime();
                             String today_Date = df.format(c);
 
-                            if(line.contains(today_Date))
+                            if(line.contains(today_Date) && line.contains("present") )
                                 return 2; // if its true
-                            else
+                            if(line.contains(today_Date) && line.contains("absent"))
                                 return -2; //if its not true
+                            else
+                                return 0;
 
-                         */
+
                         }
 
                     } catch (NumberFormatException e) {
