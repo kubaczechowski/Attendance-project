@@ -1,18 +1,22 @@
 package sample.gui.controller.Teacher;
 
 import com.calendarfx.model.Entry;
+import com.jfoenix.controls.JFXButton;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import sample.be.Student;
 
-import java.awt.*;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -25,11 +29,30 @@ public class EditAttendance implements Initializable {
    private TableColumn<Student, String> atendance = new TableColumn<>();
    private TableColumn<Student, String>     avgAttendance = new TableColumn<>();
 
+  private JFXButton editButton = new JFXButton();
+  private JFXButton courseAttButton = new JFXButton();
+  private JFXButton close = new JFXButton();
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setLabels();
         setListView();
+        vBox.getChildren().addAll(setLabels(), listView, setButtons());
+    }
+
+    private HBox setButtons() {
+        editButton.setText("Edit");
+        courseAttButton.setText("Course Attendance");
+        close.setText("Close");
+        editButton.setId("editB");
+        courseAttButton.setId("courseAttB");
+        close.setId("closeB");
+
+        HBox hBox = new HBox();
+        hBox.setSpacing(15);
+        hBox.setAlignment(Pos.BASELINE_CENTER);
+        hBox.getChildren().addAll(editButton, courseAttButton, close);
+        return hBox;
     }
 
     private void setListView() {
@@ -95,11 +118,16 @@ public class EditAttendance implements Initializable {
         });
     }
 
-    private void setLabels() {
-        Label course = new Label(entry.getTitle());
-        Label date = new Label(entry.getStartDate().toString());
+    private VBox setLabels() {
+        String s1 = entry.getTitle().toString();
+        Label course = new Label(s1);
+        String s2 = entry.getStartDate().toString();
+        Label date = new Label(s2);
         Label attendanceOnTheCourse = new Label("79%");
         Label attendanceOnThatDay = new Label("56%");
+        VBox vBox = new VBox();
+        vBox.getChildren().addAll(course, date, attendanceOnTheCourse, attendanceOnThatDay);
+        return vBox;
         
     }
 
