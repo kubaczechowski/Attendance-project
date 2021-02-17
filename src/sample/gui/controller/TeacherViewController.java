@@ -45,6 +45,11 @@ public class TeacherViewController implements Initializable {
         acceptColumnn.setCellValueFactory(new PropertyValueFactory<Change, Void>(""));
         declineColumnn.setCellValueFactory(new PropertyValueFactory<Change, Void>(""));
 
+        ObservableList<Change> changes = FXCollections.observableArrayList(
+                new Change("Jack Grey", "p -> a"),
+                new Change("Electra Boomes", "a -> p")
+        );
+
         Callback<TableColumn<Change, Void>, TableCell<Change, Void>> cellFactory = new Callback<TableColumn<Change, Void>, TableCell<Change, Void>>() {
             @Override
             public TableCell<Change, Void> call(final TableColumn<Change, Void> param) {
@@ -55,7 +60,8 @@ public class TeacherViewController implements Initializable {
                     {
                         btn.setOnAction((ActionEvent event) -> {
                             Change change = getTableView().getItems().get(getIndex());
-                            System.out.println("selectedData: " + change);
+                            changes.remove(change);
+                            System.out.println(change.getName() + " accepted");
                         });
                     }
 
@@ -83,7 +89,8 @@ public class TeacherViewController implements Initializable {
                     {
                         btn.setOnAction((ActionEvent event) -> {
                             Change change = getTableView().getItems().get(getIndex());
-                            System.out.println("selectedData: " + change);
+                            changes.remove(change);
+                            System.out.println(change.getName() + " declined");
                         });
                     }
 
@@ -101,10 +108,6 @@ public class TeacherViewController implements Initializable {
             }
         };
 
-        ObservableList<Change> changes = FXCollections.observableArrayList(
-                new Change("Jack Grey", "p -> a"),
-                new Change("Electra Boomes", "a -> p")
-        );
         changeTable.setItems(changes);
 
         acceptColumnn.setCellFactory(cellFactory);
