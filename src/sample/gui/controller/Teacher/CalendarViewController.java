@@ -1,14 +1,13 @@
 package sample.gui.controller.Teacher;
 
-import com.calendarfx.model.Entry;
-import com.calendarfx.model.Interval;
+import com.calendarfx.model.*;
 import com.calendarfx.view.CalendarView;
+import com.calendarfx.view.EntryViewBase;
+import com.sun.jdi.event.MethodEntryEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import com.calendarfx.model.Calendar;
-import com.calendarfx.model.CalendarSource;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -38,14 +37,33 @@ public class CalendarViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadCalendar();
-       // addEntries();
         updateTime();
         runCal();
+        openingEditDist();
     }
 
-    private void addEntries() {
+    private void openingEditDist() {
+       anchorPane.setOnMousePressed(MousePressedEventHandler);
+       anchorPane.setOnMousePressed(clicked);
+       // calendarView.getWeekPage().setOnMousePressed(clicked);
 
     }
+
+    EventHandler<MouseEvent> MousePressedEventHandler =
+            new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    if(mouseEvent.getSource() instanceof EntryViewBase){
+                        //open edit attendance window
+                        OpenEditAttendance.openEditAttendance((Entry)
+                                mouseEvent.getSource());
+                    }
+                }
+            };
+
+    EventHandler<MouseEvent> clicked = mouseEvent -> {
+        System.out.println(mouseEvent.getSource().toString());
+    };
 
     private void loadCalendar() {
         classes.setStyle(Calendar.Style.STYLE7);
@@ -83,9 +101,9 @@ public class CalendarViewController implements Initializable {
         anchorPane.getChildren().add(calendarView);
     }
 
-    static class openEditAttendance{
-        public void openEditAttendance(Entry lecture ){
-            FXMLLoader loader = new FXMLLoader(getClass().
+    static class OpenEditAttendance{
+        public static void openEditAttendance(Entry lecture ){
+            FXMLLoader loader = new FXMLLoader(OpenEditAttendance.class.
                     getResource("/sample/gui/view/Teacher/editAttendance.fxml"));
             Parent root = null;
             try {
@@ -98,7 +116,7 @@ public class CalendarViewController implements Initializable {
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setScene(new Scene(root));
-            stage.show();
+            stage.showAndWait();
             //think about moving window functionality
         }
 
