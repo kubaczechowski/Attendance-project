@@ -13,7 +13,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("gui/view/logIn.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("gui/view/TeacherView.fxml"));
         Parent root=null; //local variables arent automatically initialized
         try {
             root = loader.load();
@@ -25,7 +25,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         //add css file
         scene.getStylesheets().clear();
-        scene.getStylesheets().add("/sample/gui/css/logIn.css");
+        //scene.getStylesheets().add("/sample/gui/css/logIn.css");
         primaryStage.show();
     }
 
