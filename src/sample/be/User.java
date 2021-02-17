@@ -3,7 +3,9 @@ package sample.be;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.image.ImageView;
-
+/**
+ * @author kuba
+ */
 public class User {
     private StringProperty firstName;
     private StringProperty secondName;

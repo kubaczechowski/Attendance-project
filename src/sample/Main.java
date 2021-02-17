@@ -7,12 +7,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import sample.gui.controller.LogInController;
 
 import java.io.IOException;
-
+/**
+ * @author kuba
+ */
 public class Main extends Application {
 
     private double xOffset;
@@ -33,7 +36,9 @@ public class Main extends Application {
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().
                 getResource("/sample/gui/css/logIn.css").toExternalForm());
-        primaryStage.initStyle(StageStyle.UNDECORATED);
+        scene.setFill(Color.TRANSPARENT);
+       // primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
 
         root.setOnMousePressed(new EventHandler<MouseEvent>()  {
             @Override

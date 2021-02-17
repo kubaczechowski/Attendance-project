@@ -5,7 +5,9 @@ import sample.be.Course;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * @author kuba
+ */
 public class CourseDAO {
     private static final String COURSES_SOURCE =
             "resources/courses.txt";

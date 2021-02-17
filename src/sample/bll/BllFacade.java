@@ -1,12 +1,13 @@
 package sample.bll;
 
-import com.calendarfx.model.Entry;
 import sample.be.Course;
 import sample.be.Student;
 import sample.gui.controller.LogInController;
 
 import java.util.List;
-
+/**
+ * @author kuba
+ */
 public interface BllFacade {
     boolean validEmail(String insertedEmail);
 
@@ -17,4 +18,6 @@ public interface BllFacade {
     List<Student> getAllStudents();
 
     List<Course> getCourses(String teachersFName, String teachersSName);
+
+    List<Student> searchStudents(String t1);
 }

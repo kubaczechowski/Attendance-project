@@ -13,7 +13,9 @@ import java.time.LocalTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * @author kuba
+ */
 public class AddClassesToCal {
     private CoursesModel coursesModel = CoursesModel.createOrGetInstance();
     List<Course> courses = new ArrayList<>();

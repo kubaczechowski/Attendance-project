@@ -1,6 +1,5 @@
 package sample.bll;
 
-import com.calendarfx.model.Entry;
 import sample.be.Course;
 import sample.be.Student;
 import sample.dll.CourseDAO;
@@ -8,7 +7,9 @@ import sample.dll.UserDAO;
 import sample.gui.controller.LogInController;
 
 import java.util.List;
-
+/**
+ * @author kuba
+ */
 public class BllManager implements BllFacade{
     Validations validations = new Validations();
     UserDAO userDAO = new UserDAO();
@@ -40,5 +41,10 @@ public class BllManager implements BllFacade{
     @Override
     public List<Course> getCourses(String teachersFName, String teachersSName) {
         return courseDAO.getCoursesForATeacher(teachersFName, teachersSName);
+    }
+
+    @Override
+    public List<Student> searchStudents(String t1) {
+        return userDAO.getStudents(t1);
     }
 }

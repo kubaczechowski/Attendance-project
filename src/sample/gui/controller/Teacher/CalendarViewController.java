@@ -24,7 +24,9 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
-
+/**
+ * @author kuba
+ */
 public class CalendarViewController implements Initializable {
 
     private CalendarView calendarView = new CalendarView();

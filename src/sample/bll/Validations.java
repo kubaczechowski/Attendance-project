@@ -3,7 +3,9 @@ package sample.bll;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ * @author kuba
+ */
 public class Validations {
 
     public boolean validateInput(String regexPattern, String input){

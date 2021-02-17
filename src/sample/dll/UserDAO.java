@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
+/**
+ * @author kuba
+ */
 public class UserDAO implements IUserDAO {
     private static final String TEACHERS_SOURCE =
             "resources/teachers.txt";
@@ -23,12 +25,12 @@ public class UserDAO implements IUserDAO {
                                          LogInController.LoggingState state) {
         String source;
 
-        switch (state){
-            case STUDENT:{
-                source= STUDENTS_SOURCE;
+        switch (state) {
+            case STUDENT: {
+                source = STUDENTS_SOURCE;
                 break;
             }
-            case  TEACHER:{
+            case TEACHER: {
                 source = TEACHERS_SOURCE;
                 break;
             }
@@ -37,20 +39,19 @@ public class UserDAO implements IUserDAO {
                 throw new IllegalStateException("Unexpected value: " + state);
         }
 
-        try(BufferedReader br = new BufferedReader(
-                new FileReader(new File(source))))
-        {
+        try (BufferedReader br = new BufferedReader(
+                new FileReader(new File(source)))) {
             boolean hasLines = true;
-            while(hasLines){
+            while (hasLines) {
                 String line = br.readLine();
-                if(line==null)
-                    hasLines=false;
-                if(hasLines && !line.isBlank())
-                {
-                    if(line.equals(email+", "+ password))
+                if (line == null)
+                    hasLines = false;
+                if (hasLines && !line.isBlank()) {
+                    if (line.equals(email + ", " + password))
                         return true;
                 }
-            }return false;
+            }
+            return false;
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -60,23 +61,21 @@ public class UserDAO implements IUserDAO {
         return false;
     }
 
-    public int getAttendance(String fName, String sName, boolean onlyToday){
-        int presentDays=0;
-        int absDays=0;
+    public int getAttendance(String fName, String sName, boolean onlyToday) {
+        int presentDays = 0;
+        int absDays = 0;
 
-        try(BufferedReader br = new BufferedReader(new FileReader(new File(ATTENDANCE_SOURCE))))
-        {
+        try (BufferedReader br = new BufferedReader(new FileReader(new File(ATTENDANCE_SOURCE)))) {
             boolean hasLines = true;
-            while(hasLines){
+            while (hasLines) {
                 String line = br.readLine();
-                if(line==null)
-                    hasLines=false;
-                if(hasLines && !line.isBlank())
-                {
+                if (line == null)
+                    hasLines = false;
+                if (hasLines && !line.isBlank()) {
 
-                    try{
-                      //  allStudents.add(makeObjectFromString(line));
-                        if(!onlyToday) {
+                    try {
+                        //  allStudents.add(makeObjectFromString(line));
+                        if (!onlyToday) {
                             if (line.toLowerCase().contains(fName.toLowerCase()) &&
                                     line.toLowerCase().contains(sName.toLowerCase())) {
                                 if (line.contains("present"))
@@ -84,10 +83,9 @@ public class UserDAO implements IUserDAO {
                                 else
                                     absDays++;
                             }
-                        }
-                        else{
+                        } else {
                             //check date
-                           Calendar calendar = Calendar.getInstance();
+                            Calendar calendar = Calendar.getInstance();
                             Date c = calendar.getTime();
                             SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -97,9 +95,9 @@ public class UserDAO implements IUserDAO {
                             c = calendar.getTime();
                             String today_Date = df.format(c);
 
-                            if(line.contains(today_Date) && line.contains("present") )
+                            if (line.contains(today_Date) && line.contains("present"))
                                 return 2; // if its true
-                            if(line.contains(today_Date) && line.contains("absent"))
+                            if (line.contains(today_Date) && line.contains("absent"))
                                 return -2; //if its not true
                             else
                                 return 0;
@@ -109,7 +107,7 @@ public class UserDAO implements IUserDAO {
 
                     } catch (NumberFormatException e) {
                         e.printStackTrace();
-                        System.out.println("Number format exception: "+ line);
+                        System.out.println("Number format exception: " + line);
                     }
                 }
             }
@@ -120,30 +118,30 @@ public class UserDAO implements IUserDAO {
             e.printStackTrace();
         }
 
-        if(presentDays==0 && absDays ==0)
-            return  -1;
+        if (presentDays == 0 && absDays == 0)
+            return -1;
         else
-            return presentDays/(presentDays+absDays);
+            return presentDays / (presentDays + absDays);
 
     }
 
 
-    public List<Student> getAllStudents(){
+    public List<Student> getAllStudents() {
         List<Student> allStudents = new ArrayList<>();
-        try(BufferedReader br = new BufferedReader(new FileReader(new File(STUDENTS_SOURCE))))
-        {
+        try (BufferedReader br = new BufferedReader(new FileReader(new File(STUDENTS_SOURCE)))) {
             boolean hasLines = true;
-            while(hasLines){
+            while (hasLines) {
                 String line = br.readLine();
-                if(line==null)
-                    hasLines=false;
-                if(hasLines && !line.isBlank())
-                {
+                if (line == null)
+                    hasLines = false;
+                if (hasLines && !line.isBlank()) {
 
 
-                    try{  allStudents.add(makeObjectFromString(line));} catch (NumberFormatException e) {
+                    try {
+                        allStudents.add(makeObjectFromString(line));
+                    } catch (NumberFormatException e) {
                         e.printStackTrace();
-                        System.out.println("Number format exception: "+ line);
+                        System.out.println("Number format exception: " + line);
                     }
                 }
             }
@@ -155,20 +153,20 @@ public class UserDAO implements IUserDAO {
         }
         return allStudents;
     }
-    private Student makeObjectFromString(String line)
-    {
+
+    private Student makeObjectFromString(String line) {
         String[] splittedLine = new String[8];
-       splittedLine = line.split(",");
+        splittedLine = line.split(",");
         String email = splittedLine[0];
         String password = splittedLine[1];
-       String firstName = splittedLine[2];
-       String secondName = splittedLine[3];
-       String filePath = splittedLine[4];
-       String course = splittedLine[5];
-       int sem = Integer.parseInt(splittedLine[6]);
+        String firstName = splittedLine[2];
+        String secondName = splittedLine[3];
+        String filePath = splittedLine[4];
+        String course = splittedLine[5];
+        int sem = Integer.parseInt(splittedLine[6]);
 
-       Student student = new Student(firstName, secondName, filePath, course, sem, getAttendance(firstName, secondName, true),
-               getAttendance(firstName, secondName, false));
+        Student student = new Student(firstName, secondName, filePath, course, sem, getAttendance(firstName, secondName, true),
+                getAttendance(firstName, secondName, false));
         return student;
     }
 
@@ -214,5 +212,29 @@ public class UserDAO implements IUserDAO {
 
         */
         return false;
+    }
+
+    public List<Student> getStudents(String t1) {
+        List<Student> allStudents = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(new File(STUDENTS_SOURCE)))) {
+            boolean hasLines = true;
+            while (hasLines) {
+                String line = br.readLine();
+                if (line == null)
+                    hasLines = false;
+                if (hasLines && !line.isBlank() && line.contains(t1)) {
+
+                    try {
+                        allStudents.add(makeObjectFromString(line));
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                        System.out.println("Number format exception: " + line);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return allStudents;
     }
 }

@@ -2,7 +2,9 @@ package sample.be;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-
+/**
+ * @author kuba
+ */
 public class Course {
     private StringProperty teachersFName;
     private StringProperty teachersSName;

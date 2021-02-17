@@ -20,6 +20,9 @@ import sample.be.Student;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * @author kuba
+ */
 public class EditAttendance implements Initializable {
     private Entry entry;
     @FXML

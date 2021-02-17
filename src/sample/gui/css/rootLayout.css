@@ -1,6 +1,5 @@
 .vbox{
     -fx-background-color: #061121;
-
 }
 
 .label-navigation{
@@ -28,6 +27,10 @@
 
 #vBox{
     -fx-background-color: #bdd9c4;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-width:3;
+
 }
 
 #Chart{

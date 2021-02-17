@@ -2,7 +2,9 @@ package sample.gui.util;
 
 import com.jfoenix.validation.base.ValidatorBase;
 import javafx.scene.control.TextInputControl;
-
+/**
+ * @author kuba
+ */
 public class RegexValidator extends ValidatorBase {
     private String regEx;
 

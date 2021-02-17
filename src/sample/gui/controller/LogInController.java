@@ -22,6 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -35,7 +36,9 @@ import java.net.URL;
 import java.util.EventObject;
 import java.util.ResourceBundle;
 
-
+/**
+ * @author kuba
+ */
 public class LogInController implements Initializable, ILogIn{
     private LoggingModel loggingModel = new LoggingModel();
 
@@ -68,7 +71,7 @@ public class LogInController implements Initializable, ILogIn{
         emailField.setLabelFloat(true);
         emailField.setPromptText("insert email");
 
-       passwordField = new JFXTextField();
+        passwordField = new JFXTextField();
         passwordField.setLabelFloat(true);
         passwordField.setPromptText("insert password");
 
@@ -82,6 +85,10 @@ public class LogInController implements Initializable, ILogIn{
         borderPane.setCenter(vBox);
     }
 
+    /**
+     * this method should be in bll
+     * @param emailField
+     */
     private void checkEmail(JFXTextField emailField) {
         RegexValidator emailVal = new RegexValidator("Not correct email",
                 "^[\\w!#$%&'+/=?`{|}~^-]+(?:\\.[\\w!#$%&'+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
@@ -130,6 +137,7 @@ public class LogInController implements Initializable, ILogIn{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        borderPane.setPadding(new Insets(20));
        // addLabel();
         addInputFields();
         setTop();
@@ -142,6 +150,8 @@ public class LogInController implements Initializable, ILogIn{
         hoverLogTeacherButton();
         clearValidators();
 
+      //  borderPane.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY,
+        //        Insets.EMPTY)));
         //delete it!!
         openStudentDashboard();
     }

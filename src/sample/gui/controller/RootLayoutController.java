@@ -17,7 +17,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+/**
+ * @author kuba
+ */
 public class RootLayoutController implements Initializable {
 
     public BorderPane borderPane;
@@ -57,7 +59,7 @@ public class RootLayoutController implements Initializable {
         notifications.getStyleClass().add("label-navigation");
         VBox vBox = new VBox();
         vBox.getChildren().addAll(label, dashboard, students, courses,
-                achievements, calendar, attendanceStats, edit, notifications);
+                 calendar);
         vBox.setPadding(new Insets(10, 20, 0, 20));
         vBox.setSpacing(20);
         vBox.getStyleClass().add("vbox");

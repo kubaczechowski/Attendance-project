@@ -4,7 +4,9 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-
+/**
+ * @author kuba
+ */
 public class Student extends User {
 
     private StringProperty studyProgram;

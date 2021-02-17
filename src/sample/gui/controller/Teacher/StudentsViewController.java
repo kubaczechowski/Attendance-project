@@ -29,6 +29,8 @@ import java.util.ResourceBundle;
  * on the right there will be scroll bar,
  * on the top there will be a searching funcitonality,
  * in the centre the tilePane with the students views
+ *
+ * @author kuba
  */
 public class StudentsViewController implements Initializable {
     @FXML
@@ -55,7 +57,18 @@ public class StudentsViewController implements Initializable {
         setSearchListener();
     }
 
+    /**
+     * move the core of this functionality to the BLL
+     */
     private void setSearchListener() {
+        field.textProperty().addListener((observableValue, s, t1) -> {
+            System.out.println(t1.toString());
+            allStudents.clear();
+            allStudents.addAll(studentsModel.search(t1));
+                tilePane.getChildren().clear();
+                addSAllStudentsBoxes();
+
+        });
 
     }
 
@@ -88,6 +101,7 @@ public class StudentsViewController implements Initializable {
     private VBox singleUserBox(Student student, int absDays, int presentDays){
         VBox vboxContainer = new VBox();
         HBox bottomContainer = new HBox();
+        bottomContainer.setAlignment(Pos.TOP_CENTER);
         vboxContainer.setAlignment(Pos.BASELINE_CENTER);
         bottomContainer.getChildren().add( getChart(absDays, presentDays));
         vboxContainer.getChildren().addAll( addStudentsPhoto(student), setStudentsName(student),
@@ -97,6 +111,8 @@ public class StudentsViewController implements Initializable {
         VBox.setVgrow(getChart(absDays, presentDays), Priority.ALWAYS);
         vboxContainer.setSpacing(5);
         vboxContainer.setId("vBox");
+        vboxContainer.setMinWidth(225);
+        vboxContainer.setPadding(new Insets(5));
         return vboxContainer;
     }
 
