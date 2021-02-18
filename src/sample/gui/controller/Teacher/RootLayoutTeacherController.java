@@ -12,6 +12,10 @@ import sample.gui.controller.RootLayoutController;
 
 import java.io.IOException;
 
+/**
+ * class is a controller of the root layout used by the teachers
+ * @author kuba
+ */
 public class RootLayoutTeacherController extends RootLayoutController {
 
     @Override

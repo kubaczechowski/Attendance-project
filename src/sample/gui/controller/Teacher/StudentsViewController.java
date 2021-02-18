@@ -191,6 +191,7 @@ public class StudentsViewController implements Initializable {
         hBox.setPadding(new Insets(10));
         hBox.getChildren().addAll(field, comboBox);
         borderPane.setTop(hBox);
+        borderPane.getTop().setId("topInStudentsV");
     }
 
     // we don't need access to the fields or parameters??

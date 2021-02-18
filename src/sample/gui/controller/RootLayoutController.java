@@ -133,7 +133,7 @@ public class RootLayoutController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().
                     getResource("/sample/gui/view/Teacher/calendarView.fxml"));
             try{
-                AnchorPane calendarView = (AnchorPane) loader.load();
+                BorderPane calendarView = (BorderPane) loader.load();
                 this.borderPane.setCenter(calendarView);
             } catch (IOException e) {
                 e.printStackTrace();

@@ -154,6 +154,8 @@ public class LogInController implements Initializable, ILogIn{
         clearValidators();
         //delete it!!
         openTeacherDashboard();
+        openStudentDashboard();
+        borderPane.setId("centerOfRoot");
     }
 
 
@@ -187,23 +189,7 @@ public class LogInController implements Initializable, ILogIn{
     }
 
     private void clearValidators() {
-     /*   if(showMessage1 !=null && justMakeRed!=null) {
-            emailField.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
-                if (t1)
-                    emailField.getValidators().remove(justMakeRed);
-                passwordField.getValidators().remove(showMessage1);
-            });
-            passwordField.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
-                if (t1)
-                    emailField.getValidators().remove(justMakeRed);
-                passwordField.getValidators().remove(showMessage1);
-                //  justMakeRed.setMessage("aaaaa");
-                //  showMessage1.setMessage("bbbbb");
-
-            });
-        }
-
-      */
+        //to do
     }
 
     /**
@@ -344,7 +330,7 @@ public class LogInController implements Initializable, ILogIn{
             });
         }
     }
-    
+
     /**
      * Log in student or teacher
      */
