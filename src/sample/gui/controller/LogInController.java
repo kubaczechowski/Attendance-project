@@ -26,6 +26,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import sample.gui.controller.Teacher.RootLayoutTeacherController;
 import sample.gui.model.LoggingModel;
 import sample.gui.util.RegexValidator;
 import sample.gui.util.ShowMessage;
@@ -150,7 +151,7 @@ public class LogInController implements Initializable, ILogIn{
         hoverLogTeacherButton();
         clearValidators();
         //delete it!!
-       // openStudentDashboard();
+        openTeacherDashboard();
     }
 
 
@@ -396,15 +397,20 @@ public class LogInController implements Initializable, ILogIn{
     }
 
     private void openTeacherDashboard() {
-        RootLayoutController rootLayoutController = new RootLayoutController();
-        rootLayoutController.initRootLayout();
-        rootLayoutController.goToTeacherDashboard();
+      //  RootLayoutController rootLayoutController = new RootLayoutController();
+      //  rootLayoutController.setUser(LoggingState.TEACHERLOGGED);
+      //  rootLayoutController.initRootLayout();
+      //  rootLayoutController.goToTeacherDashboard();
+        RootLayoutTeacherController rootLayoutTeacherController = new RootLayoutTeacherController();
+        rootLayoutTeacherController.initRootLayout();
+        rootLayoutTeacherController.goToTeacherDashboard();
 
     }
 
     private void openStudentDashboard(){
-        RootLayoutController rootLayoutController = new RootLayoutController();
-        rootLayoutController.initRootLayout();
+       // RootLayoutController rootLayoutController = new RootLayoutController();
+       // rootLayoutController.setUser(LoggingState.STUDENTLOGGED);
+       // rootLayoutController.initRootLayout();
         //rootLayoutController.goToStudentDashboard();
     }
 

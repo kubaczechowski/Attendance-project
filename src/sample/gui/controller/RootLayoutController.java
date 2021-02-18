@@ -25,20 +25,23 @@ public class RootLayoutController implements Initializable {
 
     public BorderPane borderPane;
     @FXML
-    private Stage primaryStage;
+    protected Stage primaryStage;
 
     //labels
-    private Label label;
-    private Label dashboard;
-    private Label students;
-    private Label courses;
-    private  Label achievements;
-    private Label calendar;
-    private  Label attendanceStats;
-    private  Label edit;
-    private  Label notifications;
+   protected Label label;
+    protected Label dashboard;
+    protected Label students;
+    protected Label courses;
+    protected  Label achievements;
+    protected Label calendar;
+    protected  Label attendanceStats;
+    protected  Label edit;
+    protected  Label notifications;
+    protected LogInController.LoggingState loggingState;
 
-    private void addLeftCol(){
+
+
+    protected void addLeftCol(){
         label = new Label("KLK");
         label.setId("KLK");
 
@@ -59,8 +62,10 @@ public class RootLayoutController implements Initializable {
         notifications = new Label("Notifications");
         notifications.getStyleClass().add("label-navigation");
         VBox vBox = new VBox();
-        vBox.getChildren().addAll(label, dashboard, students, courses,
-                 calendar);
+        if(loggingState == LogInController.LoggingState.TEACHERLOGGED)
+             vBox.getChildren().addAll(label, dashboard, students, calendar);
+        if(loggingState == LogInController.LoggingState.STUDENTLOGGED)
+            vBox.getChildren().addAll(label, dashboard, courses);
         vBox.setPadding(new Insets(10, 20, 0, 20));
         vBox.setSpacing(20);
         vBox.getStyleClass().add("vbox");
@@ -90,9 +95,11 @@ public class RootLayoutController implements Initializable {
     public void initRootLayout(){
         try{
         // Load root layout from fxml file.
-        FXMLLoader loader = new FXMLLoader(getClass().
+       FXMLLoader loader = new FXMLLoader(getClass().
                 getResource("/sample/gui/view/rootLayoutPane.fxml"));
         borderPane = (BorderPane) loader.load();
+
+
 
         // Show the scene containing the root layout.
         Scene scene = new Scene(borderPane);
@@ -106,7 +113,7 @@ public class RootLayoutController implements Initializable {
         }
 
     }
-    private void addLabelsOnAction() {
+    protected void addLabelsOnAction() {
         dashboard.setOnMousePressed(mouseEvent -> {
             openWindow(View.DASHBOARD);
         });
@@ -135,7 +142,7 @@ public class RootLayoutController implements Initializable {
 
     }
 
-    private void openWindow(View viewType) {
+    protected void openWindow(View viewType) {
         if(viewType == View.STUDENTS){
             FXMLLoader loader = new FXMLLoader(getClass().
                     getResource("/sample/gui/view/Teacher/StudentsView.fxml"));
@@ -164,6 +171,10 @@ public class RootLayoutController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addLeftCol();
         addLabelsOnAction();
+    }
+
+    public void setUser(LogInController.LoggingState studentlogged) {
+        loggingState = studentlogged;
     }
 
     public enum View{
