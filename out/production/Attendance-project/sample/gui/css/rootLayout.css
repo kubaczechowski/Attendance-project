@@ -1,5 +1,5 @@
 .vbox{
-    -fx-background-color: #061121;
+    -fx-background-color: #76b8c1;
 }
 
 .label-navigation{
@@ -27,15 +27,25 @@
 }
 
 #tilePane{
-    -fx-background-color: grey;
+    -fx-background-color: #d2eff9;
 }
 
+#centerOfRoot{}
+
+
+#topInStudentsV{
+   -fx-background-color:  #d2eff9;
+}
 #vBox{
-    -fx-background-color: #bdd9c4;
+    -fx-background-color: white;
+    -fx-background-opacity: 0.9;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
     -fx-border-width:3;
 
+}
+.root{
+    -fx-background-color:#d2eff9 ;
 }
 
 #Chart{
@@ -50,5 +60,7 @@
 
 }
 
+.data0.chart-pie { -fx-pie-color: #d2eff9; }
+.data1.chart-pie { -fx-pie-color: #76b8c1; }
 
 

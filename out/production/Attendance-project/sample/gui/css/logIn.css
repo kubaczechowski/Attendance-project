@@ -2,25 +2,25 @@
  * @author kuba
  */
 .button{
-  -fx-background-color: aqua;
+  -fx-background-color: #76b8c1;
 }
 
 #minimizeButton, #closeButton{
   -fx-padding: 15px;
-  -fx-background-color: #d6d6d6;
+  -fx-background-color: #d2eff9;
 }
 #minimizeButton:hover, #closeButton:hover{
--fx-background-color: #ababab;
+-fx-background-color: #76b8c1;
   -fx-padding: 15px;
 
 }
 
 #minimizeButton:pressed, #closeButton:pressed{
   -fx-padding: 15px;
-  -fx-background-color: #8a8888;
+  -fx-background-color: #6499a1;
 }
 .root{
-  -fx-background-color: #d6d6d6;
+  -fx-background-color: #d2eff9;
   -fx-background-radius: 30;
   -fx-border-radius: 30;
   -fx-border-width:5;
