@@ -13,7 +13,10 @@ import java.time.LocalTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
+ * Method is used for adding classes taught by the
+ * logged in teacher
  * @author kuba
  */
 public class AddClassesToCal {
@@ -21,7 +24,6 @@ public class AddClassesToCal {
     List<Course> courses = new ArrayList<>();
 
     public CalendarSource getClasses() {
-       // List<Entry<String>> entryList = new ArrayList<>();
         CalendarSource calendarSource = new CalendarSource("source");
         Calendar calendar = new Calendar("Test");
         courses = coursesModel.getCoursesLoggedTeacher();
@@ -60,16 +62,4 @@ public class AddClassesToCal {
         return null;
     }
 
-
-   /* protected enum DAYS{
-        MONDAY,
-        TUESDAY,
-        WEDNESDAY,
-        THURSDAY,
-        FRIDAY,
-        SATURDAY,
-        SUNDAY
-    }
-
-    */
 }

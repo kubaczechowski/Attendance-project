@@ -149,13 +149,9 @@ public class LogInController implements Initializable, ILogIn{
         hoverLogStudentButton();
         hoverLogTeacherButton();
         clearValidators();
-
-      //  borderPane.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY,
-        //        Insets.EMPTY)));
         //delete it!!
-        openStudentDashboard();
+       // openStudentDashboard();
     }
-
 
 
     private void addTopButtonsOnAction() {
@@ -217,6 +213,7 @@ public class LogInController implements Initializable, ILogIn{
                 if(checkIfStudentExists()){
                     doAnimationAndShowInfo(LoggingState.STUDENTLOGGED);
                     logIn(LoggingState.STUDENTLOGGED);
+                    closeLogIn(actionEvent);
                 }
                else {
                     doAnimationAndShowInfo(LoggingState.STUDENTDENIED);
@@ -309,10 +306,21 @@ public class LogInController implements Initializable, ILogIn{
                 }
                 else{
                         //show information that there is no such user
-                        showMessage("such user doesn't exist", true);
+                        showMessage("such student doesn't exist", true);
                     }
-                    break;
+
+                }break;
+            case TEACHER: {
+                if (loggingModel.emailExists(emailField.getText(), LoggingState.TEACHER)) {
+                    //show the information that password is incorrect
+                    showMessage("incorrect password", false);
                 }
+                else{
+                    //show information that there is no such user
+                    showMessage("such teacher doesn't exist", true);
+                }
+
+            }
             }
         }
 
@@ -336,14 +344,10 @@ public class LogInController implements Initializable, ILogIn{
         }
     }
 
-
-
-
     private void shakeButtonAnimation(Node node) {
         TranslateTransition translateTransition = new TranslateTransition(Duration.millis(50), node);
         translateTransition.setFromX(0f);
         translateTransition.setByX(10f);
-       // translateTransition.setByY(23f);
         translateTransition.setCycleCount(2);
         translateTransition.setAutoReverse(true);
         translateTransition.playFromStart();
@@ -369,6 +373,8 @@ public class LogInController implements Initializable, ILogIn{
         timeline.play();
     }
 
+
+
     /**
      * Log in student or teacher
      */
@@ -393,6 +399,7 @@ public class LogInController implements Initializable, ILogIn{
         RootLayoutController rootLayoutController = new RootLayoutController();
         rootLayoutController.initRootLayout();
         rootLayoutController.goToTeacherDashboard();
+
     }
 
     private void openStudentDashboard(){
@@ -401,14 +408,21 @@ public class LogInController implements Initializable, ILogIn{
         //rootLayoutController.goToStudentDashboard();
     }
 
+    private void closeLogIn(ActionEvent actionEvent) {
+        Node n = (Node) actionEvent.getSource();
+        Stage stage = (Stage) n.getScene().getWindow();
+        stage.close();
+    }
+
+
     @Override
     public void saveUserInPreferences() {
-
+        //To do
     }
 
     @Override
     public void unsaveUserInPreferences() {
-
+        // to do
     }
 
     @Override
@@ -438,5 +452,5 @@ public class LogInController implements Initializable, ILogIn{
         STUDENT,
         TEACHER
     }
-    //you can try pressing alt insert in your application
+
 }

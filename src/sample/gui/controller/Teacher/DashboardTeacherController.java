@@ -1,4 +1,4 @@
-package sample.gui.controller;
+package sample.gui.controller.Teacher;
 
 import javafx.fxml.Initializable;
 import javafx.stage.Stage;

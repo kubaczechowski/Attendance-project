@@ -21,6 +21,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
+ * Functionality in the development stage.
+ * Functionality will be used when the teacher clicks on the
+ * Entry in the calendar View. They will be enabled to see more details
+ * and take further steps (edit or see course attendace in the specific view)
+ *
  * @author kuba
  */
 public class EditAttendance implements Initializable {

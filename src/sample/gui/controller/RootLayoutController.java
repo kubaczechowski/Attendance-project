@@ -4,20 +4,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import sample.gui.controller.Teacher.DashboardTeacherController;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 /**
+ * Controller responsible for managing all the views available for the user
+ * it handles the menu view column that is located on the right
  * @author kuba
  */
 public class RootLayoutController implements Initializable {
@@ -68,7 +69,7 @@ public class RootLayoutController implements Initializable {
 
     public void goToTeacherDashboard(){
         FXMLLoader loader = new FXMLLoader(getClass().
-                getResource("/sample/gui/view/DashboardTeacher.fxml"));
+                getResource("/sample/gui/view/Teacher/dashboardTeacher.fxml"));
          //local variables arent automatically initialized
         try {
            // Parent root = loader.load();

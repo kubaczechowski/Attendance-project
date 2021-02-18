@@ -24,30 +24,4 @@ public class RegexValidator extends ValidatorBase {
         }
     }
 
-/*
-    @Override
-    protected void eval() {
-        if (srcControl.get() instanceof TextInputControl) {
-            evalTextInputField();
-        }
-        if (srcControl.get() instanceof ComboBoxBase) {
-            evalComboBoxField();
-        }
-    }
-//
-    private void evalTextInputField() {
-        TextInputControl textField = (TextInputControl) srcControl.get();
-        if ( (textField.getText() != null || !textField.getText().isEmpty()) && !textField.getText().matches(regEx)) {
-            hasErrors.set(true);
-        } else {
-            hasErrors.set(false);
-        }
-    }
-    private void evalComboBoxField() {
-        ComboBoxBase comboField = (ComboBoxBase) srcControl.get();
-        Object value = comboField.getValue();
-        hasErrors.set(value == null || value.toString().isEmpty());
-    }
-
- */
 }
