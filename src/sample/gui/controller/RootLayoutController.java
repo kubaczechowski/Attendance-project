@@ -39,37 +39,8 @@ public class RootLayoutController implements Initializable {
     protected  Label notifications;
     protected LogInController.LoggingState loggingState;
 
-
-
     protected void addLeftCol(){
-        label = new Label("KLK");
-        label.setId("KLK");
-
-        dashboard = new Label("Dashboard");
-        dashboard.getStyleClass().add("label-navigation");
-        students = new Label("Students");
-        students.getStyleClass().add("label-navigation");
-        courses = new Label("Courses");
-        courses.getStyleClass().add("label-navigation");
-        achievements = new Label("Achievements");
-        achievements.getStyleClass().add("label-navigation");
-        calendar = new Label("Calendar");
-        calendar.getStyleClass().add("label-navigation");
-        attendanceStats = new Label("Attendance Stats");
-        attendanceStats.getStyleClass().add("label-navigation");
-        edit = new Label("Edit");
-        edit.getStyleClass().add("label-navigation");
-        notifications = new Label("Notifications");
-        notifications.getStyleClass().add("label-navigation");
-        VBox vBox = new VBox();
-        if(loggingState == LogInController.LoggingState.TEACHERLOGGED)
-             vBox.getChildren().addAll(label, dashboard, students, calendar);
-        if(loggingState == LogInController.LoggingState.STUDENTLOGGED)
-            vBox.getChildren().addAll(label, dashboard, courses);
-        vBox.setPadding(new Insets(10, 20, 0, 20));
-        vBox.setSpacing(20);
-        vBox.getStyleClass().add("vbox");
-        borderPane.setLeft(vBox);
+       //implementation added in the children classes
     }
 
     public void goToTeacherDashboard(){
@@ -90,6 +61,10 @@ public class RootLayoutController implements Initializable {
         catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void goToStudentDashboard(){
+        //Laslos Implementation
     }
 
     public void initRootLayout(){
@@ -169,8 +144,31 @@ public class RootLayoutController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        addLeftColLabels();
         addLeftCol();
         addLabelsOnAction();
+    }
+
+   protected void addLeftColLabels() {
+       label = new Label("KLK");
+       label.setId("KLK");
+
+       dashboard = new Label("Dashboard");
+       dashboard.getStyleClass().add("label-navigation");
+       students = new Label("Students");
+       students.getStyleClass().add("label-navigation");
+       courses = new Label("Courses");
+       courses.getStyleClass().add("label-navigation");
+       achievements = new Label("Achievements");
+       achievements.getStyleClass().add("label-navigation");
+       calendar = new Label("Calendar");
+       calendar.getStyleClass().add("label-navigation");
+       attendanceStats = new Label("Attendance Stats");
+       attendanceStats.getStyleClass().add("label-navigation");
+       edit = new Label("Edit");
+       edit.getStyleClass().add("label-navigation");
+       notifications = new Label("Notifications");
+       notifications.getStyleClass().add("label-navigation");
     }
 
     public void setUser(LogInController.LoggingState studentlogged) {
