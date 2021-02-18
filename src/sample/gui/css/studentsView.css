@@ -1,0 +1,38 @@
+#searchfield{
+    -fx-focus-color: grey;
+    fx-unfocus-color: black;
+    fx-label-float: true;
+    fx-disable-animation: false;
+
+}
+
+
+.data0.chart-pie { -fx-pie-color: #d2eff9; }
+.data1.chart-pie { -fx-pie-color: #76b8c1; }
+
+
+/* The increment and decrement button CSS class of scrollbar */
+.increment-button , .decrement-button {
+    -fx-background-color:transparent;
+    -fx-background-radius: 2em;
+
+}
+
+/* The main scrollbar **track** CSS class  */
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color:derive(gray,80%);
+
+    -fx-background-radius: 2em;
+    -fx-border-radius:2em;
+}
+
+/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color:derive(black,90%);
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+
+}

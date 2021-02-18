@@ -74,8 +74,6 @@ public class RootLayoutController implements Initializable {
                 getResource("/sample/gui/view/rootLayoutPane.fxml"));
         borderPane = (BorderPane) loader.load();
 
-
-
         // Show the scene containing the root layout.
         Scene scene = new Scene(borderPane);
         scene.getStylesheets().add(getClass().
@@ -124,6 +122,7 @@ public class RootLayoutController implements Initializable {
             try{
                 BorderPane studentView = (BorderPane) loader.load();
                this.borderPane.setCenter(studentView);
+
 
             } catch (IOException e) {
                 e.printStackTrace();

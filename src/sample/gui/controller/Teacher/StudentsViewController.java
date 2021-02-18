@@ -89,6 +89,7 @@ public class StudentsViewController implements Initializable {
         tilePane.setVgap(25);
         tilePane.setPadding(new Insets(10));
        scrollPane.setContent(tilePane);
+       scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
        scrollPane.setFitToWidth(true);
        scrollPane.setFitToHeight(true);
         borderPane.setCenter(scrollPane);

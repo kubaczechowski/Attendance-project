@@ -48,19 +48,11 @@
     -fx-background-color:#d2eff9 ;
 }
 
+/*
 #Chart{
     -fx-text-fill: black;
 }
 
-#searchfield{
-    -fx-focus-color: grey;
-    fx-unfocus-color: black;
-    fx-label-float: true;
-    fx-disable-animation: false;
-
-}
-
-.data0.chart-pie { -fx-pie-color: #d2eff9; }
-.data1.chart-pie { -fx-pie-color: #76b8c1; }
+ */
 
 
