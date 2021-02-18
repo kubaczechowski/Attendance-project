@@ -3,7 +3,6 @@ package sample.gui.controller.Teacher;
 import com.calendarfx.model.*;
 import com.calendarfx.view.CalendarView;
 import com.calendarfx.view.EntryViewBase;
-import com.sun.jdi.event.MethodEntryEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,11 +11,9 @@ import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import sample.be.Student;
-import sample.gui.model.CoursesModel;
 import sample.gui.util.AddClassesToCal;
 
 import java.io.IOException;
@@ -34,7 +31,7 @@ public class CalendarViewController implements Initializable {
     private AddClassesToCal addClassesToCal = new AddClassesToCal();
     Calendar classes = new Calendar("Classes");
     @FXML
-    private AnchorPane anchorPane;
+    private BorderPane borderPane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -45,8 +42,8 @@ public class CalendarViewController implements Initializable {
     }
 
     private void openingEditDist() {
-       anchorPane.setOnMousePressed(MousePressedEventHandler);
-       anchorPane.setOnMousePressed(clicked);
+       borderPane.setOnMousePressed(MousePressedEventHandler);
+       borderPane.setOnMousePressed(clicked);
        // calendarView.getWeekPage().setOnMousePressed(clicked);
 
     }
@@ -68,7 +65,7 @@ public class CalendarViewController implements Initializable {
     };
 
     private void loadCalendar() {
-        classes.setStyle(Calendar.Style.STYLE7);
+        classes.setStyle(Calendar.Style.STYLE5);
         calendarView.getCalendarSources().
                 addAll(addClassesToCal.getClasses());
         calendarView.setRequestedTime(LocalTime.now());
@@ -100,7 +97,8 @@ public class CalendarViewController implements Initializable {
 
     private void runCal() {
         calendarView.showWeekPage();
-        anchorPane.getChildren().add(calendarView);
+       // anchorPane.getChildren()add(calendarView);
+        borderPane.setCenter(calendarView);
     }
 
     static class OpenEditAttendance{
