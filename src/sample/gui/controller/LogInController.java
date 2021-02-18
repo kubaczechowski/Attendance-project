@@ -26,8 +26,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import sample.gui.controller.Student.RootLayoutStudentController;
 import sample.gui.controller.Teacher.RootLayoutTeacherController;
 import sample.gui.model.LoggingModel;
+import sample.gui.util.Animations;
 import sample.gui.util.RegexValidator;
 import sample.gui.util.ShowMessage;
 
@@ -204,7 +206,6 @@ public class LogInController implements Initializable, ILogIn{
       */
     }
 
-
     /**
      * method is used to handle log in buttons
      */
@@ -276,14 +277,13 @@ public class LogInController implements Initializable, ILogIn{
            }
            case STUDENTDENIED, TEACHERDENIED:{
                if(counter>3)
-                   shakingStageAnimation();
-               shakeButtonAnimation(emailField);
-               shakeButtonAnimation(passwordField);
+                   Animations.shakeStageAnimation(borderPane);
+               Animations.shakeNodeAnimation(emailField);
+               Animations.shakeNodeAnimation(passwordField);
                if(loggingState==LoggingState.STUDENTDENIED)
                    showInfo(LoggingState.STUDENT);
                else
                    showInfo(LoggingState.TEACHER);
-
                counter++;
                break;
            }
@@ -344,38 +344,7 @@ public class LogInController implements Initializable, ILogIn{
             });
         }
     }
-
-    private void shakeButtonAnimation(Node node) {
-        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(50), node);
-        translateTransition.setFromX(0f);
-        translateTransition.setByX(10f);
-        translateTransition.setCycleCount(2);
-        translateTransition.setAutoReverse(true);
-        translateTransition.playFromStart();
-    }
-
-    private void shakingStageAnimation() {
-        Stage currentStage = (Stage) borderPane.getScene().getWindow();
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(50), new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                if (xyState) {
-                    currentStage.setX(currentStage.getX() + 10);
-                    currentStage.setY(currentStage.getY() + 10);
-                } else {
-                    currentStage.setX(currentStage.getX() - 10);
-                    currentStage.setY(currentStage.getY() - 10);
-                }
-                xyState= !xyState;
-            }
-        }));
-        timeline.setAutoReverse(true);
-        timeline.cycleCountProperty().setValue(3);
-        timeline.play();
-    }
-
-
-
+    
     /**
      * Log in student or teacher
      */
@@ -397,21 +366,15 @@ public class LogInController implements Initializable, ILogIn{
     }
 
     private void openTeacherDashboard() {
-      //  RootLayoutController rootLayoutController = new RootLayoutController();
-      //  rootLayoutController.setUser(LoggingState.TEACHERLOGGED);
-      //  rootLayoutController.initRootLayout();
-      //  rootLayoutController.goToTeacherDashboard();
         RootLayoutTeacherController rootLayoutTeacherController = new RootLayoutTeacherController();
         rootLayoutTeacherController.initRootLayout();
         rootLayoutTeacherController.goToTeacherDashboard();
-
     }
 
     private void openStudentDashboard(){
-       // RootLayoutController rootLayoutController = new RootLayoutController();
-       // rootLayoutController.setUser(LoggingState.STUDENTLOGGED);
-       // rootLayoutController.initRootLayout();
-        //rootLayoutController.goToStudentDashboard();
+        RootLayoutStudentController rootLayoutStudentController =new RootLayoutStudentController();
+        rootLayoutStudentController.initRootLayout();
+        rootLayoutStudentController.goToStudentDashboard();
     }
 
     private void closeLogIn(ActionEvent actionEvent) {
