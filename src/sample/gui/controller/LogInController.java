@@ -142,7 +142,7 @@ public class LogInController implements Initializable, ILogIn{
         Animations.hoverNodeAnimation(logInAsATeacher);
         Animations.hoverNodeAnimation(logInAsAStudent);
         // clearValidators();
-        
+
         //delete it!!
         openTeacherDashboard();
         openStudentDashboard();

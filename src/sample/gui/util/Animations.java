@@ -7,6 +7,8 @@ import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -19,6 +21,9 @@ import javafx.util.Duration;
  */
 public class Animations {
     private static boolean xyState= true;
+     private static double xOffset;
+     private static double yOffset;
+
 
     /**
      * animation moves node only horizontally
@@ -79,4 +84,27 @@ public class Animations {
             fadeTransition.play();
         });
     }
+
+   public static EventHandler<MouseEvent> mousePressed =  new EventHandler<MouseEvent>()  {
+        @Override
+        public void handle(MouseEvent mouseEvent) {
+            xOffset = mouseEvent.getSceneX();
+            yOffset = mouseEvent.getSceneY();
+        }
+    };
+
+    private static Parent root;
+
+    public static void setRoot(Parent root1){
+       root = root1;
+    }
+
+    public static EventHandler<MouseEvent> mouseDragged = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent me) {
+            root.getScene().getWindow().setX(me.getScreenX() - xOffset);
+            root.getScene().getWindow().setY(me.getScreenY() - yOffset);
+        }
+    };
+
 }
