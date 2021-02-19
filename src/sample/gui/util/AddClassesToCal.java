@@ -27,6 +27,7 @@ public class AddClassesToCal {
         CalendarSource calendarSource = new CalendarSource("source");
         Calendar calendar = new Calendar("Test");
         courses = coursesModel.getCoursesLoggedTeacher();
+
         for(Course course: courses){
             Entry<String> entry =  new Entry<>(course.getCourseName() +
                     "                     Attendance 79%");

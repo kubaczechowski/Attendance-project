@@ -32,7 +32,8 @@ import java.util.ResourceBundle;
  * it handles all events that occur in the mentioned window.
  * @author kuba
  */
-public class LogInController implements Initializable, ILogIn{
+public class LogInController implements Initializable, ILogIn,
+        ISaveUserPreferences , ICheckUser {
     private LoggingModel loggingModel = new LoggingModel();
 
     @FXML
@@ -343,16 +344,6 @@ public class LogInController implements Initializable, ILogIn{
 
 
     @Override
-    public void saveUserInPreferences() {
-        //To do
-    }
-
-    @Override
-    public void unsaveUserInPreferences() {
-        // to do
-    }
-
-    @Override
     public boolean checkIfStudentExists() {
         //look up in the static mock data
        return loggingModel.checkIfExist(LoggingState.STUDENT, emailField.getText(),
@@ -368,6 +359,16 @@ public class LogInController implements Initializable, ILogIn{
 
     public void setScene(Scene scene) {
         this.oldScene = scene;
+    }
+
+    @Override
+    public void saveUserInPreferences() {
+        //To do
+    }
+
+    @Override
+    public void unsaveUserInPreferences() {
+        //To do
     }
 
     public enum LoggingState{
