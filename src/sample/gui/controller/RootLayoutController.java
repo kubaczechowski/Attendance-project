@@ -17,8 +17,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Controller responsible for managing all the views available for the user
- * it handles the menu view column that is located on the right
+ * Controller responsible for managing all  views available for the user
+ * it handles the menu view: column
  * @author kuba
  */
 public class RootLayoutController implements Initializable {
@@ -32,23 +32,20 @@ public class RootLayoutController implements Initializable {
     protected Label dashboard;
     protected Label students;
     protected Label courses;
-    protected  Label achievements;
     protected Label calendar;
-    protected  Label attendanceStats;
-    protected  Label edit;
-    protected  Label notifications;
-    protected LogInController.LoggingState loggingState;
 
+    /**
+     * method provide labels visible in the menu
+     * other windows are available for student and other for teacher
+     */
     protected void addLeftCol(){
-       //implementation added in the children classes
+       //implementation provided in the children classes
     }
 
     public void goToTeacherDashboard(){
         FXMLLoader loader = new FXMLLoader(getClass().
                 getResource("/sample/gui/view/Teacher/dashboardTeacher.fxml"));
-         //local variables arent automatically initialized
         try {
-           // Parent root = loader.load();
             AnchorPane dashboard = (AnchorPane) loader.load();
             borderPane.setCenter(dashboard);
 
@@ -97,49 +94,30 @@ public class RootLayoutController implements Initializable {
         courses.setOnMousePressed(mouseEvent -> {
             openWindow(View.COURSES);
         });
-        achievements.setOnMousePressed(mouseEvent -> {
-            openWindow(View.ACHIVEMENTS);
-        });
         calendar.setOnMousePressed(mouseEvent -> {
             openWindow(View.CALENDAR);
         });
-        attendanceStats.setOnMousePressed(mouseEvent -> {
-            openWindow(View.ATTENDANCESTATS);
-        });
-        edit.setOnMousePressed(mouseEvent -> {
-            openWindow(View.EDIT);
-        });
-        notifications.setOnMousePressed(mouseEvent -> {
-            openWindow(View.NOTIFICATIONS);
-        });
-
     }
 
     protected void openWindow(View viewType) {
-        if(viewType == View.STUDENTS){
-            FXMLLoader loader = new FXMLLoader(getClass().
-                    getResource("/sample/gui/view/Teacher/StudentsView.fxml"));
-            try{
-                BorderPane studentView = (BorderPane) loader.load();
-               this.borderPane.setCenter(studentView);
+        String windowName =null;
+        if(viewType == View.STUDENTS || viewType== View.CALENDAR){
+            if(viewType== View.STUDENTS)
+                windowName ="StudentsView";
+            else
+                windowName = "calendarView";
 
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        if(viewType== View.CALENDAR){
             FXMLLoader loader = new FXMLLoader(getClass().
-                    getResource("/sample/gui/view/Teacher/calendarView.fxml"));
+                    getResource("/sample/gui/view/Teacher/"+ windowName +".fxml"));
             try{
-                BorderPane calendarView = (BorderPane) loader.load();
-                this.borderPane.setCenter(calendarView);
+                BorderPane view = (BorderPane) loader.load();
+                this.borderPane.setCenter(view);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -151,38 +129,21 @@ public class RootLayoutController implements Initializable {
    protected void addLeftColLabels() {
        label = new Label("KLK");
        label.setId("KLK");
-
        dashboard = new Label("Dashboard");
        dashboard.getStyleClass().add("label-navigation");
        students = new Label("Students");
        students.getStyleClass().add("label-navigation");
        courses = new Label("Courses");
        courses.getStyleClass().add("label-navigation");
-       achievements = new Label("Achievements");
-       achievements.getStyleClass().add("label-navigation");
        calendar = new Label("Calendar");
        calendar.getStyleClass().add("label-navigation");
-       attendanceStats = new Label("Attendance Stats");
-       attendanceStats.getStyleClass().add("label-navigation");
-       edit = new Label("Edit");
-       edit.getStyleClass().add("label-navigation");
-       notifications = new Label("Notifications");
-       notifications.getStyleClass().add("label-navigation");
-    }
-
-    public void setUser(LogInController.LoggingState studentlogged) {
-        loggingState = studentlogged;
     }
 
     public enum View{
         DASHBOARD,
         STUDENTS,
         COURSES,
-        ACHIVEMENTS,
         CALENDAR,
-        ATTENDANCESTATS,
-        EDIT,
-        NOTIFICATIONS,
     }
 
 }

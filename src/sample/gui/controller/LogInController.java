@@ -3,15 +3,9 @@ package sample.gui.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
-import javafx.animation.FadeTransition;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,26 +14,22 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import sample.gui.controller.Student.RootLayoutStudentController;
 import sample.gui.controller.Teacher.RootLayoutTeacherController;
 import sample.gui.model.LoggingModel;
 import sample.gui.util.Animations;
 import sample.gui.util.RegexValidator;
 import sample.gui.util.ShowMessage;
-
-import java.awt.event.MouseEvent;
-import java.io.IOException;
 import java.net.URL;
 import java.util.EventObject;
 import java.util.ResourceBundle;
 
 /**
+ * controller of the log in window.
+ * it handles all events that occur in the mentioned window.
  * @author kuba
  */
 public class LogInController implements Initializable, ILogIn{
@@ -51,7 +41,6 @@ public class LogInController implements Initializable, ILogIn{
     private JFXButton logInAsATeacher;
     private JFXTextField emailField;
     private  JFXTextField passwordField;
-    boolean xyState= true;
     ShowMessage showMessage1;
     ShowMessage justMakeRed;
     Button minimize = new Button();
@@ -69,8 +58,8 @@ public class LogInController implements Initializable, ILogIn{
     }
 
 
-    private void addInputFields() {
-         emailField = new JFXTextField();
+    private void setCenter() {
+        emailField = new JFXTextField();
         emailField.setLabelFloat(true);
         emailField.setPromptText("insert email");
 
@@ -80,16 +69,14 @@ public class LogInController implements Initializable, ILogIn{
 
         VBox vBox = new VBox();
         vBox.setSpacing(40);
-        //vBox.setPadding(new Insets(0, 150, 0, 150));
         vBox.getChildren().addAll(emailField, passwordField, getLoginButtons());
-        //vBox.getChildren().add(passwordField);
         borderPane.setAlignment(vBox, Pos.CENTER);
         borderPane.setMargin(vBox, new Insets(50, 150, 0, 150));
         borderPane.setCenter(vBox);
     }
 
     /**
-     * this method should be in bll
+     * check if provided email follows email syntax
      * @param emailField
      */
     private void checkEmail(JFXTextField emailField) {
@@ -101,6 +88,11 @@ public class LogInController implements Initializable, ILogIn{
         });
     }
 
+    /**
+     * If one of the fields is empty user is notified
+     * @param emailField
+     * @param passwordField
+     */
     private void checkIfEmpty(JFXTextField emailField, JFXTextField passwordField) {
         RequiredFieldValidator noInputVal = new RequiredFieldValidator();
         noInputVal.setMessage("Input Required");
@@ -131,10 +123,8 @@ public class LogInController implements Initializable, ILogIn{
         logInAsATeacher.setWrapText(true);
 
         HBox hBox = new HBox();
-
         hBox.getChildren().addAll(logInAsAStudent, logInAsATeacher);
         hBox.setSpacing(50);
-
         return hBox;
     }
 
@@ -142,16 +132,17 @@ public class LogInController implements Initializable, ILogIn{
     public void initialize(URL url, ResourceBundle resourceBundle) {
         borderPane.setPadding(new Insets(20));
        // addLabel();
-        addInputFields();
+        setCenter();
         setTop();
         addTopButtonsOnAction();
         //validate if its empty
         checkIfEmpty(emailField, passwordField);
         checkEmail(emailField);
         addButtonsOnAction();
-        hoverLogStudentButton();
-        hoverLogTeacherButton();
-        clearValidators();
+        Animations.hoverNodeAnimation(logInAsATeacher);
+        Animations.hoverNodeAnimation(logInAsAStudent);
+        // clearValidators();
+        
         //delete it!!
         openTeacherDashboard();
         openStudentDashboard();
@@ -169,8 +160,11 @@ public class LogInController implements Initializable, ILogIn{
 
     }
 
+    /**
+     * method add two buttons to the layout.
+     * It enables minimize and close functionality
+     */
     private void setTop() {
-
         HBox hBox = new HBox();
         ImageView img1 = new ImageView("/sample/gui/images/minimize.png");
         img1.setFitHeight(15);
@@ -188,6 +182,12 @@ public class LogInController implements Initializable, ILogIn{
         borderPane.setTop(hBox);
     }
 
+    /**
+     * delete validation information after
+     * access was once rejected and user
+     * provides new information in on of the input
+     * fields
+     */
     private void clearValidators() {
         //to do
     }
@@ -197,55 +197,22 @@ public class LogInController implements Initializable, ILogIn{
      */
     private void addButtonsOnAction(){
         logInAsAStudent.setOnAction(actionEvent -> {
-                //check if user exists in the system
-                if(checkIfStudentExists()){
-                    doAnimationAndShowInfo(LoggingState.STUDENTLOGGED);
-                    logIn(LoggingState.STUDENTLOGGED);
-                    closeLogIn(actionEvent);
-                }
-               else {
-                    doAnimationAndShowInfo(LoggingState.STUDENTDENIED);
-                }
+            //check if student exists in the system
+            if (checkIfStudentExists()) {
+                doAnimationAndShowInfo(LoggingState.STUDENTLOGGED);
+                logIn(LoggingState.STUDENTLOGGED);
+                closeLogIn(actionEvent);
+            } else {
+                doAnimationAndShowInfo(LoggingState.STUDENTDENIED);
+            }
         });
-        //for the teacher its the same story
         logInAsATeacher.setOnAction(actionEvent -> {
-            if(checkIfTeacherExists()){
+            //check if teacher exists in the system
+            if (checkIfTeacherExists()) {
                 doAnimationAndShowInfo(LoggingState.TEACHERLOGGED);
                 logIn(LoggingState.TEACHERLOGGED);
-            }
-            else
+            } else
                 doAnimationAndShowInfo(LoggingState.TEACHERDENIED);
-        });
-
-    }
-
-    private void hoverLogStudentButton(){
-        FadeTransition fadeTransition = new FadeTransition(Duration.millis(100) , logInAsAStudent);
-        fadeTransition.setFromValue(0.75);
-        fadeTransition.setToValue(1);
-        logInAsAStudent.setOnMouseEntered(mouseEvent -> {
-            //fade in??
-            fadeTransition.setRate(1.0);
-            fadeTransition.play();
-        });
-        logInAsAStudent.setOnMouseExited(mouseEvent -> {
-            fadeTransition.setRate(-2.0);
-            fadeTransition.play();
-        });
-    }
-
-    private void hoverLogTeacherButton() {
-        FadeTransition fadeTransition = new FadeTransition(Duration.millis(100) , logInAsATeacher);
-        fadeTransition.setFromValue(0.75);
-        fadeTransition.setToValue(1);
-        logInAsATeacher.setOnMouseEntered(mouseEvent -> {
-            //fade in??
-            fadeTransition.setRate(1.0);
-            fadeTransition.play();
-        });
-        logInAsATeacher.setOnMouseExited(mouseEvent -> {
-            fadeTransition.setRate(-2.0);
-            fadeTransition.play();
         });
     }
 
@@ -281,6 +248,8 @@ public class LogInController implements Initializable, ILogIn{
      *
      * 2. Email doesn't exists in the db: show information that user doesn't exist
      * show the regarding messege for student/teacher
+     *
+     * messege appears bellow input field
      * @param user
      */
     private void showInfo(LoggingState user) {
@@ -351,6 +320,9 @@ public class LogInController implements Initializable, ILogIn{
         }
     }
 
+    /**
+     * if user provided correct email and password they are directed to the main view
+     */
     private void openTeacherDashboard() {
         RootLayoutTeacherController rootLayoutTeacherController = new RootLayoutTeacherController();
         rootLayoutTeacherController.initRootLayout();
@@ -397,7 +369,6 @@ public class LogInController implements Initializable, ILogIn{
     public void setScene(Scene scene) {
         this.oldScene = scene;
     }
-
 
     public enum LoggingState{
         STUDENTLOGGED,
