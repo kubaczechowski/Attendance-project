@@ -18,6 +18,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import sample.be.Student;
 import sample.gui.model.StudentsModel;
+import sample.gui.util.Charts;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -104,12 +105,16 @@ public class StudentsViewController implements Initializable {
         HBox bottomContainer = new HBox();
         bottomContainer.setAlignment(Pos.TOP_CENTER);
         vboxContainer.setAlignment(Pos.BASELINE_CENTER);
-        bottomContainer.getChildren().add( getChart(absDays, presentDays));
+
+        PieChart pieChart = Charts.getChart(absDays, presentDays, true,
+                110, 110, Side.TOP);
+
+        bottomContainer.getChildren().add( pieChart);
         vboxContainer.getChildren().addAll( addStudentsPhoto(student), setStudentsName(student),
                 setStudentsProgramInfo(student),
                 setStudentsAttendanceInfo(absDays, presentDays), bottomContainer
                );
-        VBox.setVgrow(getChart(absDays, presentDays), Priority.ALWAYS);
+        VBox.setVgrow(pieChart, Priority.ALWAYS);
         vboxContainer.setSpacing(5);
         vboxContainer.setId("vBox");
         vboxContainer.setMinWidth(225);
@@ -146,21 +151,6 @@ public class StudentsViewController implements Initializable {
         imageView.setFitWidth(75);
         imageView.setFitHeight(75);
         return imageView;
-    }
-    
-    private PieChart getChart(int absDays, int presentDays){
-        PieChart chart = new PieChart();
-        PieChart.Data absent = new PieChart.Data("Absent", absDays);
-        PieChart.Data present = new PieChart.Data("Present", presentDays);
-        chart.getData().addAll(present, absent);
-        chart.setLabelsVisible(true);
-        chart.setMinSize(110, 110);
-        chart.setPrefSize(110, 110);
-        chart.setLabelLineLength(10);
-        chart.setLegendSide(Side.TOP);
-        chart.setId("Chart");
-        System.out.println(chart.getPrefHeight());
-        return chart;
     }
 
     /**

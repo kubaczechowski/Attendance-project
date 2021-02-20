@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -111,6 +112,17 @@ public class RootLayoutController implements Initializable {
                     getResource("/sample/gui/view/Teacher/"+ windowName +".fxml"));
             try{
                 BorderPane view = (BorderPane) loader.load();
+                this.borderPane.setCenter(view);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else if(viewType == View.COURSES){
+            FXMLLoader loader = new FXMLLoader(getClass().
+                    getResource("/sample/gui/view/Student/"+ "coursesView" +".fxml"));
+            try{
+                ScrollPane view = (ScrollPane) loader.load();
                 this.borderPane.setCenter(view);
 
             } catch (IOException e) {
