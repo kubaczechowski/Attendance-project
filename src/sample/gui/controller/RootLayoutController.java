@@ -61,7 +61,24 @@ public class RootLayoutController implements Initializable {
     }
 
     public void goToStudentDashboard(){
-        //Laslos Implementation
+        //Laszlo Implementation
+        FXMLLoader loader = new FXMLLoader(getClass().
+                getResource("/sample/gui/view/Student/ studentsCheckIn.fxml"));
+        try {
+            BorderPane dashboard = (BorderPane) loader.load();
+            borderPane.setCenter(dashboard);
+
+            //pass primary stage
+            DashboardTeacherController dashboardTeacherController = new DashboardTeacherController();
+            Stage primaryStage = (Stage) borderPane.getScene().getWindow();
+            dashboardTeacherController.setPrimaryStage(primaryStage);
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     public void initRootLayout(){
