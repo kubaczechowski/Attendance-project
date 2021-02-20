@@ -17,7 +17,7 @@
    <right>
       <TableView maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="485.0" prefWidth="283.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn prefWidth="281.99999996026355" text="Attendace" />
+          <TableColumn prefWidth="281.99999996026355" text="Absences" />
         </columns>
       </TableView>
    </right>

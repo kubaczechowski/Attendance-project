@@ -20,7 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class studentsCheckInController  implements Initializable {
-    
+
     @FXML
     Label lblDate;
     @FXML
@@ -59,11 +59,11 @@ public class studentsCheckInController  implements Initializable {
 
         pieChartThisMonths.setData(pieChartMonths);
         pieChartThisMonths.setLabelsVisible(false);
-        pieChartThisMonths.setTitle("Attendace in this Months");
+        pieChartThisMonths.setTitle("Attendance in this Months");
 
         pieChartThisSemester.setData(pieChartSemester);
         pieChartThisSemester.setLabelsVisible(false);
-        pieChartThisSemester.setTitle("Attendace in this Semester");
+        pieChartThisSemester.setTitle("Attendance in this Semester");
     }
 
 

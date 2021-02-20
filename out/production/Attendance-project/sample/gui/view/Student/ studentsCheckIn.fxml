@@ -15,7 +15,7 @@
 
 <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="borderPane" stylesheets="@../../css/studentsCheckIn.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.gui.controller.Student.studentsCheckInController">
    <right>
-      <TableView fx:id="attendace" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="485.0" prefWidth="283.0" BorderPane.alignment="CENTER">
+      <TableView maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="485.0" prefWidth="283.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn prefWidth="281.99999996026355" text="Attendace" />
         </columns>
