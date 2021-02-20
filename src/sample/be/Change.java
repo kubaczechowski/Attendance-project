@@ -3,10 +3,12 @@ package sample.be;
 public class Change {
     private String name;
     private String type;
+    private String date;
 
-    public Change(String name, String type) {
+    public Change(String name, String type, String date) {
         this.name = name;
         this.type = type;
+        this.date = date;
     }
 
     public String getName() {
@@ -23,5 +25,13 @@ public class Change {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

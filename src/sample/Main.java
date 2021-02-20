@@ -20,7 +20,7 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Teacher");
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         //add css file

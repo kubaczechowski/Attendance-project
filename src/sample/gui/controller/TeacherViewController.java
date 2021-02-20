@@ -11,12 +11,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import sample.be.Change;
 import sample.be.Student;
+import sample.gui.model.ChangeModel;
+import sample.gui.model.StudentModel;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class TeacherViewController implements Initializable {
 
+    @FXML private TableColumn dateColumnn;
     @FXML private TableView changeTable;
     @FXML private TableColumn nameColumnn;
     @FXML private TableColumn typeColumnn;
@@ -30,9 +33,14 @@ public class TeacherViewController implements Initializable {
     @FXML private TableView studentsTable;
     @FXML private PieChart absenceChart;
 
+    private StudentModel studentModel;
+    private ChangeModel changeModel;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        studentModel = new StudentModel();
+        changeModel = new ChangeModel();
         setChart();
         setStudentsTable();
         setAbsentList();
@@ -42,13 +50,11 @@ public class TeacherViewController implements Initializable {
     private void setChangeTable() {
         nameColumnn.setCellValueFactory(new PropertyValueFactory<Change, String>("name"));
         typeColumnn.setCellValueFactory(new PropertyValueFactory<Change, String>("type"));
+        dateColumnn.setCellValueFactory(new PropertyValueFactory<Change, String>("date"));
         acceptColumnn.setCellValueFactory(new PropertyValueFactory<Change, Void>(""));
         declineColumnn.setCellValueFactory(new PropertyValueFactory<Change, Void>(""));
 
-        ObservableList<Change> changes = FXCollections.observableArrayList(
-                new Change("Jack Grey", "p -> a"),
-                new Change("Electra Boomes", "a -> p")
-        );
+        ObservableList<Change> changes = FXCollections.observableArrayList(changeModel.getAllChanges());
 
         Callback<TableColumn<Change, Void>, TableCell<Change, Void>> cellFactory = new Callback<TableColumn<Change, Void>, TableCell<Change, Void>>() {
             @Override
@@ -108,6 +114,8 @@ public class TeacherViewController implements Initializable {
             }
         };
 
+
+
         changeTable.setItems(changes);
 
         acceptColumnn.setCellFactory(cellFactory);
@@ -115,9 +123,7 @@ public class TeacherViewController implements Initializable {
     }
 
     private void setAbsentList() {
-        ObservableList<String> absentStudents = FXCollections.observableArrayList(
-                "Jack Grey", "Anne Dumpling", "Jerry Window", "Tom Monte"
-        );
+        ObservableList<String> absentStudents = FXCollections.observableArrayList(studentModel.getAbsentToday());
         absentList.setItems(absentStudents);
     }
 
@@ -135,22 +141,7 @@ public class TeacherViewController implements Initializable {
         semesterColumn.setCellValueFactory(new PropertyValueFactory<Student, Double>("semester"));
         dayColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("day"));
 
-        ObservableList<Student> students = FXCollections.observableArrayList(
-                new Student("Cicily Scarse",3,25, "monday"),
-                new Student("Gus Audibert",10,4, "-"),
-                new Student("Rowan Donohue",3,13, "monday"),
-                new Student("Niven Canadine",4,12, "-"),
-                new Student("Electra Boomes",17,11, "-"),
-                new Student("Florenza Mardell",12,11, "-"),
-                new Student("Verge Swanbourne",8,8, "wednesday"),
-                new Student("Byrle Corgenvin",13,2, "friday"),
-                new Student("Jeff Gude",8,7, "monday"),
-                new Student("Scarlet De Vaar",1,4, "-"),
-                new Student("Cati Templar",16,10, "-"),
-                new Student("Tiebout McGurk",4,2, "-"),
-                new Student("Shelby Robbie",7,10, "tuesday")
-        );
-
+        ObservableList<Student> students = FXCollections.observableArrayList(studentModel.getAllStudents());
         studentsTable.setItems(students);
     }
 }

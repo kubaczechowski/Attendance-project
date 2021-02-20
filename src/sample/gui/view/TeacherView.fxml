@@ -9,7 +9,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane id="background" prefHeight="645.0" prefWidth="817.0" stylesheets="@../css/TeacherViewStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.gui.controller.TeacherViewController">
    <children>
       <AnchorPane id="card" layoutX="14.0" layoutY="14.0" prefHeight="289.0" prefWidth="336.0">
@@ -50,10 +49,11 @@
             </Text>
             <TableView id="changeTable" fx:id="changeTable" layoutX="11.0" layoutY="22.0" prefHeight="139.0" prefWidth="416.0">
               <columns>
-                <TableColumn fx:id="nameColumnn" prefWidth="145.0" text="name" />
-                <TableColumn fx:id="typeColumnn" minWidth="0.0" prefWidth="100.0" text="type" />
-                  <TableColumn fx:id="acceptColumnn" prefWidth="85.0" />
-                  <TableColumn fx:id="declineColumnn" prefWidth="75.0" />
+                <TableColumn fx:id="nameColumnn" prefWidth="132.5089111328125" text="name" />
+                <TableColumn fx:id="typeColumnn" minWidth="0.0" prefWidth="70.4910888671875" text="type" />
+                  <TableColumn fx:id="dateColumnn" prefWidth="69.45196533203125" text="date" />
+                  <TableColumn fx:id="acceptColumnn" minWidth="1.0" prefWidth="71.5479736328125" />
+                  <TableColumn fx:id="declineColumnn" prefWidth="73.451904296875" />
               </columns>
             </TableView>
          </children>
