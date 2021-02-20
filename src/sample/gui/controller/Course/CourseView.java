@@ -2,8 +2,11 @@ package sample.gui.controller.Course;
 
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -42,7 +45,7 @@ public class CourseView {
     public HBox getCourseView(){
         HBox contrainer = new HBox();
         contrainer.setId("SingleCourse");
-        contrainer.setPadding(new Insets(15));
+        contrainer.setPadding(new Insets(30));
         contrainer.getChildren().addAll(getleftSide(), getMiddle(),
                 getRightSide(67, 45));
        contrainer.setBackground(new Background(new BackgroundFill(Color.rgb(250,
@@ -58,11 +61,14 @@ public class CourseView {
         img.setFitWidth(100 );
         img.setFitHeight(100);
         Label courseName = new Label(nameOfCourse);
+        courseName.setId("courseName");
         topCorner.getChildren().addAll(img, courseName);
 
         Label teacher = new Label("Teacher: ");
+        teacher.setId("teacherL");
         Label teachersName = new Label(nameOfTeacher);
         Label location1 = new Label("Location: ");
+        location1.setId("locationL");
         Label loc  = new Label(location);
 
         Region region = new Region();
@@ -70,15 +76,18 @@ public class CourseView {
 
         VBox container = new VBox();
         container.prefWidth(500);
-        container.getChildren().addAll(topCorner, teacher, teachersName, region, location1, loc);
+        container.getChildren().addAll(topCorner, region, teacher, teachersName,  location1, loc);
         return container;
     }
 
     private VBox getMiddle(){
         VBox container = new VBox();
+        container.setAlignment(Pos.BOTTOM_CENTER);
         Label time = new Label("Start time");
         Label startT = new Label(startTime);
-        Label end = new Label(" End time");
+        time.setId("startT");
+        Label end = new Label("End time");
+        end.setId("endT");
         Label endT = new Label(endTime);
         Label dayOfWeek1 = new Label(dayOfWeek);
         Label dayOfWeek2 = new Label(this.dayOfWeek);
@@ -96,7 +105,10 @@ public class CourseView {
     private VBox getRightSide(int absDays, int presDays ){
         VBox vBox = new VBox();
         vBox.prefHeight(500);
-        vBox.getChildren().addAll(getRightCorner(),
+        Region  region = new Region();
+        VBox.setVgrow(region, Priority.ALWAYS);
+
+        vBox.getChildren().addAll(getRightCorner(),region,
                 Charts.getChart(absDays, presDays, true, 90, 90, Side.TOP));
         return vBox;
     }
@@ -106,8 +118,10 @@ public class CourseView {
         //left
         VBox left = new VBox();
         Label sd = new Label("Start Date");
+        sd.setId("startDateL");
         HBox bott = new HBox();
         Label startD = new Label(String.valueOf(startDay));
+        startD.setId("startD");
         VBox right = new VBox();
         Label startM = new Label(startMonth);
         Label startY = new Label(String.valueOf(startYear));
@@ -119,9 +133,11 @@ public class CourseView {
 
         //right
         VBox right0 = new VBox();
-        Label ed = new Label("Start Date");
+        Label ed = new Label("End Date");
+        ed.setId("endDateL");
         HBox bott2 = new HBox();
         Label endD = new Label(String.valueOf(endDay));
+        endD.setId("endD");
         VBox right2 = new VBox();
         Label endM = new Label(endMonth);
         Label endY = new Label(String.valueOf(endYear));
@@ -131,8 +147,10 @@ public class CourseView {
         //all right
         right0.getChildren().addAll(ed, bott2);
 
+        Separator separator = new Separator();
+        separator.setOrientation(Orientation.VERTICAL);
         //everything
-        masterContainer.getChildren().addAll(left, right0);
+        masterContainer.getChildren().addAll(left,separator, right0);
         return masterContainer;
     }
 

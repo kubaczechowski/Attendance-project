@@ -76,6 +76,7 @@ public class RootLayoutController implements Initializable {
         Scene scene = new Scene(borderPane);
         scene.getStylesheets().add(getClass().
                     getResource("/sample/gui/css/rootLayout.css").toExternalForm());
+
         primaryStage = new Stage();
         primaryStage.setScene(scene);
         primaryStage.show();
