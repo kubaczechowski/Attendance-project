@@ -48,11 +48,29 @@
     -fx-background-color:#d2eff9 ;
 }
 
-/*
-#Chart{
-    -fx-text-fill: black;
+/**
+course view css. later meybe move to seperate class
+ */
+#NameLabel{
+    -fx-font-size: 44px;
 }
 
- */
+#teacherL, #locationL, #startT, #endT{
+-fx-font-size: 26px;
+}
 
+#startDateL, #endDateL{
+    -fx-font-size: 32px;
+}
+#startD, #endD{
+    -fx-font-size: 72;
+}
+#startY, #startM, #endY, #endM{
+    -fx-font-size: 23;
+}
+
+#courseItem{
+    -fx-background-color: white;
+    -fx-background-opacity: 0.9;
+}
 

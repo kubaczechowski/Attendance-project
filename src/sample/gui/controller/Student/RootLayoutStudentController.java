@@ -38,11 +38,22 @@ public class RootLayoutStudentController extends RootLayoutController {
             Scene scene = new Scene(borderPane);
             scene.getStylesheets().add(getClass().
                     getResource("/sample/gui/css/rootLayout.css").toExternalForm());
+            scene.getStylesheets().add(getClass().
+                    getResource("/sample/gui/css/courseView.css").toExternalForm());
             primaryStage = new Stage();
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void openWindow(View viewType) {
+        super.openWindow(viewType);
+
+        if(viewType == View.DASHBOARD){
+
         }
     }
 }

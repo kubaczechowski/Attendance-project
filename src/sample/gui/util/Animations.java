@@ -23,7 +23,7 @@ public class Animations {
     private static boolean xyState= true;
      private static double xOffset;
      private static double yOffset;
-
+     private static Parent root;
 
     /**
      * animation moves node only horizontally
@@ -85,6 +85,9 @@ public class Animations {
         });
     }
 
+    /**
+     * event handler takes the position of the stage
+     */
    public static EventHandler<MouseEvent> mousePressed =  new EventHandler<MouseEvent>()  {
         @Override
         public void handle(MouseEvent mouseEvent) {
@@ -93,12 +96,14 @@ public class Animations {
         }
     };
 
-    private static Parent root;
 
     public static void setRoot(Parent root1){
        root = root1;
     }
 
+    /**
+     * when mouse is dragged event handler sets new position for the stage
+     */
     public static EventHandler<MouseEvent> mouseDragged = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent me) {
