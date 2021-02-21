@@ -47,4 +47,13 @@ public class RootLayoutStudentController extends RootLayoutController {
             e.printStackTrace();
         }
     }
+
+    @Override
+    protected void openWindow(View viewType) {
+        super.openWindow(viewType);
+
+        if(viewType == View.DASHBOARD){
+
+        }
+    }
 }
