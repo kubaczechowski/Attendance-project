@@ -42,7 +42,7 @@ public class studentsCheckInController  implements Initializable {
 
     private void clock(){
         Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE\ndd.MM.yyyy\n  HH:mm");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("  EEEE\ndd.MM.yyyy\n    HH:mm");
             lblDate.setText(LocalDateTime.now().format(formatter));
         }), new KeyFrame(Duration.seconds(1)));
         clock.setCycleCount(Animation.INDEFINITE);

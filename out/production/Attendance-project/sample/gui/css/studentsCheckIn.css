@@ -37,6 +37,28 @@
 .custom-jfx-radio.button-red{
     -jfx-selected-color:#FF3B30;
 }
+.table-view{
+    -fx-background-color: #FFFF;
+    -fx-background-radius: 16px;
+}
+
+.table-view .column-header-background{
+    -fx-background-color:#d2eff9;
+    -fx-background-radius:30px;
+
+
+}
+.table-view .column-header, .table-view .filler{
+    -fx-border-radius: 40px;
+    -fx-background-radius:40px;
+    -fx-background-color:transparent;
+}
+.label-time{
+    -fx-background-color: #d2eff9;
+    -fx-border-radius: 40px;
+    -fx-background-radius: 40px;
+}
+
 
 
 

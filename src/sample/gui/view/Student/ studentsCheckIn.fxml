@@ -13,12 +13,18 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="borderPane" stylesheets="@../../css/studentsCheckIn.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.gui.controller.Student.studentsCheckInController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" styleClass="borderPane" stylesheets="@../../css/studentsCheckIn.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.gui.controller.Student.studentsCheckInController">
    <right>
-      <TableView maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="485.0" prefWidth="283.0" BorderPane.alignment="CENTER">
+      <TableView maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="485.0" prefWidth="283.0" stylesheets="@../../css/studentsCheckIn.css" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn prefWidth="281.99999996026355" text="Absences" />
+          <TableColumn minWidth="0.0" prefWidth="281.99999996026355" text="Absences" />
         </columns>
+         <styleClass>
+            <String fx:value="colum-header" />
+            <String fx:value="colum-header-background" />
+            <String fx:value="filler" />
+            <String fx:value="table-view" />
+         </styleClass>
       </TableView>
    </right>
    <bottom>
@@ -50,9 +56,9 @@
    <top>
       <HBox alignment="CENTER" prefHeight="131.0" prefWidth="900.0" styleClass="topPane" stylesheets="@../../css/studentsCheckIn.css" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="129.0" prefWidth="109.0">
+            <HBox alignment="CENTER_RIGHT" prefHeight="129.0" prefWidth="109.0">
                <children>
-                  <Label fx:id="lblDate" prefHeight="134.0" prefWidth="111.0" text="Label" />
+                  <Label fx:id="lblDate" alignment="CENTER" contentDisplay="CENTER" prefHeight="129.0" prefWidth="109.0" styleClass="label-time" stylesheets="@../../css/studentsCheckIn.css" text="Label" />
                </children>
                <HBox.margin>
                   <Insets right="20.0" />
@@ -62,6 +68,9 @@
                <toggleGroup>
                   <ToggleGroup fx:id="radiobutton" />
                </toggleGroup>
+               <HBox.margin>
+                  <Insets bottom="50.0" />
+               </HBox.margin>
             </JFXRadioButton>
             <JFXButton buttonType="RAISED" prefHeight="55.0" prefWidth="171.0" stylesheets="@../../css/studentsCheckIn.css" text="Save">
                <HBox.margin>
@@ -77,6 +86,9 @@
                   <String fx:value="button-red" />
                   <String fx:value="custom-jfx-radio" />
                </styleClass>
+               <HBox.margin>
+                  <Insets bottom="50.0" />
+               </HBox.margin>
             </JFXRadioButton>
          </children>
       </HBox>
