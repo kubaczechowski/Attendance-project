@@ -65,3 +65,6 @@ course view css. later meybe move to seperate class
 #startD, #endD{
     -fx-font-size: 72;
 }
+#startY, #startM, #endY, #endM{
+    -fx-font-size: 23;
+}

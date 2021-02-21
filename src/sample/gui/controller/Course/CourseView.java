@@ -7,6 +7,7 @@ import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -44,6 +45,8 @@ public class CourseView {
 
     public HBox getCourseView(){
         HBox contrainer = new HBox();
+        DropShadow ds = new DropShadow(15, Color.DARKGREEN);
+        contrainer.setEffect(ds);
         contrainer.setId("SingleCourse");
         contrainer.setPadding(new Insets(30));
         contrainer.getChildren().addAll(getleftSide(), getMiddle(),
@@ -124,7 +127,9 @@ public class CourseView {
         startD.setId("startD");
         VBox right = new VBox();
         Label startM = new Label(startMonth);
+        startM.setId("startM");
         Label startY = new Label(String.valueOf(startYear));
+        startY.setId("startY");
 
         right.getChildren().addAll(startM, startY);
         bott.getChildren().addAll(startD, right);
@@ -140,7 +145,9 @@ public class CourseView {
         endD.setId("endD");
         VBox right2 = new VBox();
         Label endM = new Label(endMonth);
+        endM.setId("endM");
         Label endY = new Label(String.valueOf(endYear));
+        endY.setId("endY");
 
         right2.getChildren().addAll(endM, endY);
         bott2.getChildren().addAll(endD, right2);

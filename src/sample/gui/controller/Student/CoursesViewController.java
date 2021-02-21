@@ -30,6 +30,7 @@ public class CoursesViewController implements Initializable {
     private ScrollPane scrollP;
 
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         CourseView courseView = new CourseView();
