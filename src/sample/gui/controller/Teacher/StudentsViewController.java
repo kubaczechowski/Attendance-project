@@ -107,7 +107,7 @@ public class StudentsViewController implements Initializable {
         vboxContainer.setAlignment(Pos.BASELINE_CENTER);
 
         PieChart pieChart = Charts.getChart(absDays, presentDays, true,
-                110, 110, Side.TOP);
+                110, 110, Side.TOP, null);
 
         bottomContainer.getChildren().add( pieChart);
         vboxContainer.getChildren().addAll( addStudentsPhoto(student), setStudentsName(student),

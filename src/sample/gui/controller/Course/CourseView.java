@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.effect.DropShadow;
@@ -47,6 +48,8 @@ public class CourseView {
         HBox contrainer = new HBox();
         DropShadow ds = new DropShadow(15, Color.DARKGREEN);
         contrainer.setEffect(ds);
+        contrainer.setMinWidth(500);
+        contrainer.setMaxWidth(800);
         contrainer.setId("SingleCourse");
         contrainer.setPadding(new Insets(30));
         contrainer.getChildren().addAll(getleftSide(), getMiddle(),
@@ -110,9 +113,9 @@ public class CourseView {
         vBox.prefHeight(500);
         Region  region = new Region();
         VBox.setVgrow(region, Priority.ALWAYS);
-
-        vBox.getChildren().addAll(getRightCorner(),region,
-                Charts.getChart(absDays, presDays, true, 90, 90, Side.TOP));
+        PieChart pieChart = Charts.getChart(absDays, presDays, false, 150, 150, Side.TOP,
+                new Insets(15, 0, 0, 0));
+        vBox.getChildren().addAll(getRightCorner(),pieChart);
         return vBox;
     }
 
@@ -123,11 +126,12 @@ public class CourseView {
         Label sd = new Label("Start Date");
         sd.setId("startDateL");
         HBox bott = new HBox();
-        Label startD = new Label(String.valueOf(startDay));
+       Label startD = new Label(String.valueOf(startDay));
         startD.setId("startD");
         VBox right = new VBox();
         Label startM = new Label(startMonth);
         startM.setId("startM");
+        //startM.setPadding(new Insets(20, 0, 0, 0));
         Label startY = new Label(String.valueOf(startYear));
         startY.setId("startY");
 
@@ -144,8 +148,10 @@ public class CourseView {
         Label endD = new Label(String.valueOf(endDay));
         endD.setId("endD");
         VBox right2 = new VBox();
+        right2.setSpacing(0);
         Label endM = new Label(endMonth);
         endM.setId("endM");
+       // endM.setPadding(new Insets(20, 0, 0, 0));
         Label endY = new Label(String.valueOf(endYear));
         endY.setId("endY");
 
@@ -157,6 +163,7 @@ public class CourseView {
         Separator separator = new Separator();
         separator.setOrientation(Orientation.VERTICAL);
         //everything
+        masterContainer.setSpacing(4);
         masterContainer.getChildren().addAll(left,separator, right0);
         return masterContainer;
     }
