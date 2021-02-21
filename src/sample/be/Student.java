@@ -15,6 +15,23 @@ public class Student extends User {
     private IntegerProperty avgAttendance;
 
     private String name;
+
+    public double getP_month() {
+        return p_month;
+    }
+
+    public void setP_month(double p_month) {
+        this.p_month = p_month;
+    }
+
+    public double getP_semester() {
+        return p_semester;
+    }
+
+    public void setP_semester(double p_semester) {
+        this.p_semester = p_semester;
+    }
+
     private double p_month;
     private double p_semester;
     private String day; //which day they are usually absent on
