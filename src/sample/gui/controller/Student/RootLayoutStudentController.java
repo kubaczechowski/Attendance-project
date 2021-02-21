@@ -53,7 +53,15 @@ public class RootLayoutStudentController extends RootLayoutController {
         super.openWindow(viewType);
 
         if(viewType == View.DASHBOARD){
+            FXMLLoader loader = new FXMLLoader(getClass().
+                    getResource("/sample/gui/view/Student/ studentsCheckIn.fxml"));
+            try{
+                BorderPane view = (BorderPane) loader.load();
+                this.borderPane.setCenter(view);
 
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

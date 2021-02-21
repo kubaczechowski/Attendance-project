@@ -49,4 +49,20 @@ public class RootLayoutTeacherController extends RootLayoutController {
             e.printStackTrace();
         }
     }
+    @Override
+    protected void openWindow(View viewType) {
+        super.openWindow(viewType);
+
+        if(viewType == View.DASHBOARD){
+            FXMLLoader loader = new FXMLLoader(getClass().
+                    getResource("/sample/gui/view/Teacher/"+ "TeacherView" +".fxml"));
+            try{
+                BorderPane view = (BorderPane) loader.load();
+                this.borderPane.setCenter(view);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
