@@ -39,17 +39,23 @@ public class CoursesViewController implements Initializable {
         CourseView courseView = new CourseView();
         //scrollP.setContent(courseView.getCourseView());
 
-        VBox vBox = new VBox();
+        //VBox vBox = new VBox();
        // vBox.setBackground(new Background(new BackgroundFill(Color.DARKGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-        vBox.setAlignment(Pos.TOP_CENTER);
-        vBox.setSpacing(40);
+        //vBox.setAlignment(Pos.TOP_CENTER);
+        //vBox.setSpacing(40);
+        TilePane tilePane = new TilePane();
+        tilePane.setPadding(new Insets(30, 30, 30, 30));
+        tilePane.setHgap(50);
+        tilePane.setVgap(30);
+        tilePane.setAlignment(Pos.BASELINE_CENTER);
+
         //vBox.setPrefSize(VBox.USE_COMPUTED_SIZE, VBox.USE_COMPUTED_SIZE);
         for(int i=0; i<15; i++){
-            HBox courseItem = courseView.getCourseView();
+           HBox courseItem = courseView.getCourseView();
             //courseItem.setPrefSize(HBox.USE_COMPUTED_SIZE, HBox.USE_COMPUTED_SIZE);
-            vBox.getChildren().add(courseItem);
+            tilePane.getChildren().add(courseItem);
         }
-        scrollP.setContent(vBox);
+        scrollP.setContent(tilePane);
 
     }
 

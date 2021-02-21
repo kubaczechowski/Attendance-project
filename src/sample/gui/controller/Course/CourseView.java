@@ -49,12 +49,12 @@ public class CourseView {
         DropShadow ds = new DropShadow(15, Color.DARKGREEN);
         contrainer.setEffect(ds);
         contrainer.setMinWidth(500);
-        contrainer.setMaxWidth(800);
+        contrainer.setMaxWidth(650);
         contrainer.setId("SingleCourse");
         contrainer.setPadding(new Insets(30));
         contrainer.getChildren().addAll(getleftSide(), getMiddle(),
-                getRightSide(67, 45));
-       contrainer.setBackground(new Background(new BackgroundFill(Color.rgb(250,
+               getRightSide(67, 45));
+      contrainer.setBackground(new Background(new BackgroundFill(Color.rgb(250,
                250, 250), CornerRadii.EMPTY, Insets.EMPTY)));
         return contrainer;
     }
