@@ -1,5 +1,8 @@
 package sample.gui.controller;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,17 +11,23 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import javafx.util.Callback;
+import javafx.util.Duration;
 import sample.be.Change;
 import sample.be.Student;
 import sample.gui.model.ChangeModel;
 import sample.gui.model.StudentModel;
 
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class TeacherViewController implements Initializable {
 
+    @FXML private Text dateLabel;
+    @FXML private Text dayLabel;
     @FXML private TableColumn dateColumnn;
     @FXML private TableView changeTable;
     @FXML private TableColumn nameColumnn;
@@ -45,6 +54,18 @@ public class TeacherViewController implements Initializable {
         setStudentsTable();
         setAbsentList();
         setChangeTable();
+        setDate();
+    }
+
+    private void setDate() {
+        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("  EEEE ");
+            dayLabel.setText(LocalDateTime.now().format(formatter));
+            DateTimeFormatter form = DateTimeFormatter.ofPattern("  dd.MM.yyyy\n    HH:mm");
+            dateLabel.setText(LocalDateTime.now().format(form));
+        }), new KeyFrame(Duration.seconds(1)));
+        clock.setCycleCount(Animation.INDEFINITE);
+        clock.play();
     }
 
     private void setChangeTable() {
@@ -137,8 +158,8 @@ public class TeacherViewController implements Initializable {
 
     private void setStudentsTable() {
         nameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("name"));
-        monthColumn.setCellValueFactory(new PropertyValueFactory<Student, Double>("month"));
-        semesterColumn.setCellValueFactory(new PropertyValueFactory<Student, Double>("semester"));
+        monthColumn.setCellValueFactory(new PropertyValueFactory<Student, Double>("p_month"));
+        semesterColumn.setCellValueFactory(new PropertyValueFactory<Student, Double>("p_semester"));
         dayColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("day"));
 
         ObservableList<Student> students = FXCollections.observableArrayList(studentModel.getAllStudents());

@@ -12,6 +12,8 @@ public class User {
     private StringProperty filePathImg;
     private ImageView photo;
 
+    private String fullName;
+
     public User(String firstName, String secondName, String filePathImg) {
         this.firstName = new SimpleStringProperty(this, "firstName", firstName);
         this.secondName = new SimpleStringProperty(this, "secondName", secondName);
@@ -27,6 +29,9 @@ public class User {
         //this.photo.setFitHeight(20);
        // this.photo.setFitWidth(20);
 
+    public User(String name) {
+        this.fullName = name;
+    }
 
     public String getFirstName() {
         return firstName.get();

@@ -17,8 +17,7 @@ public class Student extends User {
     private String name;
     private double p_month;
     private double p_semester;
-    //which day they are usually absent on
-    private String day;
+    private String day; //which day they are usually absent on
 
     public int getAbsence() {
         return absence.get();
@@ -62,6 +61,7 @@ public class Student extends User {
     }
 
     public Student(String name, double p_month, double p_semester, String day) {
+        super(name);
         this.name = name;
         this.p_month = p_month;
         this.p_semester = p_semester;
