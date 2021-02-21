@@ -36,6 +36,8 @@ public class CoursesViewController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         scrollP.fitToWidthProperty().set(true);
+        scrollP.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
         CourseView courseView = new CourseView();
         //scrollP.setContent(courseView.getCourseView());
 

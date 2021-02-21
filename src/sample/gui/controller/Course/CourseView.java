@@ -46,6 +46,7 @@ public class CourseView {
 
     public HBox getCourseView(){
         HBox contrainer = new HBox();
+        contrainer.setId("courseItem");
         DropShadow ds = new DropShadow(15, Color.DARKGREEN);
         contrainer.setEffect(ds);
         contrainer.setMinWidth(500);

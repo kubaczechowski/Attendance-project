@@ -1,3 +1,51 @@
-#courseName{
+/**
+course view css. later meybe move to seperate class
+ */
+#NameLabel{
+    -fx-font-size: 44px;
+}
+
+#teacherL, #locationL, #startT, #endT{
+    -fx-font-size: 26px;
+}
+
+#startDateL, #endDateL{
+    -fx-font-size: 32px;
+}
+#startD, #endD{
+    -fx-font-size: 72;
+}
+#startY, #startM, #endY, #endM{
+    -fx-font-size: 23;
+}
+
+#courseItem{
+    -fx-background-color: white;
+    -fx-background-opacity: 0.9;
+}
+
+/* The increment and decrement button CSS class of scrollbar */
+.increment-button , .decrement-button {
+    -fx-background-color:transparent;
+    -fx-background-radius: 2em;
+
+}
+
+/* The main scrollbar **track** CSS class  */
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color:derive(gray,80%);
+
+    -fx-background-radius: 2em;
+    -fx-border-radius:2em;
+}
+
+/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color:derive(black,90%);
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
 
 }

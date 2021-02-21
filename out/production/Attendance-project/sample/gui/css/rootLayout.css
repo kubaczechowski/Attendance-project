@@ -68,3 +68,9 @@ course view css. later meybe move to seperate class
 #startY, #startM, #endY, #endM{
     -fx-font-size: 23;
 }
+
+#courseItem{
+    -fx-background-color: white;
+    -fx-background-opacity: 0.9;
+}
+
