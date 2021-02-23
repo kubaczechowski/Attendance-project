@@ -65,8 +65,16 @@ public class Animations {
         timeline.play();
     }
 
-    public static void viewFadeIn(){
-
+    /**
+     * Whenever a new center of the border pane appears the method is used
+     * @param node
+     * @param timeInMillis
+     */
+    public static void fadeInTransition(Node node, int timeInMillis){
+        FadeTransition ft = new FadeTransition(Duration.millis(timeInMillis), node);
+        ft.setFromValue(0.0);
+        ft.setToValue(1.0);
+        ft.play();
     }
 
     /**

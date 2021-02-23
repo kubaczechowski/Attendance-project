@@ -18,6 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import sample.gui.controller.Teacher.DashboardTeacherController;
+import sample.gui.util.Animations;
 
 import java.io.IOException;
 import java.net.URL;
@@ -122,10 +123,7 @@ public class RootLayoutController implements Initializable {
             try{
                 BorderPane view = (BorderPane) loader.load();
                 //trying to do fade in and out animation
-                FadeTransition ft = new FadeTransition(Duration.millis(1000), view);
-                ft.setFromValue(0.0);
-                ft.setToValue(1.0);
-                ft.play();
+                Animations.fadeInTransition(view, 650);
                 this.borderPane.setCenter(view);
 
             } catch (IOException e) {
@@ -137,6 +135,7 @@ public class RootLayoutController implements Initializable {
                     getResource("/sample/gui/view/Student/"+ "coursesView" +".fxml"));
             try{
                 ScrollPane view = (ScrollPane) loader.load();
+                Animations.fadeInTransition(view, 900);
                 this.borderPane.setCenter(view);
 
             } catch (IOException e) {
