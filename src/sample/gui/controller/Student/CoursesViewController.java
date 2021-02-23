@@ -38,7 +38,7 @@ public class CoursesViewController implements Initializable {
         scrollP.fitToWidthProperty().set(true);
         scrollP.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
-        CourseView courseView = new CourseView();
+       CourseView courseView = new CourseView();
         //scrollP.setContent(courseView.getCourseView());
 
         //VBox vBox = new VBox();

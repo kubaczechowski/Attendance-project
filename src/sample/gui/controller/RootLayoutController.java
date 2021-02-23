@@ -1,15 +1,17 @@
 package sample.gui.controller;
 
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
+
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import sample.gui.controller.Teacher.DashboardTeacherController;
+import sample.gui.util.Animations;
 
 import java.io.IOException;
 import java.net.URL;
@@ -100,6 +102,8 @@ public class RootLayoutController implements Initializable {
         }
 
     }
+
+    // I see here huge code smell
     protected void addLabelsOnAction() {
         dashboard.setOnMousePressed(mouseEvent -> {
             openWindow(View.DASHBOARD);
@@ -128,6 +132,8 @@ public class RootLayoutController implements Initializable {
                     getResource("/sample/gui/view/Teacher/"+ windowName +".fxml"));
             try{
                 BorderPane view = (BorderPane) loader.load();
+                //trying to do fade in and out animation
+                Animations.fadeInTransition(view, 650);
                 this.borderPane.setCenter(view);
 
             } catch (IOException e) {
@@ -139,6 +145,7 @@ public class RootLayoutController implements Initializable {
                     getResource("/sample/gui/view/Student/"+ "coursesView" +".fxml"));
             try{
                 ScrollPane view = (ScrollPane) loader.load();
+                Animations.fadeInTransition(view, 900);
                 this.borderPane.setCenter(view);
 
             } catch (IOException e) {
@@ -146,6 +153,7 @@ public class RootLayoutController implements Initializable {
             }
         }
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
