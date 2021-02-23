@@ -1,6 +1,9 @@
 package sample.gui.controller;
 
 
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -107,6 +110,7 @@ public class RootLayoutController implements Initializable {
     protected void addLabelsOnAction() {
         dashboard.setOnMousePressed(mouseEvent -> {
             openWindow(View.DASHBOARD);
+           // System.out.println("Action!");
         });
 
         students.setOnMousePressed(mouseEvent -> {

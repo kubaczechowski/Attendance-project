@@ -8,6 +8,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import sample.gui.controller.RootLayoutController;
+import sample.gui.util.Animations;
 
 import java.io.IOException;
 
@@ -57,6 +58,7 @@ public class RootLayoutStudentController extends RootLayoutController {
                     getResource("/sample/gui/view/Student/ studentsCheckIn.fxml"));
             try{
                 BorderPane view = (BorderPane) loader.load();
+                Animations.fadeInTransition(view, 900);
                 this.borderPane.setCenter(view);
 
             } catch (IOException e) {

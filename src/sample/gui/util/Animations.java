@@ -72,7 +72,7 @@ public class Animations {
      */
     public static void fadeInTransition(Node node, int timeInMillis){
         FadeTransition ft = new FadeTransition(Duration.millis(timeInMillis), node);
-        ft.setFromValue(0.0);
+        ft.setFromValue(0.4);
         ft.setToValue(1.0);
         ft.play();
     }
