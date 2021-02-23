@@ -65,6 +65,10 @@ public class Animations {
         timeline.play();
     }
 
+    public static void viewFadeIn(){
+
+    }
+
     /**
      * whenever the node is hovered
      * it becomes more bright

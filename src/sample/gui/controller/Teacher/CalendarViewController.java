@@ -52,8 +52,9 @@ public class CalendarViewController implements Initializable {
             new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    if(mouseEvent.getSource() instanceof EntryViewBase){
+                    if(mouseEvent.getSource() instanceof Entry){
                         //open edit attendance window
+                        System.out.println("we got it");
                         OpenEditAttendance.openEditAttendance((Entry)
                                 mouseEvent.getSource());
                     }
