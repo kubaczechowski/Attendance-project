@@ -2,7 +2,7 @@ package sample.gui.controller.Teacher;
 
 import com.calendarfx.model.*;
 import com.calendarfx.view.CalendarView;
-import com.calendarfx.view.EntryViewBase;
+import com.calendarfx.view.DateControl;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Callback;
 import sample.gui.util.AddClassesToCal;
 
 import java.io.IOException;
@@ -39,15 +40,23 @@ public class CalendarViewController implements Initializable {
         updateTime();
         runCal();
         openingEditDist();
+        calendarView.setEntryDetailsCallback(param -> {
+            System.out.println("we got it");
+            OpenEditAttendance.openEditAttendance(param.getEntry());
+
+            return true;
+        });
+
+
     }
 
     private void openingEditDist() {
-       borderPane.setOnMousePressed(MousePressedEventHandler);
-       borderPane.setOnMousePressed(clicked);
+      /* borderPane.setOnMousePressed(MousePressedEventHandler);
+       borderPane.setOnMousePressed(clicked);*/
        // calendarView.getWeekPage().setOnMousePressed(clicked);
 
     }
-
+/*
     EventHandler<MouseEvent> MousePressedEventHandler =
             new EventHandler<MouseEvent>() {
                 @Override
@@ -63,7 +72,7 @@ public class CalendarViewController implements Initializable {
 
     EventHandler<MouseEvent> clicked = mouseEvent -> {
         System.out.println(mouseEvent.getSource().toString());
-    };
+    };*/
 
     private void loadCalendar() {
         classes.setStyle(Calendar.Style.STYLE5);
@@ -103,7 +112,7 @@ public class CalendarViewController implements Initializable {
     }
 
     static class OpenEditAttendance{
-        public static void openEditAttendance(Entry lecture ){
+        public static void openEditAttendance(Entry<?> lecture ){
             FXMLLoader loader = new FXMLLoader(OpenEditAttendance.class.
                     getResource("/sample/gui/view/Teacher/editAttendance.fxml"));
             Parent root = null;
