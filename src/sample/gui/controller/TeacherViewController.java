@@ -6,12 +6,14 @@ import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import sample.be.Change;
@@ -26,6 +28,7 @@ import java.util.ResourceBundle;
 
 public class TeacherViewController implements Initializable {
 
+    @FXML private Button logOutButton;
     @FXML private Text dateLabel;
     @FXML private Text dayLabel;
     @FXML private TableColumn dateColumnn;
@@ -55,6 +58,17 @@ public class TeacherViewController implements Initializable {
         setAbsentList();
         setChangeTable();
         setDate();
+        setLogOut();
+    }
+
+    private void setLogOut() {
+        logOutButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Stage s = (Stage) logOutButton.getScene().getWindow();
+                s.close();
+            }
+        });
     }
 
     private void setDate() {

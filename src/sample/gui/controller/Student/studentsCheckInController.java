@@ -1,16 +1,19 @@
 package sample.gui.controller.Student;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import sample.be.Student;
@@ -25,6 +28,8 @@ import java.util.ResourceBundle;
 public class studentsCheckInController  implements Initializable {
 
 
+    @FXML
+    private JFXButton logOut;
     @FXML
     private Label lblDate;
     @FXML
@@ -54,9 +59,18 @@ public class studentsCheckInController  implements Initializable {
         clock();
         PieCharts();
         Absences();
+        LogOut();
     }
 
-
+    private void LogOut() {
+        logOut.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Stage s = (Stage) logOut.getScene().getWindow();
+                s.close();
+            }
+        });
+    }
 
 
     private void clock(){
