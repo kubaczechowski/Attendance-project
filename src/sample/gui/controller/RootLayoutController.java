@@ -56,6 +56,8 @@ public class RootLayoutController implements Initializable {
             //pass primary stage
             DashboardTeacherController dashboardTeacherController = new DashboardTeacherController();
             Stage primaryStage = (Stage) borderPane.getScene().getWindow();
+            primaryStage.setMinWidth(970);
+            primaryStage.setMinHeight(670);
             dashboardTeacherController.setPrimaryStage(primaryStage);
 
         }
