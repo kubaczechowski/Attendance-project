@@ -35,4 +35,14 @@ public class StudentDAO {
 
         return students;
     }
+
+    public List<Student> getAbsentDays(){
+        List<Student> days = new ArrayList<>();
+       days.add(new Student("01.11.2020"));
+       days.add(new Student("22.12.2020"));
+       days.add(new Student("05.01.2021"));
+
+
+       return days;
+    }
 }

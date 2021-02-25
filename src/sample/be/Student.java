@@ -14,6 +14,7 @@ public class Student extends User {
     private IntegerProperty absence; // abs / pres/ no data
     private IntegerProperty avgAttendance;
 
+
     private String name;
 
     public double getP_month() {
@@ -35,6 +36,8 @@ public class Student extends User {
     private double p_month;
     private double p_semester;
     private String day; //which day they are usually absent on
+
+
 
     public int getAbsence() {
         return absence.get();
@@ -83,6 +86,21 @@ public class Student extends User {
         this.p_month = p_month;
         this.p_semester = p_semester;
         this.day = day;
+    }
+    private String absenceDays;
+    public Student(String absenceDays) {
+        super(absenceDays);
+        this.absenceDays = absenceDays;
+
+
+    }
+
+    public String getAbsenceDays() {
+        return absenceDays;
+    }
+
+    public void setAbsenceDays(String absenceDays) {
+        this.absenceDays = absenceDays;
     }
 
     public String getStudyProgram() {

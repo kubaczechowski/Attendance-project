@@ -38,16 +38,16 @@
     -fx-padding: 2 0 2 10px;
 }
 
-.table-row-cell: hover {
+.table-row-cell:hover {
     -fx-text-background-color: grey;
 }
 
-.table-row-cell: odd {
+.table-row-cell:odd {
     -fx-background-color: white;
     -fx-opacity: 0.9;
 }
 
-.table-row-cell: even{
+.table-row-cell:even{
     -fx-background-color: white;
     -fx-opacity: 0.9;
 }
@@ -98,7 +98,7 @@
 
 
 
-.list-cell: hover {
+.list-cell:hover {
     -fx-text-fill: grey;
 }
 

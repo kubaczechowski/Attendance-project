@@ -20,4 +20,8 @@ public class StudentModel {
     public List<String> getAbsentToday() {
         return studentDAO.getAbsentToday();
     }
+
+    public List<Student> getAbsentDays(){
+        return studentDAO.getAbsentDays();
+    }
 }

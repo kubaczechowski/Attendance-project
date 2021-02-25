@@ -28,10 +28,10 @@
     -fx-background-color:#d2eff9;
 }
 .default-color0.chart-pie{
-    -fx-pie-color:#76b8c1;
+    -fx-pie-color:#d2eff9;
 }
 .default-color1.chart-pie {
-    -fx-pie-color: #d2eff9;
+    -fx-pie-color: #76b8c1;
 }
 
 .custom-jfx-radio.button-red{
