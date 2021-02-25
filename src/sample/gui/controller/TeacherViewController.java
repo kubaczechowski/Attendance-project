@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
 
 public class TeacherViewController implements Initializable {
 
-    @FXML private Button logOutButton;
+
     @FXML private Text dateLabel;
     @FXML private Text dayLabel;
     @FXML private TableColumn dateColumnn;
@@ -58,17 +58,6 @@ public class TeacherViewController implements Initializable {
         setAbsentList();
         setChangeTable();
         setDate();
-        setLogOut();
-    }
-
-    private void setLogOut() {
-        logOutButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                Stage s = (Stage) logOutButton.getScene().getWindow();
-                s.close();
-            }
-        });
     }
 
     private void setDate() {
@@ -178,5 +167,10 @@ public class TeacherViewController implements Initializable {
 
         ObservableList<Student> students = FXCollections.observableArrayList(studentModel.getAllStudents());
         studentsTable.setItems(students);
+    }
+
+    public void logOut(ActionEvent actionEvent) {
+        Stage s = (Stage) dateLabel.getScene().getWindow();
+        s.close();
     }
 }

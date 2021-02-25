@@ -59,17 +59,6 @@ public class studentsCheckInController  implements Initializable {
         clock();
         PieCharts();
         Absences();
-        LogOut();
-    }
-
-    private void LogOut() {
-        logOut.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                Stage s = (Stage) logOut.getScene().getWindow();
-                s.close();
-            }
-        });
     }
 
 
@@ -147,5 +136,8 @@ public class studentsCheckInController  implements Initializable {
     }
 
 
-
+    public void logOut(ActionEvent actionEvent) {
+        Stage s = (Stage) lblDate.getScene().getWindow();
+        s.close();
+    }
 }

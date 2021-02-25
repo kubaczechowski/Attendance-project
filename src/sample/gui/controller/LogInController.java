@@ -145,8 +145,8 @@ public class LogInController implements Initializable, ILogIn,
         // clearValidators();
 
         //delete it!!
-        openTeacherDashboard();
-        openStudentDashboard();
+        //openTeacherDashboard();
+        //openStudentDashboard();
         borderPane.setId("centerOfRoot");
     }
 
@@ -198,6 +198,7 @@ public class LogInController implements Initializable, ILogIn,
      */
     private void addButtonsOnAction(){
         logInAsAStudent.setOnAction(actionEvent -> {
+            openStudentDashboard();
             //check if student exists in the system
             if (checkIfStudentExists()) {
                 doAnimationAndShowInfo(LoggingState.STUDENTLOGGED);
@@ -208,6 +209,7 @@ public class LogInController implements Initializable, ILogIn,
             }
         });
         logInAsATeacher.setOnAction(actionEvent -> {
+            openTeacherDashboard();
             //check if teacher exists in the system
             if (checkIfTeacherExists()) {
                 doAnimationAndShowInfo(LoggingState.TEACHERLOGGED);
