@@ -1,5 +1,6 @@
 package sample.gui.controller.Course;
 
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -22,7 +23,8 @@ import java.util.ResourceBundle;
  * class is used for creating single instance of course that will be
  * displayed in the courses overview
  *
- * further development needed
+ * Class developed in JavaFX for the sake of curiosity
+ * Later may be replaced with fxml file.
  * @author kuba
  */
 public class CourseView {
@@ -109,6 +111,16 @@ public class CourseView {
         return container;
     }
 
+/*
+    private HBox createCalendarSomething(){
+        FXMLLoader loader = new FXMLLoader(getClass().
+                getResource("/sample/gui/view/Teacher/"+ windowName +".fxml"));
+        MyController c = loader.getController();
+        c.getDateL
+
+    }
+ */
+
     private VBox getRightSide(int absDays, int presDays ){
         VBox vBox = new VBox();
         vBox.prefHeight(500);
@@ -120,24 +132,35 @@ public class CourseView {
         return vBox;
     }
 
+    /**
+     * method needs to be refactored.
+     * Huge code smell
+     * @return
+     */
+
     private HBox getRightCorner(){
         HBox masterContainer = new HBox();
-        //left
         VBox left = new VBox();
         Label sd = new Label("Start Date");
         sd.setId("startDateL");
         HBox bott = new HBox();
        Label startD = new Label(String.valueOf(startDay));
+       VBox startDvbox = new VBox();
+       startDvbox.getChildren().add(startD);
+       startDvbox.setAlignment(Pos.TOP_CENTER);
+
         startD.setId("startD");
         VBox right = new VBox();
         Label startM = new Label(startMonth);
         startM.setId("startM");
-        //startM.setPadding(new Insets(20, 0, 0, 0));
         Label startY = new Label(String.valueOf(startYear));
         startY.setId("startY");
 
         right.getChildren().addAll(startM, startY);
-        bott.getChildren().addAll(startD, right);
+        right.setAlignment(Pos.TOP_LEFT);
+
+        bott.getChildren().addAll(startDvbox, right);
+        bott.setAlignment(Pos.TOP_LEFT);
         //all left
         left.getChildren().addAll(sd, bott);
 
@@ -152,7 +175,7 @@ public class CourseView {
         right2.setSpacing(0);
         Label endM = new Label(endMonth);
         endM.setId("endM");
-       // endM.setPadding(new Insets(20, 0, 0, 0));
+
         Label endY = new Label(String.valueOf(endYear));
         endY.setId("endY");
 
@@ -163,8 +186,7 @@ public class CourseView {
 
         Separator separator = new Separator();
         separator.setOrientation(Orientation.VERTICAL);
-        //everything
-        masterContainer.setSpacing(4);
+
         masterContainer.getChildren().addAll(left,separator, right0);
         return masterContainer;
     }
