@@ -5,20 +5,30 @@ import com.jfoenix.controls.JFXButton;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import sample.be.Student;
+import sample.gui.model.StudentsModel;
 
+import java.io.IOException;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * Functionality in the development stage.
@@ -26,36 +36,44 @@ import java.util.ResourceBundle;
  * Entry in the calendar View. They will be enabled to see more details
  * and take further steps (edit or see course attendace in the specific view)
  *
+ * Class developed in JavaFX for the sake of curiosity
+ *
  * @author kuba
  */
-public class EditAttendance implements Initializable {
+public class EditAttendance  {
+
+    private StudentsModel studentsModel =new StudentsModel();
+
     private Entry entry;
     @FXML
     private VBox vBox;
-   private ListView<Student> listView = new ListView();
+   private TableView<Student> tableView = new TableView<Student>();
    private TableColumn<Student, String> nameAndSurname =new TableColumn<>();
    private TableColumn<Student, String> atendance = new TableColumn<>();
-   private TableColumn<Student, String>     avgAttendance = new TableColumn<>();
+   private TableColumn<Student, String>    avgAttendance = new TableColumn<>();
+
+    ObservableList<Student> studentObservableList =
+            FXCollections.observableArrayList();
 
   private JFXButton editButton = new JFXButton();
   private JFXButton courseAttButton = new JFXButton();
   private JFXButton close = new JFXButton();
 
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        setListView();
-        vBox.getChildren().addAll(setLabels(), listView, setButtons());
+    public ObservableList<Student> getStudentObservableList() {
+        return studentObservableList;
     }
 
-    private HBox setButtons() {
-        editButton.setText("Edit");
-        courseAttButton.setText("Course Attendance");
-        close.setText("Close");
-        editButton.setId("editB");
-        courseAttButton.setId("courseAttB");
-        close.setId("closeB");
+    private void setStudentObservableList(){
+        studentObservableList.addAll(studentsModel.getAllStudents());
+    }
 
+    /**
+     * Buttons located on the bottom.
+     * @return HBox
+     */
+    private HBox setButtons() {
+        setTextOnButtons();
         HBox hBox = new HBox();
         hBox.setSpacing(15);
         hBox.setAlignment(Pos.BASELINE_CENTER);
@@ -63,15 +81,23 @@ public class EditAttendance implements Initializable {
         return hBox;
     }
 
+    private void setTextOnButtons(){
+        editButton.setText("Edit");
+        courseAttButton.setText("Course Attendance");
+        close.setText("Close");
+        editButton.setId("editB");
+        courseAttButton.setId("courseAttB");
+        close.setId("closeB");
+    }
+
+    //I guess we didn't set any list
     private void setListView() {
-        // fname and scname / abs/prse/no data  / attendance in percents
-        //check if there is a record for that that for that student
-        //show attendance in percents (calulate it based on the days
-        // when student was absent and wasn't)
+        tableView.getColumns().addAll(nameAndSurname, atendance, avgAttendance);
+        setStudentObservableList();
         initNameColumn();
         initAttendanceColumn();
         initAvgAttendanceColumn();
-
+        tableView.setItems(getStudentObservableList());
     }
 
     private void initAvgAttendanceColumn() {
@@ -118,8 +144,7 @@ public class EditAttendance implements Initializable {
         nameAndSurname.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Student, String>,
                 ObservableValue<String>>() {
             @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Student, String>
-                                                        p) {
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Student, String> p) {
                 return  new ReadOnlyObjectWrapper<>(p.getValue().getFirstName() +" "+
                         p.getValue().getSecondName());
             }
@@ -127,7 +152,7 @@ public class EditAttendance implements Initializable {
     }
 
     private VBox setLabels() {
-        String s1 = entry.getTitle().toString();
+        String s1 = entry.getTitle();
         Label course = new Label(s1);
         String s2 = entry.getStartDate().toString();
         Label date = new Label(s2);
@@ -136,10 +161,56 @@ public class EditAttendance implements Initializable {
         VBox vBox = new VBox();
         vBox.getChildren().addAll(course, date, attendanceOnTheCourse, attendanceOnThatDay);
         return vBox;
-        
+    }
+
+    /**
+     * method initializes view just after the entry is set
+     */
+    private void initialize() {
+        setListView();
+        vBox.getChildren().addAll(setLabels(), tableView, setButtons());
+        setButtonsOnAction();
+    }
+
+    private void setButtonsOnAction() {
+        closeEventHandler();
+    }
+
+    private void closeEventHandler() {
+        close.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Stage s = (Stage) close.getScene().getWindow();
+                s.close();
+            }
+        });
     }
 
     public void setEntry(Entry lecture) {
         this.entry =lecture;
+        initialize();
     }
+
+    public static class OpenEditAttendance{
+        public static void openEditAttendance(Entry<?> lecture ){
+            FXMLLoader loader = new FXMLLoader(OpenEditAttendance.class.
+                    getResource("/sample/gui/view/Teacher/editAttendance.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            EditAttendance editAttendance = loader.getController();
+            editAttendance.setEntry(lecture);
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+        }
+
+
+    }
+
 }
