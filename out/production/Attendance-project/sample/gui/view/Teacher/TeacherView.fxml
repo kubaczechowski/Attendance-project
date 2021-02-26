@@ -61,7 +61,7 @@
                   </TableView>
                </children>
             </AnchorPane>
-            <Button layoutX="740.0" layoutY="604.0" mnemonicParsing="false" text="Log out" />
+            <Button fx:id="logOutButton" layoutX="740.0" layoutY="604.0" mnemonicParsing="false" onAction="#logOut" text="Log out" />
          </children>
       </AnchorPane>
    </center>
