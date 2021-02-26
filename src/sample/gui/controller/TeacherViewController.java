@@ -26,6 +26,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
+/**
+ * @author kamila
+ */
 public class TeacherViewController implements Initializable {
 
 

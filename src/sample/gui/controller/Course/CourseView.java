@@ -57,13 +57,28 @@ public class CourseView {
         contrainer.setPadding(new Insets(30));
         contrainer.getChildren().addAll(getleftSide(), getMiddle(),
                getRightSide(67, 45));
-      contrainer.setBackground(new Background(new BackgroundFill(Color.rgb(250,
+        contrainer.setBackground(new Background(new BackgroundFill(Color.rgb(250,
                250, 250), CornerRadii.EMPTY, Insets.EMPTY)));
         return contrainer;
     }
 
 
     private VBox getleftSide(){
+        Label teacher = new Label("Teacher: ");
+        teacher.setId("teacherL");
+        Label teachersName = new Label(nameOfTeacher);
+        Label location1 = new Label("Location: ");
+        location1.setId("locationL");
+        Label loc  = new Label(location);
+        Region region = new Region();
+        VBox.setVgrow(region, Priority.ALWAYS);
+        VBox container = new VBox();
+        container.prefWidth(500);
+        container.getChildren().addAll(getTopCorner(), region, teacher, teachersName,  location1, loc);
+        return container;
+    }
+
+    private HBox getTopCorner(){
         HBox topCorner = new HBox();
         topCorner.setSpacing(15);
         ImageView img = new ImageView("/sample/gui/images/video-learning.png");
@@ -72,54 +87,40 @@ public class CourseView {
         Label courseName = new Label(nameOfCourse);
         courseName.setId("courseName");
         topCorner.getChildren().addAll(img, courseName);
-
-        Label teacher = new Label("Teacher: ");
-        teacher.setId("teacherL");
-        Label teachersName = new Label(nameOfTeacher);
-        Label location1 = new Label("Location: ");
-        location1.setId("locationL");
-        Label loc  = new Label(location);
-
-        Region region = new Region();
-        VBox.setVgrow(region, Priority.ALWAYS);
-
-        VBox container = new VBox();
-        container.prefWidth(500);
-        container.getChildren().addAll(topCorner, region, teacher, teachersName,  location1, loc);
-        return container;
+        return topCorner;
     }
 
     private VBox getMiddle(){
         VBox container = new VBox();
         container.setAlignment(Pos.BOTTOM_CENTER);
         Label time = new Label("Start time");
-        Label startT = new Label(startTime);
         time.setId("startT");
         Label end = new Label("End time");
         end.setId("endT");
-        Label endT = new Label(endTime);
-        Label dayOfWeek1 = new Label(dayOfWeek);
-        Label dayOfWeek2 = new Label(this.dayOfWeek);
-
-        HBox hBox1 = new HBox();
-        hBox1.getChildren().addAll(dayOfWeek1, startT);
-        HBox hBox2 = new HBox();
-        hBox2.getChildren().addAll(dayOfWeek2, endT);
         container.prefWidth(500);
-        container.getChildren().addAll(time, hBox1, end, hBox2);
-
+        container.getChildren().addAll(time, getStartTimeContainer(), end,
+                getEndTimeContainer());
         return container;
     }
 
-/*
-    private HBox createCalendarSomething(){
-        FXMLLoader loader = new FXMLLoader(getClass().
-                getResource("/sample/gui/view/Teacher/"+ windowName +".fxml"));
-        MyController c = loader.getController();
-        c.getDateL
-
+    private HBox getEndTimeContainer() {
+        Label endT = new Label(endTime);
+        Label dayOfWeek2 = new Label(this.dayOfWeek);
+        HBox hBox2 = new HBox();
+        hBox2.getChildren().addAll(dayOfWeek2, endT);
+        return hBox2;
     }
- */
+
+
+    private HBox getStartTimeContainer() {
+        Label dayOfWeek1 = new Label(dayOfWeek);
+        Label startT = new Label(startTime);
+        HBox hBox1 = new HBox();
+        hBox1.getChildren().addAll(dayOfWeek1, startT);
+        return hBox1;
+    }
+
+
 
     private VBox getRightSide(int absDays, int presDays ){
         VBox vBox = new VBox();
@@ -134,38 +135,12 @@ public class CourseView {
 
     /**
      * method needs to be refactored.
-     * Huge code smell
+     * Huge code smell. unreadable
      * @return
      */
-
     private HBox getRightCorner(){
-        HBox masterContainer = new HBox();
         VBox left = new VBox();
-        Label sd = new Label("Start Date");
-        sd.setId("startDateL");
-        HBox bott = new HBox();
-       Label startD = new Label(String.valueOf(startDay));
-       VBox startDvbox = new VBox();
-       startDvbox.getChildren().add(startD);
-       startDvbox.setAlignment(Pos.TOP_CENTER);
-
-        startD.setId("startD");
-        VBox right = new VBox();
-        Label startM = new Label(startMonth);
-        startM.setId("startM");
-        Label startY = new Label(String.valueOf(startYear));
-        startY.setId("startY");
-
-        right.getChildren().addAll(startM, startY);
-        right.setAlignment(Pos.TOP_LEFT);
-
-        bott.getChildren().addAll(startDvbox, right);
-        bott.setAlignment(Pos.TOP_LEFT);
-        //all left
-        left.getChildren().addAll(sd, bott);
-
-        //right
-        VBox right0 = new VBox();
+        left.getChildren().addAll(getStartDateLabel(), getBottom());
         Label ed = new Label("End Date");
         ed.setId("endDateL");
         HBox bott2 = new HBox();
@@ -175,20 +150,51 @@ public class CourseView {
         right2.setSpacing(0);
         Label endM = new Label(endMonth);
         endM.setId("endM");
-
         Label endY = new Label(String.valueOf(endYear));
         endY.setId("endY");
-
         right2.getChildren().addAll(endM, endY);
         bott2.getChildren().addAll(endD, right2);
         //all right
+        VBox right0 = new VBox();
         right0.getChildren().addAll(ed, bott2);
 
         Separator separator = new Separator();
         separator.setOrientation(Orientation.VERTICAL);
 
-        masterContainer.getChildren().addAll(left,separator, right0);
+        HBox masterContainer = new HBox();
+        masterContainer.getChildren().addAll(left, getSeparator(), right0);
         return masterContainer;
+    }
+
+    private Label getStartDateLabel(){
+        Label sd = new Label("Start Date");
+        sd.setId("startDateL");
+        return sd;
+    }
+
+    private HBox getBottom(){
+        Label startD = new Label(String.valueOf(startDay));
+        VBox startDvbox = new VBox();
+        startDvbox.getChildren().add(startD);
+        startDvbox.setAlignment(Pos.TOP_CENTER);
+        startD.setId("startD");
+        VBox right = new VBox();
+        Label startM = new Label(startMonth);
+        startM.setId("startM");
+        Label startY = new Label(String.valueOf(startYear));
+        startY.setId("startY");
+        right.getChildren().addAll(startM, startY);
+        right.setAlignment(Pos.TOP_LEFT);
+        HBox bott = new HBox();
+        bott.getChildren().addAll(startDvbox, right);
+        bott.setAlignment(Pos.TOP_LEFT);
+        return bott;
+    }
+
+    private Separator getSeparator(){
+        Separator separator = new Separator();
+        separator.setOrientation(Orientation.VERTICAL);
+        return separator;
     }
 
 }

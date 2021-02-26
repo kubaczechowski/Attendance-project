@@ -172,7 +172,7 @@ public class UserDAO implements IUserDAO {
 
     @Override
     public boolean emailExists(String email, LogInController.LoggingState user) {
-       /* String source;
+        String source;
 
         switch (user){
             case STUDENT:{
@@ -210,8 +210,6 @@ public class UserDAO implements IUserDAO {
         }
         return false;
 
-        */
-        return false;
     }
 
     public List<Student> getStudents(String t1) {
