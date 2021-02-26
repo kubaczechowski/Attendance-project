@@ -13,7 +13,7 @@ course view css. later meybe move to seperate class
     -fx-font-size: 32px;
 }
 #startD, #endD{
-    -fx-font-size: 72;
+    -fx-font-size: 48;
 }
 #startY, #startM, #endY, #endM{
     -fx-font-size: 23;
